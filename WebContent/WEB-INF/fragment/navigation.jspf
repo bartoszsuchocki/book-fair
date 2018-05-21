@@ -1,0 +1,22 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+<div class="container">
+	<a href="#" class="navbar-brand">Kiermasze</a>
+
+	<div class="collapse navbar-collapse navCollapse">
+		<ul class="nav navbar-nav navbar-right">
+			<li><a href="#">Przeglądaj</a></li>
+			<li><a href="#">Zaloguj się</a></li>
+		</ul>
+	</div>
+	<!-- To jeszcze sprawdzić - co to w ogóle robi? -->
+	<button class="navbar-toggle" data-toggle="collapse"
+		data-target=".navCollapse">
+		<span class="icon-bar"></span> <span class="icon-bar"></span>
+	</button>
+	<!--  koniec bloku do sprawdzenia -->
+
+</div>
+
+</nav>
