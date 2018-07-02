@@ -22,8 +22,8 @@
 				<input class="form-control" name="j_username" type="text" placeholder="login" required autofocus>
 				<input class="form-control" name="j_password" type="password" placeholder="hasło" required>
 				<button type="submit" class="btn btn-lg btn-primary btn-block">Zaloguj</button>
-			
 			</form>
+			<a href="#">Zarejestruj się</a>
 		
 		</div>
 		

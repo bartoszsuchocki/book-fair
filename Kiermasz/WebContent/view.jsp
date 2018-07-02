@@ -3,7 +3,7 @@
 
 <html>
 <head>
-<title>Strona główna</title>
+<title>Przeglądaj książki</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -15,12 +15,7 @@
 
 	<%@ include file="WEB-INF/fragment/navigation.jspf"%>
 
-
-
-
-
-
-
+	
 	<div class="container">
 
 		<div class="row">
@@ -29,7 +24,17 @@
 				<span class="input-group-btn">
 					<button class="btn btn-secondary" type="button">Szukaj</button>
 				</span>
+				Cena
+				<select class="form-control">
+					<option>5-15</option>
+					<option>5-30</option>
+					<option>5-50</option>
+				</select>
+				
 			</form>
+			
+			
+			
 		</div>
 
 		<h2>Ostatnio dodane</h2>
