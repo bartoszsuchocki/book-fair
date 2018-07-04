@@ -16,14 +16,14 @@
 	<%@ include file="WEB-INF/fragment/navigation.jspf"%>
 
 	<div class="container">
-		<div class="col col-sm-6 col-md-4 col-md-offset-4">
+		<div class="col col-sm-6 col-md-4">
 			<form class="form-signin" action="j_security_check" method="post" >
 				<h2 class="form-signin-heading">Zaloguj się</h2>
 				<input class="form-control" name="j_username" type="text" placeholder="login" required autofocus>
 				<input class="form-control" name="j_password" type="password" placeholder="hasło" required>
 				<button type="submit" class="btn btn-lg btn-primary btn-block">Zaloguj</button>
 			</form>
-			<a href="#">Zarejestruj się</a>
+			<a href="registration.jsp">Zarejestruj się</a>
 		
 		</div>
 		

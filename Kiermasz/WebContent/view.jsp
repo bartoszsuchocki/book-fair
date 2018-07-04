@@ -15,29 +15,52 @@
 
 	<%@ include file="WEB-INF/fragment/navigation.jspf"%>
 
-	
+
 	<div class="container">
 
-		<div class="row">
-			<form class="col col-sm-6 input-group" action="#" method="post">
-				<input type="text" class="form-control" placeholder="Szukaj książek">
-				<span class="input-group-btn">
-					<button class="btn btn-secondary" type="button">Szukaj</button>
-				</span>
-				Cena
-				<select class="form-control">
-					<option>5-15</option>
-					<option>5-30</option>
-					<option>5-50</option>
-				</select>
-				
-			</form>
-			
-			
-			
-		</div>
+		<form action="#" method="post">
 
-		<h2>Ostatnio dodane</h2>
+			<div class="row">
+				<div class="col col-sm-10 col-lg-6">
+					<input type="text" class="form-control" placeholder="Tytuł" />
+				</div>
+				<div class="col col-sm-2">
+					<button class="btn btn-secondary" type="button">Szukaj</button>
+				</div>
+			</div>
+			<div class="row bottom-spaced-row">
+				<div class="col col-xs-4 col-lg-4">
+					Cena <select class="form-control" name="price" required>
+						<option value="15">5-15</option>
+						<option value="30">5-30</option>
+						<option value="50">5-50</option>
+					</select>
+				</div>
+				<div class="col col-xs-4 col-lg-4">
+					Stan: <select class="form-control" name="condition" required>
+						<option value="new">Nowa</option>
+						<option value="secondhand">Używana</option>
+					</select>
+				</div>
+				<div class="col col-xs-4 col-lg-4">
+					Miejsce odbioru: <select class="form-control" name="reception" required>
+						<option disabled selected> -- Wybierz szkołę odbioru -- </option>
+						<option value="LO28JanaKOchanowskiegio">28 LO Wiktorska 99</option>
+						<option value="Reytan">Reytan</option>
+						<option value="Wladyslaw4">Władysław IV</option>
+						<option value="PowstancyWarszawy">Powstańców Warszawy</option>
+						<option value="PowstancyWarszawy">Wszystkie</option>
+					</select>
+				</div>
+			</div>
+			
+		</form>
+
+
+
+
+
+		<h2>Wyniki</h2>
 		<div class="row bottom-spaced-row">
 			<div class="col col-md-4 col-sm-6">
 				<img class="img-responsive" height="200px" width="200px"

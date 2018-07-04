@@ -17,20 +17,7 @@
 
 
 
-
-
-
-
 	<div class="container">
-
-		<div class="row">
-			<form class="col col-sm-6 input-group" action="#" method="post">
-				<input type="text" class="form-control" placeholder="Szukaj książek">
-				<span class="input-group-btn">
-					<button class="btn btn-secondary" type="button">Szukaj</button>
-				</span>
-			</form>
-		</div>
 
 		<h2>Ostatnio dodane</h2>
 		<div class="row bottom-spaced-row">
