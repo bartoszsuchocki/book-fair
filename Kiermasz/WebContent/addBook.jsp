@@ -31,6 +31,26 @@
 					</select>
 					<input class="form-control" type="text" name="price"
 						placeholder="Cena (zł)"/>
+					Typ szkoły:<select class="form-control" name="schoolType" required>
+						<option disabled selected>"--Wybierz typ szkoły--"</option>
+						<option value="primarySchool">Podstawowa</option>
+						<option value="highSchool">Liceum</option>
+					</select>
+					Klasa:<select class="form-control" name="class" required>
+						<option selected disabled>--Wybierz klasę--</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="none">Nie dotyczy/dotyczy kilku</option>
+					</select>
+				
+					<button class="btn btn-success" type="submit">Wystaw</button>
+				
 				</form>
 
 

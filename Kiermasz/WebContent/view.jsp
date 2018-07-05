@@ -29,31 +29,68 @@
 				</div>
 			</div>
 			<div class="row bottom-spaced-row">
-				<div class="col col-xs-4 col-lg-4">
-					Cena <select class="form-control" name="price" required>
+				<div class="col col-xs-6 col-lg-4">
+					Cena: <select class="form-control" name="price" required>
 						<option value="15">5-15</option>
 						<option value="30">5-30</option>
 						<option value="50">5-50</option>
 					</select>
 				</div>
-				<div class="col col-xs-4 col-lg-4">
+				<div class="col col-xs-6 col-lg-4">
 					Stan: <select class="form-control" name="condition" required>
 						<option value="new">Nowa</option>
 						<option value="secondhand">Używana</option>
 					</select>
 				</div>
-				<div class="col col-xs-4 col-lg-4">
-					Miejsce odbioru: <select class="form-control" name="reception" required>
-						<option disabled selected> -- Wybierz szkołę odbioru -- </option>
-						<option value="LO28JanaKOchanowskiegio">28 LO Wiktorska 99</option>
-						<option value="Reytan">Reytan</option>
-						<option value="Wladyslaw4">Władysław IV</option>
-						<option value="PowstancyWarszawy">Powstańców Warszawy</option>
-						<option value="PowstancyWarszawy">Wszystkie</option>
+			</div>
+			<div class="row bottom-spaced-row">
+				<div class="col col-xs-6 col-lg-4">
+					Typ szkoły:<select class="form-control" name="schoolType">
+						<option value="primarySchool">Podstawowa</option>
+						<option value="highSchool">Liceum</option>
+						<option value="all" selected>Wszystkie</option>
+					</select>
+				</div>
+				<div class="col col-xs-6 col-lg-4">
+					Klasa:<select class="form-control" name="class">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="all" selected>Wszystkie</option>
 					</select>
 				</div>
 			</div>
-			
+			<div class="row bottom-spaced-row">
+
+				<div class="col col-xs-6 col-lg-4">
+					Miejsce odbioru: <select class="form-control" name="reception"
+						required>
+						<option value="LO28JanaKOchanowskiegio">28 LO Wiktorska
+							99</option>
+						<option value="Reytan">Reytan</option>
+						<option value="Wladyslaw4">Władysław IV</option>
+						<option value="PowstancyWarszawy">Powstańców Warszawy</option>
+						<option value="all" selected>Wszystkie</option>
+					</select>
+				</div>
+				<div class="col col-xs-6 col-lg-4">
+					<!-- Zrobić listy wyboru w oparciu o bazę danych!!! -->
+					Przedmiot:<select class="form-control" name="subject">
+						<option value="math">Matematyka</option>
+						<option value="polish">Język polski</option>
+						<option value="english">Język angielski</option>
+						<option value="french">Język francuski</option>
+						<option value="all" selected>Dowolny</option>
+					</select>
+				</div>
+
+			</div>
+
 		</form>
 
 
