@@ -6,9 +6,10 @@
 <title>Przeglądaj książki</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="css/not-included-in-bootstrap.css" rel="stylesheet">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/styles.min.css" rel="stylesheet">
-<link href="css/not-included-in-bootstrap.css" rel="stylesheet">
+
 </head>
 <body class="body">
 
@@ -19,7 +20,7 @@
 	<div class="container">
 
 		<form action="#" method="post">
-
+			<h2 class="form-signin-heading">Przeglądaj książki</h2>
 			<div class="row">
 				<div class="col col-sm-10 col-lg-6">
 					<input type="text" class="form-control" placeholder="Tytuł" />
@@ -33,7 +34,7 @@
 					Cena: <select class="form-control" name="price" required>
 						<option value="15">5-15</option>
 						<option value="30">5-30</option>
-						<option value="50">5-50</option>
+						<option value="50" selected>5-50</option>
 					</select>
 				</div>
 				<div class="col col-xs-6 col-lg-4">
@@ -98,9 +99,9 @@
 
 
 		<h2>Wyniki</h2>
-		<div class="row bottom-spaced-row">
-			<div class="col col-md-4 col-sm-6">
-				<img class="img-responsive" height="200px" width="200px"
+		<div class="row bottom-spaced-row ">
+			<div class="col col-md-3 col-sm-6">
+				<img class="img-fluid img-thumbnail"
 					src="przykladowa-ksiazka.jpeg" />
 			</div>
 			<div class="col col-md-8 col-sm-6">
@@ -110,8 +111,8 @@
 		</div>
 
 		<div class="row bottom-spaced-row">
-			<div class="col col-md-4 col-sm-6">
-				<img class="img-responsive" height="200px" width="200px"
+			<div class="col col-md-3 col-sm-6">
+				<img class="img-fluid img-thumbnail"
 					src="przykladowa-ksiazka.jpeg" />
 			</div>
 			<div class="col col-md-8 col-sm-6">
@@ -120,8 +121,8 @@
 			</div>
 		</div>
 		<div class="row bottom-spaced-row">
-			<div class="col col-md-4 col-sm-6">
-				<img class="img-responsive" height="200px" width="200px"
+			<div class="col col-md-3 col-sm-6">
+				<img class="img-fluid img-thumbnail" 
 					src="ksiazka-pan-tadeusz.jpg" />
 			</div>
 			<div class="col col-md-8 col-sm-6">
@@ -131,8 +132,8 @@
 		</div>
 
 		<div class="row bottom-spaced-row">
-			<div class="col col-md-4 col-sm-6">
-				<img class="img-responsive" height="200px" width="200px"
+			<div class="col col-md-3 col-sm-6">
+				<img class="img-fluid img-thumbnail"
 					src="ksiazka-pan-tadeusz.jpg" />
 			</div>
 			<div class="col col-md-8 col-sm-6">

@@ -21,23 +21,23 @@
 				<form class="form-signin" action="addBook" method="post">
 					<h2 class="form-signin-heading">Wystaw książkę</h2>
 					<input class="form-control" type="text" name="title"
-						placeholder="Tytuł" />
+						placeholder="Tytuł" required/>
 					<input class="form-control" type="text"
-						name="author" placeholder="Autor" />
+						name="author" placeholder="Autor" required />
 					<textarea class="form-control" rows="5" name="description">Opis</textarea>
-					Stan: <select class="form-control">
-						<option>Nowa</option>
-						<option>Używana</option>
+					Stan: <select class="form-control" required>
+						<option value="new">Nowa</option>
+						<option value="secondhand">Używana</option>
 					</select>
 					<input class="form-control" type="text" name="price"
-						placeholder="Cena (zł)"/>
+						placeholder="Cena (zł)" required/>
 					Typ szkoły:<select class="form-control" name="schoolType" required>
-						<option disabled selected>"--Wybierz typ szkoły--"</option>
+						<option disabled selected value="">"--Wybierz typ szkoły--"</option>
 						<option value="primarySchool">Podstawowa</option>
 						<option value="highSchool">Liceum</option>
 					</select>
 					Klasa:<select class="form-control" name="class" required>
-						<option selected disabled>--Wybierz klasę--</option>
+						<option selected disabled value="">--Wybierz klasę--</option>
 						<option value="1">1</option>
 						<option value="2">2</option>
 						<option value="3">3</option>
@@ -48,7 +48,9 @@
 						<option value="8">8</option>
 						<option value="none">Nie dotyczy/dotyczy kilku</option>
 					</select>
-				
+					
+					<input class="form-control" type="file" accept="image/png, image/jpg, image/jpeg" required/>
+									
 					<button class="btn btn-success" type="submit">Wystaw</button>
 				
 				</form>

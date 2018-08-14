@@ -21,8 +21,8 @@
 
 		<h2>Ostatnio dodane</h2>
 		<div class="row bottom-spaced-row">
-			<div class="col col-md-4 col-sm-6">
-				<img class="img-responsive" height="200px" width="200px"
+			<div class="col col-md-3 col-sm-6">
+				<img class="img-fluid img-thumbnail"
 					src="przykladowa-ksiazka.jpeg" />
 			</div>
 			<div class="col col-md-8 col-sm-6">
@@ -32,8 +32,8 @@
 		</div>
 
 		<div class="row bottom-spaced-row">
-			<div class="col col-md-4 col-sm-6">
-				<img class="img-responsive" height="200px" width="200px"
+			<div class="col col-md-3 col-sm-6">
+				<img class="img-fluid img-thumbnail"
 					src="przykladowa-ksiazka.jpeg" />
 			</div>
 			<div class="col col-md-8 col-sm-6">
@@ -42,8 +42,8 @@
 			</div>
 		</div>
 		<div class="row bottom-spaced-row">
-			<div class="col col-md-4 col-sm-6">
-				<img class="img-responsive" height="200px" width="200px"
+			<div class="col col-md-3 col-sm-6">
+				<img class="img-fluid img-thumbnail"
 					src="ksiazka-pan-tadeusz.jpg" />
 			</div>
 			<div class="col col-md-8 col-sm-6">
@@ -53,8 +53,8 @@
 		</div>
 
 		<div class="row bottom-spaced-row">
-			<div class="col col-md-4 col-sm-6">
-				<img class="img-responsive" height="200px" width="200px"
+			<div class="col col-md-3 col-sm-6">
+				<img class="img-fluid img-thumbnail"
 					src="ksiazka-pan-tadeusz.jpg" />
 			</div>
 			<div class="col col-md-8 col-sm-6">
