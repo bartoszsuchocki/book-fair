@@ -15,7 +15,7 @@
 		</div>
 		<div class="px-2">
 		<ul class="navbar-nav right mr-auto mt-2 mt-lg-0">
-			<li class="nav-item"><a class="nav-link" href="login.jsp">Zaloguj się</a></li>
+			<li class="nav-item"><a class="nav-link" href="showLoginPage">Zaloguj się</a></li>
 		</ul>
 		</div>
 	</div> 
