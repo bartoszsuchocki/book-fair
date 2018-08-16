@@ -10,7 +10,7 @@ create table if not exists users
     enabled tinyint(1) not null,
     first_name nvarchar(45),
     last_name nvarchar(45),
-    email varchar(50) not null,
+    email varchar(50),
     school nvarchar(100),
     primary key(username)
 );

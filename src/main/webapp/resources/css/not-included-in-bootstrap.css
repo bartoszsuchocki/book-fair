@@ -10,9 +10,13 @@ body{
 	background-color: #c0cefd;
 }
 .signin-button {
-  color: #fff;
-  background-color: #c0cefd;
-  border-color: #c0cefd;
+  	color: #fff;
+  	background-color: #c0cefd;
+  	border-color: #c0cefd;
+}
+.registration-completed{
+	color: green;
+	font-style: italic;
 }
 
 

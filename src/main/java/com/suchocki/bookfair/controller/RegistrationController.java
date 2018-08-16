@@ -1,5 +1,7 @@
 package com.suchocki.bookfair.controller;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
@@ -26,7 +29,7 @@ import com.suchocki.bookfair.entity.User;
 public class RegistrationController {
 
 	@Autowired
-	private UserDetailsManager userDetailsManager; //mo¿e okazaæ siê nieprzydatne
+	private UserDetailsManager userDetailsManager; // mo¿e okazaæ siê nieprzydatne
 
 	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -50,20 +53,25 @@ public class RegistrationController {
 			model.addAttribute("user", new User());
 			model.addAttribute("registrationError", "wrong filled fields");
 			return "registration";
-		}
-		else if(userExists(user.getUsername())) {
+		} else if (userExists(user.getUsername())) {
 			model.addAttribute("user", new User());
 			model.addAttribute("registrationError", "user exists");
 			return "registration";
 		}
 		String encodedPassword = passwordEncoder.encode(user.getPassword());
-		encodedPassword = "{bcrypt}"+encodedPassword;
-		
+		encodedPassword = "{bcrypt}" + encodedPassword;
 
+
+		List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList("ROLE_SELLER");
+
+		UserDetails userDetails = new User(user.getUsername(), encodedPassword, user.getFirstName(),user.getLastName(),
+				user.getEmail(), user.getSchool(), authorities);
+
+		userDetailsManager.createUser(userDetails);
 
 		return "registration-confirmation";
 	}
-	
+
 	private boolean userExists(String username) {
 		return userDetailsManager.userExists(username);
 	}

@@ -1,23 +1,49 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="security"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <nav class="navbar fixed-top navbar-expand-lg custom-navigation">
 	<a href="mainmenu.jsp" class="navbar-brand">Kiermasze</a>
-	<button class ="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapseMenu" aria-expanded="false" aria-controls="collapseExample">
-	<span class="navbar-toggler-icon">Menu</span>
+	<button class="navbar-toggler" type="button" data-toggle="collapse"
+		data-target="#collapseMenu" aria-expanded="false"
+		aria-controls="collapseExample">
+		<span class="navbar-toggler-icon">Menu</span>
 	</button>
-	<div class="collapse navbar-collapse" id="collapseMenu"> 	
+	<div class="collapse navbar-collapse" id="collapseMenu">
 		<div class="mr-auto px-2">
-		<ul class="navbar-nav right mr-auto mt-2 mt-lg-0">
-			<li class="nav-item"><a class="nav-link" href="view.jsp">Przeglądaj</a></li>
-			<li class="nav-item"><a class="nav-link" href="addBook.jsp">Wystaw książkę</a></li>
-			<li class="nav-item"><a class="nav-link" href="info.jsp">O serwisie</a></li>
-		</ul>
+			<ul class="navbar-nav right mr-auto mt-2 mt-lg-0">
+				<li class="nav-item"><a class="nav-link" href="view.jsp">Przeglądaj</a></li>
+				<li class="nav-item"><a class="nav-link" href="addBook.jsp">Wystaw
+						książkę</a></li>
+				<li class="nav-item"><a class="nav-link" href="info.jsp">O
+						serwisie</a></li>
+			</ul>
 		</div>
 		<div class="px-2">
-		<ul class="navbar-nav right mr-auto mt-2 mt-lg-0">
-			<li class="nav-item"><a class="nav-link" href="showLoginPage">Zaloguj się</a></li>
-		</ul>
+			<security:authorize access="isAnonymous()">
+
+				<ul class="navbar-nav right mr-auto mt-2 mt-lg-0">
+					<li class="nav-item"><a class="nav-link"
+						href="${pageContext.request.contextPath}/showLoginForm">Zaloguj
+							się</a></li>
+				</ul>
+
+			</security:authorize>
+			<security:authorize access="isAuthenticated()">
+
+				<ul class="navbar-nav right mr-auto mt-2 mt-lg-0">
+					<li class="nav-item"><a class="nav-link"
+						href="${pageContext.request.contextPath}/showLoginForm">Moje
+							konto</a></li>
+				</ul>
+				<ul class="navbar-nav right mr-auto mt-2 mt-lg-0">
+					<li class="nav-item"><a class="nav-link"
+						href="${pageContext.request.contextPath}/logout">Wyloguj się</a></li>
+				</ul>
+			</security:authorize>
 		</div>
-	</div> 
+
+	</div>
 
 </nav>

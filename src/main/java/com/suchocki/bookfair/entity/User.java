@@ -1,5 +1,8 @@
 package com.suchocki.bookfair.entity;
 
+import java.util.Collection;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,9 +10,12 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
 
 	@NotNull(message = "is required")
 	@Size(min = 1, message = "is required")
@@ -21,46 +27,47 @@ public class User {
 	@Size(min = 1, message = "is required")
 	@Column(name = "password")
 	private String password;
-	
+
 	@NotNull(message = "is required")
 	@Size(min = 1, message = "is required")
 	@Column(name = "first_name")
 	private String firstName;
-	
+
 	@NotNull(message = "is required")
 	@Size(min = 1, message = "is required")
 	@Column(name = "last_name")
 	private String lastName;
-	
-	@NotNull(message="is required")
+
+	@NotNull(message = "is required")
 	@Size(min = 1, message = "is required")
-	@Column(name="email")
+	@Column(name = "email")
 	private String email;
-	
-	@Column(name="school")
+
+	@Column(name = "school")
 	private String school;
+
+	private List<GrantedAuthority> authorities;
 
 	public User() {
 
 	}
 
-	
-
 	public User(@NotNull(message = "is required") @Size(min = 1, message = "is required") String username,
 			@NotNull(message = "is required") @Size(min = 1, message = "is required") String password,
 			@NotNull(message = "is required") @Size(min = 1, message = "is required") String firstName,
 			@NotNull(message = "is required") @Size(min = 1, message = "is required") String lastName,
-			@NotNull(message = "is required") @Size(min = 1, message = "is required") String email, String school) {
+			@NotNull(message = "is required") @Size(min = 1, message = "is required") String email, String school,
+			List<GrantedAuthority> authorities) {
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.school = school;
+		this.authorities = authorities;
 	}
 
-
-
+	@Override
 	public String getUsername() {
 		return username;
 	}
@@ -69,6 +76,7 @@ public class User {
 		this.username = username;
 	}
 
+	@Override
 	public String getPassword() {
 		return password;
 	}
@@ -108,6 +116,34 @@ public class User {
 	public void setSchool(String school) {
 		this.school = school;
 	}
-	
+
+	@Override
+	public List<GrantedAuthority> getAuthorities() {
+		return authorities;
+	}
+
+	public void setAuthorities(List<GrantedAuthority> authorities) {
+		this.authorities = authorities;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
 
 }

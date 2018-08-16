@@ -25,7 +25,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages= {"com.suchocki.bookfair.config","com.suchocki.bookfair.controller"})
+@ComponentScan(basePackages= {"com.suchocki.bookfair"})
 @EnableTransactionManagement
 @PropertySource({ "classpath:hibernate-props.properties", "classpath:spring-security-props.properties" })
 public class SpringConfig implements WebMvcConfigurer {

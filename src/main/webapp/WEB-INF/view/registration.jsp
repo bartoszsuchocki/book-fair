@@ -1,3 +1,5 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -16,22 +18,30 @@
 	<div class = "container">
 		<div class = "col col-xs-6 col-md-4">
 		<!-- action="costam" przeniesie do strony Kiermasz/costam - trzeba w web.xml zdefiniowac tam odpowiedni servlet -->
-			<form class = "form-signin" action="register" method="post">
+			<form:form class = "form-signin" action="${pageContext.request.contextPath}/processRegistrationForm" method="post"
+				modelAttribute="user">
+				
+				<!-- check for registration error -->
+				
+				
+				<!-- end of check -->
+				
 				<h2 class="form-signin-heading">Zarejestruj się</h2>
-				<input class="form-control" type="text" placeholder="Imię" name="name" required autofocus/>
-				<input class="form-control" type="text" placeholder="Nazwisko" name="surname" required/>
-				<input class="form-control" type="text" placeholder="login" name="login" required/>
-				<input class="form-control" type="email" placeholder="e-mail" name="mail" required/>
-				<select class="form-control" name="school" required>
-					<option disabled selected value> -- Wybierz swoją szkołę -- </option>
-					<option value="LO28JanaKOchanowskiegio">28 LO Wiktorska 99</option>
-					<option value="Reytan">Reytan</option>
-					<option value="Wladyslaw4">Władysław IV</option>
-					<option value="PowstancyWarszawy">Powstańców Warszawy</option>
-				</select>
+				<form:input class="form-control" placeholder="Login" path="username" />
+				<form:input class="form-control" placeholder="Imię" path="firstName" />
+				<form:input class="form-control" placeholder="Nazwisko" path="lastName"/>
+				<form:password class="form-control" placeholder="Password" path="password"/>
+				<form:input class="form-control" placeholder="e-mail" path="email"/>
+				<form:select class="form-control" path="school">
+					<form:option value="Potem to zablokowac!" label="-- Wybierz swoją szkołę"/>
+					<form:option value="LO28JanaKOchanowskiegio" label="28 LO Wiktorska 99"/>
+					<form:option value="Reytan" label="Reytan"/>
+					<form:option value="Wladyslaw4" label="Władysław IV"/>
+					<form:option value="PowstancyWarszawy" label="Powstańców Warszawy"/>
+				</form:select>
 				<button class="btn btn-block btn-primary" type="submit">Zarejestruj</button>
 			
-			</form> 
+			</form:form> 
 		
 		
 		
