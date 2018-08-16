@@ -20,12 +20,15 @@
 </head>
 <body class="body">
 
-	<br>
-	Username: <security:authentication property="principal.username"/>
-	<br>
-	First name: <security:authentication property="principal.firstName"/>
+	<security:authorize access="isAuthenticated()">
+		<br>
+	Username: <security:authentication property="principal.username" />
+		<br>
+	First name: <security:authentication property="principal.firstName" />
+	</security:authorize>
 
-	<%@ include file="fragment/navigation.jspf"%>
+		<%@ include file="fragment/navigation.jspf"%>
+	
 
 
 

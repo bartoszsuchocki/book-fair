@@ -25,7 +25,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages= {"com.suchocki.bookfair"})
+@ComponentScan(basePackages = { "com.suchocki.bookfair" })
 @EnableTransactionManagement
 @PropertySource({ "classpath:hibernate-props.properties", "classpath:spring-security-props.properties" })
 public class SpringConfig implements WebMvcConfigurer {
@@ -100,6 +100,7 @@ public class SpringConfig implements WebMvcConfigurer {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 		sessionFactory.setDataSource(dataSource());
 		sessionFactory.setPackagesToScan(environment.getProperty("hibernate.packageToScan"));
+		System.out.println("Package to scan by hibernate: " + environment.getProperty("hibernate.packageToScan"));
 		sessionFactory.setHibernateProperties(getHibernateProps());
 
 		return sessionFactory;
@@ -113,7 +114,7 @@ public class SpringConfig implements WebMvcConfigurer {
 	}
 
 	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) { //poczytaæ jeszcze do czego to s³u¿y
+	public void addResourceHandlers(ResourceHandlerRegistry registry) { // poczytaæ jeszcze do czego to s³u¿y
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 	}
 

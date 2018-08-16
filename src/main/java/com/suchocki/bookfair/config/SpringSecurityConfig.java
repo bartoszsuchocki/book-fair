@@ -18,6 +18,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private DataSource securityDataSource;
+	
 
 	@Bean
 	public UserDetailsManager userDetailsManager() {
@@ -30,7 +31,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-		.antMatchers("/*").authenticated()
+		.antMatchers("/aa").authenticated()
 		.and().formLogin().loginPage("/showLoginForm").loginProcessingUrl("/authenticateTheUser").permitAll()
 		.and().logout().permitAll()
 		.and().exceptionHandling().accessDeniedPage("/accessDenied");

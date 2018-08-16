@@ -6,6 +6,9 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -14,7 +17,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class User implements UserDetails {
 
 	@NotNull(message = "is required")
@@ -45,6 +48,15 @@ public class User implements UserDetails {
 
 	@Column(name = "school")
 	private String school;
+	
+	
+	@ManyToMany
+	@JoinTable(
+			name="user_role",
+			joinColumns = @JoinColumn(name="username"),
+			inverseJoinColumns = @JoinColumn(name="authority")
+			)
+	private List<String> stringAuthorities;
 
 	private List<GrantedAuthority> authorities;
 
@@ -56,15 +68,13 @@ public class User implements UserDetails {
 			@NotNull(message = "is required") @Size(min = 1, message = "is required") String password,
 			@NotNull(message = "is required") @Size(min = 1, message = "is required") String firstName,
 			@NotNull(message = "is required") @Size(min = 1, message = "is required") String lastName,
-			@NotNull(message = "is required") @Size(min = 1, message = "is required") String email, String school,
-			List<GrantedAuthority> authorities) {
+			@NotNull(message = "is required") @Size(min = 1, message = "is required") String email, String school) {
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.school = school;
-		this.authorities = authorities;
 	}
 
 	@Override
@@ -124,6 +134,14 @@ public class User implements UserDetails {
 
 	public void setAuthorities(List<GrantedAuthority> authorities) {
 		this.authorities = authorities;
+	}
+
+	public List<String> getStringAuthorities() {
+		return stringAuthorities;
+	}
+
+	public void setStringAuthorities(List<String> stringAuthorities) {
+		this.stringAuthorities = stringAuthorities;
 	}
 
 	@Override

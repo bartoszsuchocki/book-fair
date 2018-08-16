@@ -2,41 +2,43 @@ package com.suchocki.bookfair.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "authorities")
+@Table(name = "role")
 public class Authority {
 
-	@Column(name = "authority")
-	private String authorityName;
+	@Id
+	@Column(name = "name")
+	private String name;
 
-	@Column(name = "username")
-	private String username;
+	@Column(name = "description")
+	private String description;
+
+	public Authority(String name, String description) {
+		this.name = name;
+		this.description = description;
+	}
 
 	public Authority() {
 
 	}
 
-	public Authority(String authorityName, String username) {
-		this.authorityName = authorityName;
-		this.username = username;
+	public String getName() {
+		return name;
 	}
 
-	public String getAuthorityName() {
-		return authorityName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public void setAuthorityName(String authorityName) {
-		this.authorityName = authorityName;
+	public String getDescription() {
+		return description;
 	}
 
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }
