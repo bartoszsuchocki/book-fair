@@ -34,7 +34,7 @@
 
 				<ul class="navbar-nav right mr-auto mt-2 mt-lg-0">
 					<li class="nav-item"><a class="nav-link"
-						href="${pageContext.request.contextPath}/showLoginForm">Moje
+						href="${pageContext.request.contextPath}/myAccount">Moje
 							konto</a></li>
 				</ul>
 				<ul class="navbar-nav right mr-auto mt-2 mt-lg-0">

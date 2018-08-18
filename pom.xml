@@ -8,7 +8,7 @@
 	<version>1.0</version>
 	<packaging>war</packaging>
 
-	<name>crm-with-security-jdbc-encryption-authentication</name>
+	<name>book-fair-spring-hibernate</name>
 
 	<properties>
 		<springframework.version>5.0.8.RELEASE</springframework.version>
@@ -133,6 +133,13 @@
 			<artifactId>validation-api</artifactId>
 			<version>2.0.1.Final</version>
 		</dependency>
+		<!-- For example for @PostCunstruct annotation -->
+		<dependency>
+			<groupId>javax.annotation</groupId>
+			<artifactId>javax.annotation-api</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+
 
 
 	</dependencies>
@@ -140,7 +147,7 @@
 	<!-- Add support for Maven WAR Plugin -->
 
 	<build>
-		<finalName>crm-with-security-jdbc-encryption-authentication</finalName>
+		<finalName>book-fair-spring-hibernate</finalName>
 
 		<pluginManagement>
 			<plugins>

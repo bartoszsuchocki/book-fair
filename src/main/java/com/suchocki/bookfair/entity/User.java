@@ -1,10 +1,10 @@
 package com.suchocki.bookfair.entity;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -31,6 +31,9 @@ public class User implements UserDetails {
 	@Column(name = "password")
 	private String password;
 
+	@Column(name = "enabled")
+	private int enabled;
+
 	@NotNull(message = "is required")
 	@Size(min = 1, message = "is required")
 	@Column(name = "first_name")
@@ -48,17 +51,10 @@ public class User implements UserDetails {
 
 	@Column(name = "school")
 	private String school;
-	
-	
-	@ManyToMany
-	@JoinTable(
-			name="user_role",
-			joinColumns = @JoinColumn(name="username"),
-			inverseJoinColumns = @JoinColumn(name="authority")
-			)
-	private List<String> stringAuthorities;
 
-	private List<GrantedAuthority> authorities;
+	@ManyToMany(fetch=FetchType.EAGER)//Zastanowiæ siê jeszcze czy to na pewno dobre rozwi¹zanie
+	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "username"), inverseJoinColumns = @JoinColumn(name = "authority"))
+	private List<Authority> authorities;
 
 	public User() {
 
@@ -75,6 +71,7 @@ public class User implements UserDetails {
 		this.lastName = lastName;
 		this.email = email;
 		this.school = school;
+		this.enabled = 1;
 	}
 
 	@Override
@@ -128,20 +125,12 @@ public class User implements UserDetails {
 	}
 
 	@Override
-	public List<GrantedAuthority> getAuthorities() {
+	public List<Authority> getAuthorities() {
 		return authorities;
 	}
 
-	public void setAuthorities(List<GrantedAuthority> authorities) {
+	public void setAuthorities(List<Authority> authorities) {
 		this.authorities = authorities;
-	}
-
-	public List<String> getStringAuthorities() {
-		return stringAuthorities;
-	}
-
-	public void setStringAuthorities(List<String> stringAuthorities) {
-		this.stringAuthorities = stringAuthorities;
 	}
 
 	@Override
@@ -163,5 +152,13 @@ public class User implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "User [username=" + username + ", password=" + password + ", enabled=" + enabled + ", firstName="
+				+ firstName + ", lastName=" + lastName + ", email=" + email + ", school=" + school + ", authorities="
+				+ authorities + "]";
+	}
+	
 
 }

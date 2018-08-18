@@ -12,15 +12,14 @@ import com.suchocki.bookfair.entity.User;
 
 @Service
 public class UserServiceImpl implements UserService {
-	
+
 	@Autowired
 	private UserDAO userDao;
-	
+
 	@Transactional
 	@Override
-	public User getUser(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public User getUser(String username) {
+		return userDao.getUser(username);
 	}
 
 	@Transactional
@@ -32,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
 	@Transactional
 	@Override
-	public void deleteUser(int id) {
+	public void deleteUser(String username) {
 		// TODO Auto-generated method stub
 
 	}

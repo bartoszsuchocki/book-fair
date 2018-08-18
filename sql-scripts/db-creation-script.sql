@@ -6,7 +6,7 @@ use book_fair;
 create table if not exists user
 (
 	username varchar(50) not null,
-    password char(68) not null,
+    password varchar(68) not null,
     enabled tinyint(1) not null,
     first_name nvarchar(45),
     last_name nvarchar(45),
@@ -28,3 +28,4 @@ create table if not exists user_role
     constraint users_fk foreign key(username) references user(username),
 	constraint unique_username_plus_authority unique(username,authority)
 );
+insert into role values ('ROLE_SELLER','Is able to sell books');

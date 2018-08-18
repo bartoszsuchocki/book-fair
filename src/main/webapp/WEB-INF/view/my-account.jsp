@@ -5,7 +5,7 @@
 
 <html>
 <head>
-<title>Strona główna</title>
+<title>Moje konto</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link
@@ -20,14 +20,32 @@
 </head>
 <body class="body">
 
+	<security:authorize access="isAuthenticated()">
+		<br>
+	Username: <security:authentication property="principal.username" />
+		<br>
+	First name: <security:authentication property="principal.firstName" />
+	</security:authorize>
+
 	<%@ include file="fragment/navigation.jspf"%>
 
 
 
 
 	<div class="container">
+		<h2>Moje konto</h2>
+		<div class="row bottom-spaced-row">
+			<br> Login: <security:authentication property="principal.username" />
+			<br> Imię: 
+			<security:authentication property="principal.firstName" />
+			<br> Nazwisko: 
+			<security:authentication property="principal.lastName" />
+		</div>
 
-		<h2>Ostatnio dodane</h2>
+
+
+		<br>
+		<h3>Wystawiane:</h3>
 		<div class="row bottom-spaced-row">
 			<div class="col col-md-3 col-sm-6">
 				<img class="img-fluid img-thumbnail"

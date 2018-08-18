@@ -5,9 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.security.core.GrantedAuthority;
+
 @Entity
 @Table(name = "role")
-public class Authority {
+public class Authority implements GrantedAuthority {
 
 	@Id
 	@Column(name = "name")
@@ -39,6 +41,16 @@ public class Authority {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	@Override
+	public String getAuthority() {
+		return name;
+	}
+
+	@Override
+	public String toString() {
+		return "Authority [name=" + name + ", description=" + description + "]";
 	}
 
 }
