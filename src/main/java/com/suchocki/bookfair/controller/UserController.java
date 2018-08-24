@@ -12,7 +12,7 @@ public class UserController {
 	}
 	@RequestMapping("/newBook")
 	public String addNewBook() {
-		return "addBook.jsp";
+		return "addBook";
 	}
 	
 }

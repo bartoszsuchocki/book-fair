@@ -24,7 +24,7 @@
 					<input class="form-control" type="text"
 						name="author" placeholder="Autor" required />
 					<textarea class="form-control" rows="5" name="description">Opis</textarea>
-					Stan: <select class="form-control" required>
+					Stan: <select class="form-control" name="condition" required>
 						<option value="new">Nowa</option>
 						<option value="secondhand">Używana</option>
 					</select>
