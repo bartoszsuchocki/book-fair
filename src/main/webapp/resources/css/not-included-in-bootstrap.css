@@ -1,25 +1,38 @@
 @charset "UTF-8";
-body{
+
+body {
 	padding-top: 65px;
 }
 
-.bottom-spaced-row{
+.bottom-spaced-row {
 	padding-bottom: 20px;
 }
-.custom-navigation{
+
+.custom-navigation {
 	background-color: #c0cefd;
 }
+
 .signin-button {
-  	color: #fff;
-  	background-color: #c0cefd;
-  	border-color: #c0cefd;
+	color: #fff;
+	background-color: #c0cefd;
+	border-color: #c0cefd;
 }
-.registration-completed{
+
+.registration-completed {
 	color: green;
 	font-style: italic;
 }
 
-
-
-
-
+.error-message {
+	color: red;
+	font-style: italic;
+}
+.custom-submit-button{
+	background: none;
+	border-width: 0px;
+	cursor: pointer;
+	color: #8585fe;
+}
+a:hover,button:hover{
+	color:#4310da;
+}

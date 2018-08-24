@@ -21,17 +21,18 @@
 			<form:form class = "form-signin" action="${pageContext.request.contextPath}/processRegistrationForm" method="post"
 				modelAttribute="user">
 				
-				<!-- check for registration error -->
-				
-				
-				<!-- end of check -->
-				
 				<h2 class="form-signin-heading">Zarejestruj się</h2>
-				<form:input class="form-control" placeholder="Login" path="username" />
+				<form:errors class="error-message" path="username"/>
+				<form:input class="form-control" placeholder="Login" path="username" /> 
+				<form:errors class="error-message" path="firstName"/>
 				<form:input class="form-control" placeholder="Imię" path="firstName" />
+				<form:errors class="error-message" path="lastName"/>	
 				<form:input class="form-control" placeholder="Nazwisko" path="lastName"/>
+				<form:errors class="error-message" path="password"/>
 				<form:password class="form-control" placeholder="Password" path="password"/>
+				<form:errors class="error-message" path="email"/>
 				<form:input class="form-control" placeholder="e-mail" path="email"/>
+				<form:errors class="error-message" path="school"/>
 				<form:select class="form-control" path="school">
 					<form:option value="Potem to zablokowac!" label="-- Wybierz swoją szkołę"/>
 					<form:option value="LO28JanaKOchanowskiegio" label="28 LO Wiktorska 99"/>

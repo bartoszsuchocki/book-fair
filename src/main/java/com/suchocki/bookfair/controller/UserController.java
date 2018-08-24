@@ -10,5 +10,9 @@ public class UserController {
 	public String showMyAccount() {
 		return "my-account";
 	}
+	@RequestMapping("/newBook")
+	public String addNewBook() {
+		return "addBook.jsp";
+	}
 	
 }

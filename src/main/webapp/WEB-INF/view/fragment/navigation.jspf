@@ -1,10 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="security"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <nav class="navbar fixed-top navbar-expand-lg custom-navigation">
-	<a href="mainmenu.jsp" class="navbar-brand">Kiermasze</a>
+	<a href="menu" class="navbar-brand">Kiermasze</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 		data-target="#collapseMenu" aria-expanded="false"
 		aria-controls="collapseExample">
@@ -14,7 +15,8 @@
 		<div class="mr-auto px-2">
 			<ul class="navbar-nav right mr-auto mt-2 mt-lg-0">
 				<li class="nav-item"><a class="nav-link" href="view.jsp">Przeglądaj</a></li>
-				<li class="nav-item"><a class="nav-link" href="addBook.jsp">Wystaw
+				<li class="nav-item"><a class="nav-link"
+					href="${pageContext.request.contextPath}/newBook">Wystaw
 						książkę</a></li>
 				<li class="nav-item"><a class="nav-link" href="info.jsp">O
 						serwisie</a></li>
@@ -34,12 +36,12 @@
 
 				<ul class="navbar-nav right mr-auto mt-2 mt-lg-0">
 					<li class="nav-item"><a class="nav-link"
-						href="${pageContext.request.contextPath}/myAccount">Moje
-							konto</a></li>
-				</ul>
-				<ul class="navbar-nav right mr-auto mt-2 mt-lg-0">
-					<li class="nav-item"><a class="nav-link"
-						href="${pageContext.request.contextPath}/logout">Wyloguj się</a></li>
+						href="${pageContext.request.contextPath}/myAccount">Moje konto</a></li>
+
+					<li class="nav-item"><form:form
+							action="${pageContext.request.contextPath}/logout" method="post">
+							<button class="custom-submit-button nav-link" type="submit">Wyloguj się</button>
+						</form:form></li>
 				</ul>
 			</security:authorize>
 		</div>

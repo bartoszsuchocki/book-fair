@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -25,12 +26,19 @@
 
 	<div class="container">
 		<div class="col col-sm-6 col-md-4">
-			<form:form class="form-signin" action="${pageContext.request.contextPath}/authenticateTheUser" method="post">
+			<form:form class="form-signin"
+				action="${pageContext.request.contextPath}/authenticateTheUser"
+				method="post">
+
 				<h2 class="form-signin-heading">Zaloguj się</h2>
+				
+				<c:if test="${param.error != null}">
+					<div class = "error-message">Nieprawidłowy login lub hasło</div>
+				</c:if>
+				
 				<input class="form-control" name="username" type="text"
-					placeholder="login"/> 
-				<input
-					class="form-control" name="password" type="password"
+					placeholder="login" />
+				<input class="form-control" name="password" type="password"
 					placeholder="hasło" required>
 				<button type="submit" class="btn btn-lg btn-primary btn-block">Zaloguj</button>
 			</form:form>

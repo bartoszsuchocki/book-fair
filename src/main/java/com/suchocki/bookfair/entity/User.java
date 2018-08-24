@@ -10,49 +10,52 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "user")
 public class User implements UserDetails {
 
-	@NotNull(message = "is required")
-	@Size(min = 1, message = "is required")
+	@Transient
+	private final String REQUIRED_FIELD_MESSAGE = "Pole wymagane";
+
 	@Id
 	@Column(name = "username")
+	@NotNull(message = REQUIRED_FIELD_MESSAGE)
+	@Size(min = 1, message = REQUIRED_FIELD_MESSAGE)
 	private String username;
 
-	@NotNull(message = "is required")
-	@Size(min = 1, message = "is required")
 	@Column(name = "password")
+	@NotNull(message = REQUIRED_FIELD_MESSAGE)
+	@Size(min = 1, message = REQUIRED_FIELD_MESSAGE)
 	private String password;
 
 	@Column(name = "enabled")
 	private int enabled;
 
-	@NotNull(message = "is required")
-	@Size(min = 1, message = "is required")
+	@NotNull(message = REQUIRED_FIELD_MESSAGE)
+	@Size(min = 1, message = REQUIRED_FIELD_MESSAGE)
 	@Column(name = "first_name")
 	private String firstName;
 
-	@NotNull(message = "is required")
-	@Size(min = 1, message = "is required")
+	@NotNull(message = REQUIRED_FIELD_MESSAGE)
+	@Size(min = 1, message = REQUIRED_FIELD_MESSAGE)
 	@Column(name = "last_name")
 	private String lastName;
 
-	@NotNull(message = "is required")
-	@Size(min = 1, message = "is required")
+	@NotNull(message = REQUIRED_FIELD_MESSAGE)
+	@Size(min = 1, message = REQUIRED_FIELD_MESSAGE)
 	@Column(name = "email")
 	private String email;
 
+	@NotNull(message = REQUIRED_FIELD_MESSAGE)
 	@Column(name = "school")
 	private String school;
 
-	@ManyToMany(fetch=FetchType.EAGER)//Zastanowiæ siê jeszcze czy to na pewno dobre rozwi¹zanie
+	@ManyToMany(fetch = FetchType.EAGER) // Zastanowiæ siê jeszcze czy to na pewno dobre rozwi¹zanie
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "username"), inverseJoinColumns = @JoinColumn(name = "authority"))
 	private List<Authority> authorities;
 
@@ -60,11 +63,7 @@ public class User implements UserDetails {
 
 	}
 
-	public User(@NotNull(message = "is required") @Size(min = 1, message = "is required") String username,
-			@NotNull(message = "is required") @Size(min = 1, message = "is required") String password,
-			@NotNull(message = "is required") @Size(min = 1, message = "is required") String firstName,
-			@NotNull(message = "is required") @Size(min = 1, message = "is required") String lastName,
-			@NotNull(message = "is required") @Size(min = 1, message = "is required") String email, String school) {
+	public User(String username, String password, String firstName, String lastName, String email, String school) {
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
@@ -72,6 +71,29 @@ public class User implements UserDetails {
 		this.email = email;
 		this.school = school;
 		this.enabled = 1;
+	}
+
+	public User(String username, String password, int enabled, String firstName, String lastName, String email,
+			String school) {
+		this.username = username;
+		this.password = password;
+		this.enabled = enabled;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.school = school;
+	}
+
+	public User(String username, String password, int enabled, String firstName, String lastName, String email,
+			String school, List<Authority> authorities) {
+		this.username = username;
+		this.password = password;
+		this.enabled = enabled;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.school = school;
+		this.authorities = authorities;
 	}
 
 	@Override
@@ -133,6 +155,14 @@ public class User implements UserDetails {
 		this.authorities = authorities;
 	}
 
+	public int getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(int enabled) {
+		this.enabled = enabled;
+	}
+
 	@Override
 	public boolean isAccountNonExpired() {
 		return true;
@@ -147,10 +177,11 @@ public class User implements UserDetails {
 	public boolean isCredentialsNonExpired() {
 		return true;
 	}
-
+	
+	@Transient
 	@Override
 	public boolean isEnabled() {
-		return true;
+		return enabled == 1;
 	}
 
 	@Override
@@ -159,6 +190,5 @@ public class User implements UserDetails {
 				+ firstName + ", lastName=" + lastName + ", email=" + email + ", school=" + school + ", authorities="
 				+ authorities + "]";
 	}
-	
 
 }
