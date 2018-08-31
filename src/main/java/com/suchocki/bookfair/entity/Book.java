@@ -72,12 +72,16 @@ public class Book {
 	@Column(name = "class")
 	private Integer schoolClass;
 
+	@NotNull
+	@Column(name = "topic")
+	private String topic;
+
 	public Book() {
 		this.creationDate = new Date();
 	}
 
 	public Book(String title, String author, double price, String description, String condition, String schoolType,
-			int schoolClass) {
+			int schoolClass, String topic) {
 		this.creationDate = new Date();
 		this.title = title;
 		this.author = author;
@@ -86,15 +90,17 @@ public class Book {
 		this.condition = condition;
 		this.schoolType = schoolType;
 		this.schoolClass = schoolClass;
+		this.topic = topic;
 	}
 
-	public Book(String title, String author, double price, String condition, String schoolType) {
+	public Book(String title, String author, double price, String condition, String schoolType, String topic) {
 		this.creationDate = new Date();
 		this.title = title;
 		this.author = author;
 		this.price = price;
 		this.condition = condition;
 		this.schoolType = schoolType;
+		this.topic = topic;
 	}
 
 	public int getId() {
@@ -187,6 +193,14 @@ public class Book {
 		return creationDate;
 	}
 
+	public void setTopic(String topic) {
+		this.topic = topic;
+	}
+
+	public String getTopic() {
+		return topic;
+	}
+
 	@Override
 	public String toString() {
 		return "Book [MIN_PRICE=" + MIN_PRICE + ", WRONG_PRICE_MESSAGE=" + WRONG_PRICE_MESSAGE + ", id=" + id
@@ -194,6 +208,5 @@ public class Book {
 				+ title + ", author=" + author + ", price=" + price + ", description=" + description + ", condition="
 				+ condition + ", schoolType=" + schoolType + ", schoolClass=" + schoolClass + "]";
 	}
-	
-	
+
 }

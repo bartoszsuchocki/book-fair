@@ -60,6 +60,13 @@
 						<option value="8" label="8" />
 						<option value="-1" label="Nie dotyczy/dotyczy kilku" />
 					</form:select>
+					Przedmiot:<form:select class="form-control" path="topic">
+						<option value="math" label="Matematyka"/>
+						<option value="polish" label="Język polski"/>
+						<option value="english" label="Język angielski"/>
+						<option value="french" label="Język francuski"/>
+						<option value="all" selected label="Dowolny"/>
+					</form:select>
 					<!--  <input class="form-control" type="file"
 						accept="image/png, image/jpg, image/jpeg"  />
 					-->

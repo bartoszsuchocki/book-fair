@@ -21,9 +21,8 @@
 	<%@ include file="fragment/navigation.jspf"%>
 
 	<div class="container">
-		<a class="registration-completed">Dodałeś nową książkę! Kliknij, żeby zobaczyć ją na swoim koncie.</a> <a
-			href="${pageContext.request.contextPath}/myAccount">Login
-			page</a>
+		<a class="registration-completed">Dodałeś nową książkę!</a> <a
+			href="${pageContext.request.contextPath}/myAccount">Kliknij, żeby zobaczyć ją na swoim koncie.</a>
 
 	</div>
 
