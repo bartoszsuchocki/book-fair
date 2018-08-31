@@ -42,6 +42,7 @@ create table if not exists book
     book_condition nvarchar(30) not null,
     school_type varchar(45) not null,
 	class int,
+    topic nvarchar(45), 
     primary key(id),
     constraint owner_fk foreign key(book_owner) references user(username),
     constraint purchaser_fk foreign key(purchaser) references user(username)
