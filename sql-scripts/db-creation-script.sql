@@ -29,3 +29,20 @@ create table if not exists user_role
 	constraint unique_username_plus_authority unique(username,authority)
 );
 insert into role values ('ROLE_SELLER','Is able to sell books');
+create table if not exists book
+(
+	id int not null auto_increment,
+    creation_date datetime,
+    title nvarchar(45) not null,
+    author nvarchar(70) not null,
+    book_owner varchar(45) not null,
+    purchaser varchar(45),
+    price float not null,
+    description nvarchar(1000),
+    book_condition nvarchar(30) not null,
+    school_type varchar(45) not null,
+	class int,
+    primary key(id),
+    constraint owner_fk foreign key(book_owner) references user(username),
+    constraint purchaser_fk foreign key(purchaser) references user(username)
+);

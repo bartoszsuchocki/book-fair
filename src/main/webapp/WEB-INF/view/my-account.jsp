@@ -20,13 +20,6 @@
 </head>
 <body class="body">
 
-	<security:authorize access="isAuthenticated()">
-		<br>
-	Username: <security:authentication property="principal.username" />
-		<br>
-	First name: <security:authentication property="principal.firstName" />
-	</security:authorize>
-
 	<%@ include file="fragment/navigation.jspf"%>
 
 
@@ -46,6 +39,11 @@
 
 		<br>
 		<h3>Wystawiane:</h3>
+		
+		<br> Nazwisko: 
+			<security:authentication property="principal.possessedBooks" />
+		
+		<br>
 		<div class="row bottom-spaced-row">
 			<div class="col col-md-3 col-sm-6">
 				<img class="img-fluid img-thumbnail"

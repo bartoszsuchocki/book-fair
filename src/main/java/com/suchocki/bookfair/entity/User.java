@@ -1,5 +1,6 @@
 package com.suchocki.bookfair.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -9,55 +10,65 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.suchocki.bookfair.config.Constant;
 
 @Entity
 @Table(name = "user")
 public class User implements UserDetails {
 
-	@Transient
-	private final String REQUIRED_FIELD_MESSAGE = "Pole wymagane";
 
 	@Id
 	@Column(name = "username")
-	@NotNull(message = REQUIRED_FIELD_MESSAGE)
-	@Size(min = 1, message = REQUIRED_FIELD_MESSAGE)
+	@NotNull(message = Constant.REQUIRED_FIELD_MESSAGE)
+	@Size(min = 1, message = Constant.REQUIRED_FIELD_MESSAGE)
 	private String username;
 
 	@Column(name = "password")
-	@NotNull(message = REQUIRED_FIELD_MESSAGE)
-	@Size(min = 1, message = REQUIRED_FIELD_MESSAGE)
+	@NotNull(message = Constant.REQUIRED_FIELD_MESSAGE)
+	@Size(min = 1, message = Constant.REQUIRED_FIELD_MESSAGE)
 	private String password;
 
 	@Column(name = "enabled")
 	private int enabled;
 
-	@NotNull(message = REQUIRED_FIELD_MESSAGE)
-	@Size(min = 1, message = REQUIRED_FIELD_MESSAGE)
+	@NotNull(message = Constant.REQUIRED_FIELD_MESSAGE)
+	@Size(min = 1, message = Constant.REQUIRED_FIELD_MESSAGE)
 	@Column(name = "first_name")
 	private String firstName;
 
-	@NotNull(message = REQUIRED_FIELD_MESSAGE)
-	@Size(min = 1, message = REQUIRED_FIELD_MESSAGE)
+	@NotNull(message = Constant.REQUIRED_FIELD_MESSAGE)
+	@Size(min = 1, message = Constant.REQUIRED_FIELD_MESSAGE)
 	@Column(name = "last_name")
 	private String lastName;
 
-	@NotNull(message = REQUIRED_FIELD_MESSAGE)
-	@Size(min = 1, message = REQUIRED_FIELD_MESSAGE)
+	@NotNull(message = Constant.REQUIRED_FIELD_MESSAGE)
+	@Size(min = 1, message = Constant.REQUIRED_FIELD_MESSAGE)
 	@Column(name = "email")
 	private String email;
 
-	@NotNull(message = REQUIRED_FIELD_MESSAGE)
+	@NotNull(message = Constant.REQUIRED_FIELD_MESSAGE)
 	@Column(name = "school")
 	private String school;
 
-	@ManyToMany(fetch = FetchType.EAGER) // Zastanowiæ siê jeszcze czy to na pewno dobre rozwi¹zanie
+	@ManyToMany(fetch = FetchType.EAGER) // Zastanowiæ siê jeszcze, czy to na pewno dobre rozwi¹zanie
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "username"), inverseJoinColumns = @JoinColumn(name = "authority"))
 	private List<Authority> authorities;
+	
+	@OneToMany(mappedBy="owner",fetch=FetchType.LAZY)
+	private List<Book> possessedBooks;
+	
+	@OneToMany(mappedBy="purchaser")
+	private List<Book> orderedBooks;
+	
 
 	public User() {
 
@@ -96,6 +107,13 @@ public class User implements UserDetails {
 		this.authorities = authorities;
 	}
 
+	public void addPossessedBook(Book book) {
+		if(possessedBooks==null) {
+			possessedBooks = new ArrayList<>();
+		}
+		possessedBooks.add(book);
+	}
+	
 	@Override
 	public String getUsername() {
 		return username;
@@ -183,12 +201,35 @@ public class User implements UserDetails {
 	public boolean isEnabled() {
 		return enabled == 1;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "User [username=" + username + ", password=" + password + ", enabled=" + enabled + ", firstName="
 				+ firstName + ", lastName=" + lastName + ", email=" + email + ", school=" + school + ", authorities="
 				+ authorities + "]";
 	}
+
+	@Transactional
+	public List<Book> getPossessedBooks() {
+		System.out.println("User.getPossessedBooks(): Próba");
+		if(possessedBooks==null) {
+			System.out.println("possessedBooks to null");
+		}
+		System.out.println("User: getPossessedBooks(): "+ possessedBooks);
+		return possessedBooks;
+	}
+
+	public void setPossessedBooks(List<Book> possessedBooks) {
+		this.possessedBooks = possessedBooks;
+	}
+
+	public List<Book> getOrderedBooks() {
+		return orderedBooks;
+	}
+
+	public void setOrderedBooks(List<Book> orderedBooks) {
+		this.orderedBooks = orderedBooks;
+	}
+	
 
 }
