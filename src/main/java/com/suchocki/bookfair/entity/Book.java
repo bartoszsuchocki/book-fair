@@ -22,8 +22,17 @@ import com.suchocki.bookfair.config.Constant;
 public class Book {
 
 	@Transient
-	private final int MIN_PRICE = 0;
+	public static final int MIN_PRICE = 0;
 
+	@Transient
+	public static final int MAX_PRICE = 1000;
+
+	@Transient
+	public static final String ALL_SCHOOL_TYPE_VALUE = "wszystkie";
+	
+	@Transient
+	public static final String ALL_OPTIONS_FILTER_VALUE = "wszystkie";
+	
 	@Transient
 	private final String WRONG_PRICE_MESSAGE = "Price must be min " + MIN_PRICE;
 
@@ -56,7 +65,7 @@ public class Book {
 	@NotNull(message = Constant.REQUIRED_FIELD_MESSAGE)
 	@Min(value = MIN_PRICE, message = WRONG_PRICE_MESSAGE)
 	@Column(name = "price")
-	private double price;
+	private Double price;
 
 	@Column(name = "description")
 	private String description;
@@ -81,7 +90,7 @@ public class Book {
 	}
 
 	public Book(String title, String author, double price, String description, String condition, String schoolType,
-			int schoolClass, String topic) {
+			Integer schoolClass, String topic) {
 		this.creationDate = new Date();
 		this.title = title;
 		this.author = author;
@@ -143,11 +152,11 @@ public class Book {
 		this.author = author;
 	}
 
-	public double getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 
@@ -180,7 +189,7 @@ public class Book {
 		return schoolClass;
 	}
 
-	public void setSchoolClass(int schoolClass) {
+	public void setSchoolClass(Integer schoolClass) {
 		System.out.println("Book: setSchoolClass(" + schoolClass + ")  ");
 		this.schoolClass = schoolClass;
 	}
