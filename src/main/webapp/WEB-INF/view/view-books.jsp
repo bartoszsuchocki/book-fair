@@ -29,12 +29,13 @@
 
 	<div class="container">
 
-		<form:form action="processSearchBookForm" method="post"
+		<form:form action="processSearchBookForm" method="get"
 			modelAttribute="bookFilter">
 			<h2 class="form-signin-heading">Przeglądaj książki</h2>
 			<div class="row">
 				<div class="col col-sm-10 col-lg-6">
-					<form:input class="form-control" placeholder="Tytuł" path="desiredBook.title" />
+					<form:input class="form-control" placeholder="Tytuł"
+						path="desiredBook.title" />
 				</div>
 				<div class="col col-sm-2">
 					<button class="btn btn-secondary" type="submit">Szukaj</button>
@@ -113,7 +114,7 @@
 				<div class="col col-xs-6 col-lg-4">
 					Sortuj:
 					<form:select class="form-control" path="bookComparator">
-						<form:options items="${comparators}"/>
+						<form:options items="${comparators}" />
 					</form:select>
 
 				</div>
@@ -140,7 +141,9 @@
 						<b>Stan: </b>${book.condition} <br> <b>Cena: </b>${book.price}
 					</p>
 					<p>
-						<b>Sprzedawca: </b>${book.owner.username}</p>
+						<b>Sprzedawca: </b><a
+							href="${pageContext.request.contextPath}/browse/user/${book.owner.username}">${book.owner.username}</a>
+					</p>
 					<p>
 						<b>Szkoła: </b>${book.schoolType} <br> <b>Klasa: </b>${book.schoolClass}
 						<br> <b>Przedmiot: </b> ${book.topic}
