@@ -16,11 +16,13 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.suchocki.bookfair.comparator.BookComparator;
+import com.suchocki.bookfair.comparator.BookSortOption;
 import com.suchocki.bookfair.config.Constant;
 
 @Entity
 @Table(name = "book")
-public class Book{
+public class Book {
 
 	@Transient
 	public static final int MIN_PRICE = 0;
@@ -36,6 +38,12 @@ public class Book{
 
 	@Transient
 	private final String WRONG_PRICE_MESSAGE = "Price must be min " + MIN_PRICE;
+
+	@Transient
+	private BookComparator comparator;
+
+	@Transient
+	private BookSortOption compareType;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -111,6 +119,22 @@ public class Book{
 		this.condition = condition;
 		this.schoolType = schoolType;
 		this.topic = topic;
+	}
+
+	public BookSortOption getCompareType() {
+		return compareType;
+	}
+
+	public void setCompareType(BookSortOption compareType) {
+		this.compareType = compareType;
+	}
+
+	public void setComparator(BookComparator comparator) {
+		this.comparator = comparator;
+	}
+
+	public BookComparator getComparator() {
+		return comparator;
 	}
 
 	public int getId() {
@@ -218,18 +242,5 @@ public class Book{
 				+ title + ", author=" + author + ", price=" + price + ", description=" + description + ", condition="
 				+ condition + ", schoolType=" + schoolType + ", schoolClass=" + schoolClass + "]";
 	}
-
-	public static Comparator<Book> BY_TITLE = new Comparator<Book>() {
-		@Override
-		public int compare(Book b1, Book b2) {
-			return b1.getTitle().compareTo(b2.getTitle());
-		}
-	};
-	public static Comparator<Book> BY_PRICE = new Comparator<Book>() {
-		@Override
-		public int compare(Book b1, Book b2) {
-			return b1.getPrice().compareTo(b2.getPrice());
-		}
-	};
 
 }
