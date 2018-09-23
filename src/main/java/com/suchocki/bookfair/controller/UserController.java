@@ -1,12 +1,18 @@
 package com.suchocki.bookfair.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,17 +20,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.suchocki.bookfair.entity.Book;
 import com.suchocki.bookfair.entity.User;
 import com.suchocki.bookfair.service.BookService;
+import com.suchocki.bookfair.service.UserService;
 
 @Controller
 public class UserController {
 
+	private final String INCORRECT_CURRENT_PASSWORD_MSG = "B³êdne aktualne has³o!";
+	private final String DIFFERENT_NEW_PASSWORDS_MSG = "Pola z nowymi has³ami zawieraj¹ ró¿ne wartoœci!";
+	private final String EMPTY_FIELDS_MSG = "Proszê wype³niæ wszystkie pola!";
+	private final String PASSWORD_EDITED_MSG = "Has³o zmienione!";
+
 	@Autowired
 	private BookService bookService;
 
+	@Autowired
+	private UserService userService;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
+	@InitBinder
+	public void initBinder(WebDataBinder dataBinder) {
+		StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
+		dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
+	}
+
 	@RequestMapping("/myAccount")
 	public String showMyAccount() {
-		User currentLoggedUser = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		currentLoggedUser.setPossessedBooks(bookService.getUserBooks(currentLoggedUser.getUsername())); //Zapytaæ kogoœ m¹drzejszego czy to jest ok!
+		User currentLoggedUser = getAuthenticatedUser();
+		currentLoggedUser.setPossessedBooks(bookService.getUserBooks(currentLoggedUser.getUsername())); // Zapytaæ kogoœ
+																										// m¹drzejszego
+																										// czy to jest
+																										// ok!
 		return "my-account";
 	}
 
@@ -41,12 +68,97 @@ public class UserController {
 			return "add-book";
 		}
 
-		User currentLoggedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-		newBook.setOwner(currentLoggedUser);
+		newBook.setOwner(getAuthenticatedUser());
 		bookService.saveBook(newBook);
 
 		return "book-added-confirmation";
+	}
+
+	@GetMapping("/editForm")
+	public String showEditForm(Model model) {
+
+		model.addAttribute("loggedUser", getAuthenticatedUser());
+
+		return "edit-account-form";
+	}
+
+	@PostMapping("/processEditAccountForm")
+	public String processEditAccountForm(@Valid @ModelAttribute("loggedUser") User editedUser,
+			BindingResult bindingResult) {
+
+		if (bindingResult.hasErrors()) {
+			System.out.println("B³êdy!!!");
+			System.out.println(bindingResult.getAllErrors());
+			return "edit-account-form";
+		}
+
+		updateAuthenticatedUserProperties(editedUser);
+
+		userService.saveUser(editedUser);
+
+		return "my-account";
+	}
+
+	private void updateAuthenticatedUserProperties(User updatedUser) {
+		User currentLoggedUser = getAuthenticatedUser();
+		currentLoggedUser.setFirstName(updatedUser.getFirstName());
+		currentLoggedUser.setLastName(updatedUser.getLastName());
+		currentLoggedUser.setEmail(updatedUser.getEmail());
+		currentLoggedUser.setSchool(updatedUser.getSchool());
+	}
+
+	@GetMapping("/editPasswordForm")
+	public String showEditPasswordForm() {
+		return "edit-password-form";
+	}
+
+	@PostMapping("/processEditPasswordForm")
+	public String processEditPasswordForm(HttpServletRequest request, Model model) {
+
+		String currentPassword = request.getParameter("currentPassword");
+		String newPassword1 = request.getParameter("newPassword1");
+		String newPassword2 = request.getParameter("newPassword2");
+
+		String error = errorFromPasswordEdition(currentPassword, newPassword1, newPassword2);
+
+		if (error != null) {
+			model.addAttribute("errorEditPasswordMessage", error);
+			return "edit-password-form";
+		}
+
+		model.addAttribute("passwordEditedMsg", PASSWORD_EDITED_MSG);
+		changeAuthenticatedUserPassword(newPassword1);
+
+		return "my-account";
+	}
+
+	private String errorFromPasswordEdition(String currentPassword, String newPassword1, String newPassword2) {
+		// returns null if passwords are correct
+
+		if (currentPassword == null || newPassword1 == null || newPassword2 == null || currentPassword.equals("")
+				|| newPassword1.equals("") || newPassword2.equals("")) {
+			return EMPTY_FIELDS_MSG;
+		}
+		System.out.println(currentPassword + " " + newPassword1 + " " + newPassword2);
+
+		if (!(passwordEncoder.matches(currentPassword, getAuthenticatedUser().getPassword()))) {
+			return INCORRECT_CURRENT_PASSWORD_MSG;
+		}
+		if (!(newPassword1.equals(newPassword2))) {
+			return DIFFERENT_NEW_PASSWORDS_MSG;
+		}
+
+		return null;
+	}
+
+	private void changeAuthenticatedUserPassword(String newPassword) {
+		User currentLoggedUser = getAuthenticatedUser();
+		currentLoggedUser.setPassword(passwordEncoder.encode(newPassword));
+		userService.saveUser(currentLoggedUser);
+	}
+
+	private User getAuthenticatedUser() {
+		return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	}
 
 }

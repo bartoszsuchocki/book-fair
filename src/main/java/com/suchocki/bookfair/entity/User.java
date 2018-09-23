@@ -25,7 +25,6 @@ import com.suchocki.bookfair.config.Constant;
 @Table(name = "user")
 public class User implements UserDetails {
 
-
 	@Id
 	@Column(name = "username")
 	@NotNull(message = Constant.REQUIRED_FIELD_MESSAGE)
@@ -38,7 +37,7 @@ public class User implements UserDetails {
 	private String password;
 
 	@Column(name = "enabled")
-	private int enabled;
+	private int enabled = 1;
 
 	@NotNull(message = Constant.REQUIRED_FIELD_MESSAGE)
 	@Size(min = 1, message = Constant.REQUIRED_FIELD_MESSAGE)
@@ -62,13 +61,12 @@ public class User implements UserDetails {
 	@ManyToMany(fetch = FetchType.EAGER) // Zastanowiæ siê jeszcze, czy to na pewno dobre rozwi¹zanie
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "username"), inverseJoinColumns = @JoinColumn(name = "authority"))
 	private List<Authority> authorities;
-	
-	@OneToMany(mappedBy="owner",fetch=FetchType.LAZY)
+
+	@OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
 	private List<Book> possessedBooks;
-	
-	@OneToMany(mappedBy="purchaser")
+
+	@OneToMany(mappedBy = "purchaser")
 	private List<Book> orderedBooks;
-	
 
 	public User() {
 
@@ -81,7 +79,6 @@ public class User implements UserDetails {
 		this.lastName = lastName;
 		this.email = email;
 		this.school = school;
-		this.enabled = 1;
 	}
 
 	public User(String username, String password, int enabled, String firstName, String lastName, String email,
@@ -108,12 +105,12 @@ public class User implements UserDetails {
 	}
 
 	public void addPossessedBook(Book book) {
-		if(possessedBooks==null) {
+		if (possessedBooks == null) {
 			possessedBooks = new ArrayList<>();
 		}
 		possessedBooks.add(book);
 	}
-	
+
 	@Override
 	public String getUsername() {
 		return username;
@@ -195,13 +192,13 @@ public class User implements UserDetails {
 	public boolean isCredentialsNonExpired() {
 		return true;
 	}
-	
+
 	@Transient
 	@Override
 	public boolean isEnabled() {
 		return enabled == 1;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "User [username=" + username + ", password=" + password + ", enabled=" + enabled + ", firstName="
@@ -212,10 +209,10 @@ public class User implements UserDetails {
 	@Transactional
 	public List<Book> getPossessedBooks() {
 		System.out.println("User.getPossessedBooks(): Próba");
-		if(possessedBooks==null) {
+		if (possessedBooks == null) {
 			System.out.println("possessedBooks to null");
 		}
-		System.out.println("User: getPossessedBooks(): "+ possessedBooks);
+		System.out.println("User: getPossessedBooks(): " + possessedBooks);
 		return possessedBooks;
 	}
 
@@ -230,6 +227,5 @@ public class User implements UserDetails {
 	public void setOrderedBooks(List<Book> orderedBooks) {
 		this.orderedBooks = orderedBooks;
 	}
-	
 
 }

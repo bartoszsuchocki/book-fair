@@ -18,13 +18,14 @@ body {
 	border-color: #c0cefd;
 }
 
-.registration-completed {
+.success,.registration-completed {
 	color: green;
 	font-style: italic;
 }
 
 .error-message {
 	font-color: red;
+	color: red;
 	font-style: italic;
 }
 .custom-submit-button{
