@@ -111,6 +111,15 @@ public class User implements UserDetails {
 		possessedBooks.add(book);
 	}
 
+	public Book findPossessedBook(int id) {
+		for (Book b : possessedBooks) {
+			if (b.getId() == id) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	@Override
 	public String getUsername() {
 		return username;
