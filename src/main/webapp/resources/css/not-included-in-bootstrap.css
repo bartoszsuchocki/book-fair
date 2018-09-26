@@ -11,7 +11,9 @@ body {
 .custom-navigation {
 	background-color: #c0cefd;
 }
-
+.navbar-nav .nav-link:hover{
+	transform: scale(1.1);
+}
 .signin-button {
 	color: #fff;
 	background-color: #c0cefd;
