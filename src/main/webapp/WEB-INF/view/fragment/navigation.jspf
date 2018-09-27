@@ -5,7 +5,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <nav class="navbar fixed-top navbar-expand-lg custom-navigation">
-	<a href="${pageContext.request.contextPath}/menu" class="navbar-brand">Kiermasze</a>
+	<a href="${pageContext.request.contextPath}/menu" class="navbar-brand custom-brand">Kiermasze</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 		data-target="#collapseMenu" aria-expanded="false"
 		aria-controls="collapseExample">
