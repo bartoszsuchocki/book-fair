@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 body {
-	padding-top: 65px;
+	padding-top: 75px;
 }
 
 .bottom-spaced-row {
@@ -9,9 +9,20 @@ body {
 }
 
 .custom-navigation {
-	background-color: #c0cefd;
+	background-color: #358bca;
+	text-align: center;
+}
+.custom-brand{
+	color: black;
+}
+.navbar-nav .nav-link{
+	color: #000080;
+	font-size: 1.2rem;
 }
 
+.navbar-nav .nav-link:hover{
+	transform: scale(1.1);
+}
 .signin-button {
 	color: #fff;
 	background-color: #c0cefd;
