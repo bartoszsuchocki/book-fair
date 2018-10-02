@@ -17,7 +17,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.suchocki.bookfair.config.Constant;
 
@@ -111,10 +110,36 @@ public class User implements UserDetails {
 		possessedBooks.add(book);
 	}
 
+	// thanks to this method, there will no need to refresh user's books from
+	// database anytime some book is changed
+	public Book editPossessedBookLocally(Book editedBook) { // edits book with same id as editedBook, returns updated
+															// book or null if no match
+		if (possessedBooks != null) {
+			for (Book b : possessedBooks) {
+				if (b.getId() == editedBook.getId()) {
+					b.setPropertiesFromOtherBook(editedBook);
+					System.out.println("Edytowana-owner: " + b.getOwner());
+					return b;
+				}
+			}
+		}
+		return null;
+	}
+
+	// thanks to this method, there will no need to refresh user's books from
+	// database anytime some book is deleted
+	public void deletePossessedBookLocally(Book book) {
+		if (possessedBooks != null) {
+			possessedBooks.remove(book);
+		}
+	}
+
 	public Book findPossessedBook(int id) {
-		for (Book b : possessedBooks) {
-			if (b.getId() == id) {
-				return b;
+		if (possessedBooks != null) {
+			for (Book b : possessedBooks) {
+				if (b.getId() == id) {
+					return b;
+				}
 			}
 		}
 		return null;
@@ -215,7 +240,6 @@ public class User implements UserDetails {
 				+ authorities + "]";
 	}
 
-	@Transactional
 	public List<Book> getPossessedBooks() {
 		System.out.println("User.getPossessedBooks(): Próba");
 		if (possessedBooks == null) {

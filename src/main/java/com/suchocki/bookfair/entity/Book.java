@@ -1,6 +1,5 @@
 package com.suchocki.bookfair.entity;
 
-import java.util.Comparator;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -120,7 +119,18 @@ public class Book {
 		this.schoolType = schoolType;
 		this.topic = topic;
 	}
-
+	
+	public void setPropertiesFromOtherBook(Book book) { //note that this does not set id from passed book
+		this.title = book.getTitle();
+		this.author = book.getAuthor();
+		this.price = book.getPrice();
+		this.description = book.getDescription();
+		this.condition = book.getCondition();
+		this.schoolType = book.getSchoolType();
+		this.schoolClass = book.getSchoolClass();
+		this.topic = book.getTopic();
+	}
+	
 	public BookSortOption getCompareType() {
 		return compareType;
 	}

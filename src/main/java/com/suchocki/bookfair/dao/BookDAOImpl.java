@@ -43,7 +43,15 @@ public class BookDAOImpl implements BookDAO {
 
 	@Override
 	public void deleteBook(int id) {
-		System.out.println("deleteBook not implemented yet!");
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("delete from Book b where b.id=:id");
+		query.setParameter("id", id);
+		query.executeUpdate();
+	}
+
+	@Override
+	public void deleteBook(Book book) {
+		deleteBook(book.getId());
 	}
 
 	@Override

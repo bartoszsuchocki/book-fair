@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="com.suchocki.bookfair.config.Constant"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="security"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -31,8 +32,7 @@
 		<h2>Moje konto</h2>
 
 
-		<div class="success">${passwordEditedMsg}</div>
-
+		<div class="success">${myAccountSuccessMsg}</div>
 
 		<h3>Informacje</h3>
 		<div class="row bottom-spaced-row">
@@ -53,7 +53,6 @@
 					class="btn btn-secondary">Zmień hasło </a>
 			</div>
 		</div>
-
 
 
 
@@ -84,7 +83,11 @@
 						<br> <b>Przedmiot: </b> ${book.topic}
 					</p>
 
-					<a class="btn btn-info">Edytuj</a> <a class="btn btn-danger">Usuń</a>
+					<a class="btn btn-info"
+						href="${pageContext.request.contextPath}/bookManagement/editBook/${book.id}">Edytuj</a>
+					<a class="btn btn-danger"
+						href="${pageContext.request.contextPath}/bookManagement/deleteBook/${book.id}"
+						onclick="return confirm('${Constant.DELETE_CONFIRMATION_MSG}')">Usuń</a>
 				</div>
 
 			</div>

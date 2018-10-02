@@ -16,4 +16,6 @@ public interface BookDAO {
 	public List<Book> getUserBooks(String username);
 
 	public List<Book> getMatchingBooks(Book criteriaBook);
+
+	public void deleteBook(Book book);
 }

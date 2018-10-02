@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.suchocki.bookfair.config.Constant;
 import com.suchocki.bookfair.entity.Book;
 import com.suchocki.bookfair.entity.User;
 import com.suchocki.bookfair.service.BookService;
@@ -24,11 +25,6 @@ import com.suchocki.bookfair.service.UserService;
 
 @Controller
 public class UserController {
-
-	private final String INCORRECT_CURRENT_PASSWORD_MSG = "B³êdne aktualne has³o!";
-	private final String DIFFERENT_NEW_PASSWORDS_MSG = "Pola z nowymi has³ami zawieraj¹ ró¿ne wartoœci!";
-	private final String EMPTY_FIELDS_MSG = "Proszê wype³niæ wszystkie pola!";
-	private final String PASSWORD_EDITED_MSG = "Has³o zmienione!";
 
 	@Autowired
 	private BookService bookService;
@@ -46,12 +42,15 @@ public class UserController {
 	}
 
 	@RequestMapping("/myAccount")
-	public String showMyAccount() {
+	public String showMyAccount(Model model) {
 		User currentLoggedUser = getAuthenticatedUser();
+		// if(currentLoggedUser.getPossessedBooks()==null) {
 		currentLoggedUser.setPossessedBooks(bookService.getUserBooks(currentLoggedUser.getUsername())); // Zapytaæ kogoœ
-																										// m¹drzejszego
-																										// czy to jest
-																										// ok!
+		// m¹drzejszego
+		// czy to jest
+		// ok!
+		// }
+
 		return "my-account";
 	}
 
@@ -126,7 +125,7 @@ public class UserController {
 			return "edit-password-form";
 		}
 
-		model.addAttribute("passwordEditedMsg", PASSWORD_EDITED_MSG);
+		model.addAttribute("myAccountSuccessMsg", Constant.PASSWORD_EDITED_MSG);
 		changeAuthenticatedUserPassword(newPassword1);
 
 		return "my-account";
@@ -137,15 +136,15 @@ public class UserController {
 
 		if (currentPassword == null || newPassword1 == null || newPassword2 == null || currentPassword.equals("")
 				|| newPassword1.equals("") || newPassword2.equals("")) {
-			return EMPTY_FIELDS_MSG;
+			return Constant.EMPTY_FIELDS_MSG;
 		}
 		System.out.println(currentPassword + " " + newPassword1 + " " + newPassword2);
 
 		if (!(passwordEncoder.matches(currentPassword, getAuthenticatedUser().getPassword()))) {
-			return INCORRECT_CURRENT_PASSWORD_MSG;
+			return Constant.INCORRECT_CURRENT_PASSWORD_MSG;
 		}
 		if (!(newPassword1.equals(newPassword2))) {
-			return DIFFERENT_NEW_PASSWORDS_MSG;
+			return Constant.DIFFERENT_NEW_PASSWORDS_MSG;
 		}
 
 		return null;

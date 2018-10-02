@@ -30,13 +30,12 @@ public class BookServiceImpl implements BookService {
 		return null;
 	}
 
-
 	@Override
 	@Transactional
 	public List<Book> getUserBooks(String username) {
 		return bookDao.getUserBooks(username);
 	}
-	
+
 	@Override
 	@Transactional
 	public List<Book> getMatchingBooks(Book criteriaBook) {
@@ -46,8 +45,13 @@ public class BookServiceImpl implements BookService {
 	@Override
 	@Transactional
 	public void deleteBook(int id) {
-		// TODO Auto-generated method stub
+		bookDao.deleteBook(id);
+	}
 
+	@Override
+	@Transactional
+	public void deleteBook(Book book) {
+		bookDao.deleteBook(book);
 	}
 
 	@Override
@@ -55,7 +59,5 @@ public class BookServiceImpl implements BookService {
 	public void saveBook(Book book) {
 		bookDao.saveBook(book);
 	}
-
-	
 
 }

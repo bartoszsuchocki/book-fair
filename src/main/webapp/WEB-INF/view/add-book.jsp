@@ -24,48 +24,47 @@
 	<div class="container">
 		<div class="row">
 			<div class="col col-sm-6">
-				<form:form class="form-signin" action="processNewBookForm"
+				<form:form class="form-signin"
+					action="${pageContext.request.contextPath}/processNewBookForm"
 					method="post" modelAttribute="book">
 					<h2 class="form-signin-heading">Wystaw książkę</h2>
 					<form:errors path="title" class="error-message" />
-					<form:input class="form-control" path="title" placeholder="Tytuł"
-						/>
+					Tytuł: <form:input class="form-control" path="title"
+						placeholder="Wpisz tytuł" />
 					<form:errors path="author" class="error-message" />
-					<form:input class="form-control" path="author" placeholder="Autor"
-						 />
-					<form:textarea class="form-control" rows="5" path="description" placeholder="Opis"/>
-					Stan: <form:select class="form-control" path="condition" >
+					Autor: <form:input class="form-control" path="author"
+						placeholder="Wpisz autora" />
+					Opis: <form:textarea class="form-control" rows="5"
+						path="description" placeholder="Opcjonalny opis" />
+					Stan: <form:select class="form-control" path="condition">
 						<form:option value="new" label="Nowa" />
 						<form:option value="secondhand" label="Używana" />
 					</form:select>
 					<form:errors path="price" class="error-message" />
-					<form:input class="form-control" path="price"
-						placeholder="Cena (zł)"  />
+					Cena: <form:input class="form-control" path="price"
+						placeholder="Cena (zł)" />
 					<form:errors path="schoolType" class="error-message" />
-						Typ szkoły:<form:select class="form-control" path="schoolType"
-						>
+						Typ szkoły:<form:select class="form-control" path="schoolType">
 						<form:option value="" label="---Wybierz typ szkoły---" />
 						<form:option value="primarySchool" label="Podstawowa" />
 						<form:option value="highSchool" label="Liceum" />
-					</form:select> Klasa:<form:select class="form-control" path="schoolClass"
-						>
-						<form:option value="" label="--Wybierz klasę--" />
-						<option value="1" label="1" />
-						<option value="2" label="2" />
-						<option value="3" label="3" />
-						<option value="4" label="4" />
-						<option value="5" label="5" />
-						<option value="6" label="6" />
-						<option value="7" label="7" />
-						<option value="8" label="8" />
-						<option value="-1" label="Nie dotyczy/dotyczy kilku" />
+					</form:select> Klasa:<form:select class="form-control" path="schoolClass">
+						<form:option value="-1" label="Nie dotyczy/dotyczy kilku" />
+						<form:option value="1" label="1" />
+						<form:option value="2" label="2" />
+						<form:option value="3" label="3" />
+						<form:option value="4" label="4" />
+						<form:option value="5" label="5" />
+						<form:option value="6" label="6" />
+						<form:option value="7" label="7" />
+						<form:option value="8" label="8" />
 					</form:select>
 					Przedmiot:<form:select class="form-control" path="topic">
-						<option value="math" label="Matematyka"/>
-						<option value="polish" label="Język polski"/>
-						<option value="english" label="Język angielski"/>
-						<option value="french" label="Język francuski"/>
-						<option value="all" selected label="Dowolny"/>
+						<form:option value="all" label="Dowolny" />
+						<form:option value="math" label="Matematyka" />
+						<form:option value="polish" label="Język polski" />
+						<form:option value="english" label="Język angielski" />
+						<form:option value="french" label="Język francuski" />
 					</form:select>
 					<!--  <input class="form-control" type="file"
 						accept="image/png, image/jpg, image/jpeg"  />
