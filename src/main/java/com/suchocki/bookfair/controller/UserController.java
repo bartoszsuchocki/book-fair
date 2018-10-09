@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.suchocki.bookfair.config.Constant;
+import com.suchocki.bookfair.dao.BookWithoutOwnerSavingException;
 import com.suchocki.bookfair.entity.Book;
 import com.suchocki.bookfair.entity.User;
 import com.suchocki.bookfair.service.BookService;
@@ -61,7 +62,7 @@ public class UserController {
 	}
 
 	@PostMapping("/processNewBookForm")
-	public String processNewBookForm(@Valid @ModelAttribute("book") Book newBook, BindingResult bindingResult) {
+	public String processNewBookForm(@Valid @ModelAttribute("book") Book newBook, BindingResult bindingResult) throws BookWithoutOwnerSavingException {
 
 		if (bindingResult.hasErrors()) {
 			return "add-book";

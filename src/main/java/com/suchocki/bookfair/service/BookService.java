@@ -2,6 +2,7 @@ package com.suchocki.bookfair.service;
 
 import java.util.List;
 
+import com.suchocki.bookfair.dao.BookWithoutOwnerSavingException;
 import com.suchocki.bookfair.entity.Book;
 
 
@@ -16,7 +17,7 @@ public interface BookService {
 	
 	public void deleteBook(int id);
 
-	public void saveBook(Book book);
+	public void saveBook(Book book) throws BookWithoutOwnerSavingException;
 
 	public void deleteBook(Book book);
 	

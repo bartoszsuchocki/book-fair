@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan(basePackages = { "com.suchocki.bookfair.dao", "com.suchocki.bookfair.entity" })
-@PropertySource({ "classpath:hibernateTest.properties" })
+@PropertySource({ "classpath:testDB.properties" })
 public class TestConfig {
 
 	@Autowired

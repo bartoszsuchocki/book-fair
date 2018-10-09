@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.suchocki.bookfair.config.Constant;
+import com.suchocki.bookfair.dao.BookWithoutOwnerSavingException;
 import com.suchocki.bookfair.entity.Book;
 import com.suchocki.bookfair.entity.User;
 import com.suchocki.bookfair.service.BookService;
@@ -43,7 +44,7 @@ public class BookController {
 	
 	@PostMapping("/processEditBookForm")
 	public String processBookForm(@Valid @ModelAttribute("editedBook") Book editedBook, BindingResult bindingResult,
-			Model model) {
+			Model model) throws BookWithoutOwnerSavingException {
 
 		if (bindingResult.hasErrors()) {
 			return "edit-book-form";
