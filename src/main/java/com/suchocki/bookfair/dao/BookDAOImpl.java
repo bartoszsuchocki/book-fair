@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.exception.ConstraintViolationException;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -52,9 +53,19 @@ public class BookDAOImpl implements BookDAO {
 	}
 
 	@Override
-	public void saveBook(Book book) {
+	public void saveBook(Book book) throws BookWithoutOwnerSavingException {
+		
+		if(book.getOwner()==null){
+			throw new BookWithoutOwnerSavingException();
+		}
+		
 		Session session = sessionFactory.getCurrentSession();
-		session.saveOrUpdate(book);
+		try{
+			session.saveOrUpdate(book);
+		}
+		catch(ConstraintViolationException e) {
+			throw new BookWithoutOwnerSavingException();
+		}
 	}
 
 	@Override
