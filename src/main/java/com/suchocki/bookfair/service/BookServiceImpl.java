@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.suchocki.bookfair.dao.BookDAO;
+import com.suchocki.bookfair.dao.BookWithoutOwnerSavingException;
 import com.suchocki.bookfair.entity.Book;
 
 @Service
@@ -53,7 +54,7 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	@Transactional
-	public void saveBook(Book book) {
+	public void saveBook(Book book) throws BookWithoutOwnerSavingException {
 		bookDAO.saveBook(book);
 	}
 
