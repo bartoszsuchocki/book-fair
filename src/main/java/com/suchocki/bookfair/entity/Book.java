@@ -14,9 +14,6 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import com.suchocki.bookfair.comparator.BookComparator;
-import com.suchocki.bookfair.comparator.BookSortOption;
 import com.suchocki.bookfair.config.Constant;
 
 @Entity
@@ -37,12 +34,6 @@ public class Book {
 
 	@Transient
 	private final String WRONG_PRICE_MESSAGE = "Price must be min " + MIN_PRICE;
-
-	@Transient
-	private BookComparator comparator;
-
-	@Transient
-	private BookSortOption compareType;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -119,8 +110,8 @@ public class Book {
 		this.schoolType = schoolType;
 		this.topic = topic;
 	}
-	
-	public void setPropertiesFromOtherBook(Book book) { //note that this does not set id from passed book
+
+	public void setPropertiesFromOtherBook(Book book) { // note that this does not set id from passed book
 		this.title = book.getTitle();
 		this.author = book.getAuthor();
 		this.price = book.getPrice();
@@ -129,22 +120,6 @@ public class Book {
 		this.schoolType = book.getSchoolType();
 		this.schoolClass = book.getSchoolClass();
 		this.topic = book.getTopic();
-	}
-	
-	public BookSortOption getCompareType() {
-		return compareType;
-	}
-
-	public void setCompareType(BookSortOption compareType) {
-		this.compareType = compareType;
-	}
-
-	public void setComparator(BookComparator comparator) {
-		this.comparator = comparator;
-	}
-
-	public BookComparator getComparator() {
-		return comparator;
 	}
 
 	public int getId() {
@@ -251,6 +226,17 @@ public class Book {
 				+ ", creationDate=" + creationDate + ", owner=" + owner + ", purchaser=" + purchaser + ", title="
 				+ title + ", author=" + author + ", price=" + price + ", description=" + description + ", condition="
 				+ condition + ", schoolType=" + schoolType + ", schoolClass=" + schoolClass + "]";
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		if (!(object instanceof Book)) {
+			return false;
+		}
+		Book book = (Book) object;
+		return this.author.equals(book.getAuthor()) && this.title.equals(book.getTitle()) && this.id == book.getId()
+				&& this.condition.equals(book.condition) && this.price.equals(book.getPrice())
+				&& this.schoolClass.equals(book.schoolClass) && this.schoolType.equals(book.getSchoolType());
 	}
 
 }

@@ -1,5 +1,10 @@
 package com.suchocki.bookfair.test.daotest;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,21 +21,22 @@ import com.suchocki.bookfair.test.config.TestConfig;
 @ContextConfiguration(classes = TestConfig.class, loader = AnnotationConfigContextLoader.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UserDAOTest {
-	
+
 	@Autowired
 	private UserDAO userDAO;
-	
+
 	@Test
 	@Transactional
 	@Rollback
 	public void saveUserTest() {
 		User user = new User("adamk", "password", "Adam", "Kowalski", "adam@gmail.com", "Kochanowski");
-		
 		userDAO.saveUser(user);
-		
-		//userDAO.getUsers()
-		
-		
+
+		List<User> users = userDAO.getUsers();
+
+		assertNotNull(users);
+		assertTrue(users.size() == 1);
+		assertTrue(users.get(0).getUsername().equals(user.getUsername()));
 	}
-	
+
 }

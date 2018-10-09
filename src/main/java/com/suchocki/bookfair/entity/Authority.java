@@ -53,4 +53,13 @@ public class Authority implements GrantedAuthority {
 		return "Authority [name=" + name + ", description=" + description + "]";
 	}
 
+	@Override
+	public boolean equals(Object object) {
+		if (!(object instanceof Authority)) {
+			return false;
+		}
+		Authority authority = (Authority) object;
+		return this.name.equals(authority.getName()) && this.description.equals(authority.getDescription());
+	}
+
 }

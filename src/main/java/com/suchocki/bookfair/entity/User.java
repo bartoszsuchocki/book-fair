@@ -261,4 +261,16 @@ public class User implements UserDetails {
 		this.orderedBooks = orderedBooks;
 	}
 
+	@Override
+	public boolean equals(Object object) {
+		if (!(object instanceof User)) {
+			return false;
+		}
+		User user = (User) object;
+		return this.username.equals(user.getUsername()) && this.firstName.equals(user.getFirstName())
+				&& this.lastName.equals(user.getLastName()) && this.email.equals(user.getEmail())
+				&& this.school.equals(user.getSchool()) && this.password.equals(user.getPassword());
+
+	}
+
 }
