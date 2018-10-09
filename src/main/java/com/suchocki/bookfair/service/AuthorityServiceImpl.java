@@ -19,9 +19,8 @@ public class AuthorityServiceImpl implements AuthorityService {
 
 	@Transactional
 	@Override
-	public Authority getAuthority(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Authority getAuthority(String name) {
+		return authorityDAO.getAuthority(name);
 	}
 
 	@Transactional
@@ -38,16 +37,14 @@ public class AuthorityServiceImpl implements AuthorityService {
 
 	@Transactional
 	@Override
-	public void deleteAuthority(int id) {
-		// TODO Auto-generated method stub
-
+	public void deleteAuthority(String name) {
+		authorityDAO.deleteAuthority(name);
 	}
 
 	@Transactional
 	@Override
 	public void saveAuthority(Authority authority) {
-		// TODO Auto-generated method stub
-
+		authorityDAO.saveAuthority(authority);
 	}
 
 	private Map<String, Authority> listToMap(List<Authority> authorityList) {

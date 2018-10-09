@@ -17,8 +17,12 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public void deleteUser(String username) {
-		// TODO Auto-generated method stub
-
+		Session session = sessionFactory.getCurrentSession();
+		User user = getUser(username);
+		if(user == null) {
+			return;
+		}
+		session.delete(user);
 	}
 
 	@Override
@@ -36,8 +40,8 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public List<User> getUsers() {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = sessionFactory.getCurrentSession();
+		return session.createQuery("select u from User u", User.class).getResultList();
 	}
 
 }

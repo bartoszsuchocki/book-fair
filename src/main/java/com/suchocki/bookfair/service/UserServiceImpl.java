@@ -13,32 +13,30 @@ import com.suchocki.bookfair.entity.User;
 public class UserServiceImpl implements UserService {
 
 	@Autowired
-	private UserDAO userDao;
+	private UserDAO userDAO;
 
 	@Transactional
 	@Override
 	public User getUser(String username) {
-		return userDao.getUser(username);
+		return userDAO.getUser(username);
 	}
 
 	@Transactional
 	@Override
 	public List<User> getUsers() {
-		// TODO Auto-generated method stub
-		return null;
+		return userDAO.getUsers();
 	}
 
 	@Transactional
 	@Override
 	public void deleteUser(String username) {
-		// TODO Auto-generated method stub
-
+		userDAO.deleteUser(username);
 	}
 
 	@Transactional
 	@Override
 	public void saveUser(User user) {
-		userDao.saveUser(user);
+		userDAO.saveUser(user);
 	}
 
 }

@@ -11,32 +11,33 @@ import com.suchocki.bookfair.entity.Authority;
 
 @Repository
 public class AuthorityDAOImpl implements AuthorityDAO {
-	
+
 	@Autowired
 	private SessionFactory sessionFactory;
-	
+
 	@Override
-	public Authority getAuthority(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Authority getAuthority(String name) {
+		Session session = sessionFactory.getCurrentSession();
+		return session.get(Authority.class, name);
 	}
 
 	@Override
 	public List<Authority> getAllAuthorities() {
 		Session session = sessionFactory.getCurrentSession();
-		return session.createQuery("from Authority",Authority.class).getResultList();
+		return session.createQuery("from Authority", Authority.class).getResultList();
 	}
 
 	@Override
-	public void deleteAuthority(int id) {
-		// TODO Auto-generated method stub
-
+	public void deleteAuthority(String name) {
+		Session session = sessionFactory.getCurrentSession();
+		Authority authority = session.get(Authority.class, name);
+		session.delete(authority);
 	}
 
 	@Override
 	public void saveAuthority(Authority authority) {
-		// TODO Auto-generated method stub
-
+		Session session = sessionFactory.getCurrentSession();
+		session.saveOrUpdate(authority);
 	}
 
 }
