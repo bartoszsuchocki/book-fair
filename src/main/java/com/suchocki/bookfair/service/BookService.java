@@ -17,7 +17,7 @@ public interface BookService {
 	
 	public void deleteBook(int id);
 
-	public void saveBook(Book book) throws BookWithoutOwnerSavingException;
+	public void saveBook(Book book);
 
 	public void deleteBook(Book book);
 	

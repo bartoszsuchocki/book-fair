@@ -11,7 +11,7 @@ public interface BookDAO {
 
 	public void deleteBook(int id);
 
-	public void saveBook(Book book) throws BookWithoutOwnerSavingException;
+	public void saveBook(Book book);
 
 	public List<Book> getUserBooks(String username);
 
