@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.suchocki.bookfair.dao.BookDAO;
 import com.suchocki.bookfair.dao.BookWithoutOwnerSavingException;
+import com.suchocki.bookfair.dao.UserDAO;
 import com.suchocki.bookfair.entity.Book;
 import com.suchocki.bookfair.entity.User;
 import com.suchocki.bookfair.test.config.TestConfig;
@@ -32,17 +33,40 @@ public class BookDAOTest {
 	@Autowired
 	private BookDAO bookDAO;
 
+	@Autowired
+	private UserDAO userDAO;
+
 	private static List<Book> sampleBooks;
-	
-	//To wszystko nie zadzia³a, bo trzeba najpierw zapisaæ ownera!
-	
+	private static User booksOwner;
+
+
 	@BeforeClass
-	public static void initializeSampleBooks() {
+	public static void initializeSampleBooksAndBooksOwner() {
+
+		booksOwner = new User("owner", "ownerpswd", "Adam", "Kowal", "owner@gmail.com", "Kochanowski");
+		
+		System.out.println("BeforeClass: booksOwner: " + booksOwner);
+		
 		sampleBooks = new ArrayList<>();
 		sampleBooks.add(new Book("book1", "author1", 13.50, null, "new", "highSchool", 1, "math"));
-		sampleBooks.get(0).setOwner(new User("user1", "user1pswd", "Adam", "Kowal", "user1@gmail.com", "Kochanowski"));
 		sampleBooks.add(new Book("book2", "author2", 21, "great book", "new", "highSchool", 1, "polish"));
 		sampleBooks.add(new Book("book3", "author3", 10, null, "secondhand", "secondarySchool", 1, "french"));
+
+		sampleBooks.get(0).setOwner(booksOwner);
+		sampleBooks.get(1).setOwner(booksOwner);
+		sampleBooks.get(2).setOwner(booksOwner);
+		
+	}
+	
+	@Transactional
+	@Before
+	public void prepareDataBeforeTest() throws BookWithoutOwnerSavingException {
+		userDAO.saveUser(booksOwner);
+		for(Book b: sampleBooks) {
+			bookDAO.saveBook(b);
+		}
+		
+		
 	}
 
 	@Before
@@ -59,6 +83,8 @@ public class BookDAOTest {
 	@Transactional
 	@Rollback(true)
 	public void saveBookTest() throws BookWithoutOwnerSavingException {
+		userDAO.saveUser(booksOwner); //must be saved, because Book must have an owner
+		
 		System.out.println("SaveBookTest!");
 		Book book = sampleBooks.get(0);
 
@@ -76,17 +102,17 @@ public class BookDAOTest {
 	@Rollback(true)
 	public void deleteBookTest() throws BookWithoutOwnerSavingException {
 		System.out.println("DeleteBookTest");
-		for (Book b : sampleBooks) {
-			bookDAO.saveBook(b);
-		}
-		Book bookToDelete = sampleBooks.get(0);
-		bookDAO.deleteBook(bookToDelete.getId());
-
-		List<Book> storedBooks = bookDAO.getAllBooks();
-		Book shouldBeNullBook = bookDAO.getBook(bookToDelete.getId());
-
-		assertTrue(storedBooks.size() == (sampleBooks.size() - 1));
+		
+		userDAO.saveUser(booksOwner);
+		
+		Book book = new Book("book1", "author1", 13.50, null, "new", "highSchool", 1, "math");
+		book.setOwner(booksOwner);
+		bookDAO.saveBook(book);
+		bookDAO.deleteBook(book);
+		
+		Book shouldBeNullBook = bookDAO.getBook(book.getId());
 		assertNull(shouldBeNullBook);
+		
 		System.out.println("After DeleteBookTest");
 	}
 
@@ -95,6 +121,8 @@ public class BookDAOTest {
 	@Rollback(true)
 	public void getBookTest() throws BookWithoutOwnerSavingException {
 		System.out.println("GetBookTest");
+		userDAO.saveUser(booksOwner);
+		
 		Book bookToSave = sampleBooks.get(0);
 
 		bookDAO.saveBook(bookToSave);
@@ -104,15 +132,15 @@ public class BookDAOTest {
 		assertTrue(bookToSave.equals(storedBook));
 		System.out.println("After GetBookTest");
 	}
-
-	@Test
-	@Transactional
-	@Rollback(true)
-	public void testOfHibernate() {
-		System.out.println("testOfHibernate");
-		List<Book> books = bookDAO.getAllBooks();
-		assertNull(books);
-		System.out.println("After testOfHibernate");
-	}
+//
+//	@Test
+//	@Transactional
+//	@Rollback(true)
+//	public void testOfHibernate() {
+//		System.out.println("testOfHibernate");
+//		List<Book> books = bookDAO.getAllBooks();
+//		assertNull(books);
+//		System.out.println("After testOfHibernate");
+//	}
 
 }

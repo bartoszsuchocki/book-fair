@@ -53,7 +53,7 @@ public class BookDAOImpl implements BookDAO {
 	}
 
 	@Override
-	public void saveBook(Book book) throws BookWithoutOwnerSavingException {
+	public void saveBook(Book book) {
 		
 		if(book.getOwner()==null){
 			throw new BookWithoutOwnerSavingException();
