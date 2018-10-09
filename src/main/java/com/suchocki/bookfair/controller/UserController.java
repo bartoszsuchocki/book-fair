@@ -62,7 +62,7 @@ public class UserController {
 	}
 
 	@PostMapping("/processNewBookForm")
-	public String processNewBookForm(@Valid @ModelAttribute("book") Book newBook, BindingResult bindingResult) throws BookWithoutOwnerSavingException {
+	public String processNewBookForm(@Valid @ModelAttribute("book") Book newBook, BindingResult bindingResult){
 
 		if (bindingResult.hasErrors()) {
 			return "add-book";
