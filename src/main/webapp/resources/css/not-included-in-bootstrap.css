@@ -37,6 +37,11 @@ body {
 	font-style: italic;
 }
 
+.ordered-item {
+	color: red;
+	font-style: italic;
+}
+
 .error-message {
 	font-color: red;
 	color: red;
@@ -52,4 +57,8 @@ body {
 
 a:hover, button:hover {
 	color: #4310da;
+}
+
+h3.clickable:hover {
+	cursor: pointer;
 }

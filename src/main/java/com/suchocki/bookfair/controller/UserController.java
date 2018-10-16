@@ -45,12 +45,8 @@ public class UserController extends AfterAuthenticationManagingController {
 	@RequestMapping("/myAccount")
 	public String showMyAccount(Model model) {
 		User currentLoggedUser = getAuthenticatedUser();
-		// if(currentLoggedUser.getPossessedBooks()==null) {
-		currentLoggedUser.setPossessedBooks(bookService.getUserBooks(currentLoggedUser.getUsername())); // Zapytaæ kogoœ
-		// m¹drzejszego
-		// czy to jest
-		// ok!
-		// }
+		currentLoggedUser.setPossessedBooks(bookService.getUserBooks(currentLoggedUser.getUsername()));
+		currentLoggedUser.setOrderedBooks(bookService.getUserOrderedBooks(currentLoggedUser.getUsername()));
 
 		return "my-account";
 	}

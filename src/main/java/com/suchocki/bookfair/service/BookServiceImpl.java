@@ -33,7 +33,7 @@ public class BookServiceImpl implements BookService {
 	public List<Book> getUserBooks(String username) {
 		return bookDAO.getUserBooks(username);
 	}
-
+	
 	@Override
 	@Transactional
 	public List<Book> getUserOrderedBooks(String username) {
