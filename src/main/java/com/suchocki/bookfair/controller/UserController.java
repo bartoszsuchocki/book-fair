@@ -45,8 +45,7 @@ public class UserController {
 	public String showMyAccount(Model model) {
 		User currentLoggedUser = getAuthenticatedUser();
 		currentLoggedUser.setPossessedBooks(bookService.getUserBooks(currentLoggedUser.getUsername()));
-		
-		
+		currentLoggedUser.setOrderedBooks(bookService.getUserOrderedBooks(currentLoggedUser.getUsername()));
 
 		return "my-account";
 	}

@@ -59,9 +59,10 @@
 		<security:authentication property="principal.possessedBooks"
 			var="possessedBooks" scope="page" />
 
-		<c:set var="length" scope="page" value="${fn:length(possessedBooks)}" />
-		<h3>Wystawiane (${length}):</h3>
-		<c:if test="${length==0}">
+		<c:set var="possessedBooksLength" scope="page"
+			value="${fn:length(possessedBooks)}" />
+		<h3>Wystawiane (${possessedBooksLength}):</h3>
+		<c:if test="${possessedBooksLength==0}">
 			<i>Brak wystawianych książek.</i>
 			<br>
 		</c:if>
@@ -93,6 +94,41 @@
 			</div>
 		</c:forEach>
 
+		<security:authentication property="principal.orderedBooks"
+			var="orderedBooks" scope="page" />
+
+		<c:set var="orderedBooksLength" scope="page"
+			value="${fn:length(orderedBooks)}" />
+		<h3>Zamawiane (${orderedBooksLength}):</h3>
+		<c:if test="${orderedBooksLength==0}">
+			<i>Brak zamówionych książek.</i>
+			<br>
+		</c:if>
+
+		<c:forEach items="${orderedBooks}" var="book">
+
+			<div class="row bottom-spaced-row">
+				<div class="col col-md-3 col-sm-6">
+					<img class="img-fluid img-thumbnail"
+						src="${pageContext.request.contextPath}/resources/przykladowa-ksiazka.jpeg" />
+				</div>
+				<div class="col col-md-8 col-sm-6">
+					<h2>${book.title}</h2>
+					<p>
+						<b>Stan: </b>${book.condition} <br> <b>Cena: </b>${book.price}
+					</p>
+					<p>
+						<b>Szkoła: </b>${book.schoolType} <br> <b>Klasa: </b>${book.schoolClass}
+						<br> <b>Przedmiot: </b> ${book.topic}
+					</p>
+					<p>
+						<b>Wystawiający: </b><a
+							href="${pageContext.request.contextPath}/browse/user/${book.owner.username}">${book.owner.username}</a>
+					</p>
+				</div>
+
+			</div>
+		</c:forEach>
 
 
 
