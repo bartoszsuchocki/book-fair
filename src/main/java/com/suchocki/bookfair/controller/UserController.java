@@ -44,12 +44,9 @@ public class UserController {
 	@RequestMapping("/myAccount")
 	public String showMyAccount(Model model) {
 		User currentLoggedUser = getAuthenticatedUser();
-		// if(currentLoggedUser.getPossessedBooks()==null) {
-		currentLoggedUser.setPossessedBooks(bookService.getUserBooks(currentLoggedUser.getUsername())); // Zapytaæ kogoœ
-		// m¹drzejszego
-		// czy to jest
-		// ok!
-		// }
+		currentLoggedUser.setPossessedBooks(bookService.getUserBooks(currentLoggedUser.getUsername()));
+		
+		
 
 		return "my-account";
 	}

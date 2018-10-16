@@ -42,6 +42,15 @@ public class BookDAOImpl implements BookDAO {
 	}
 
 	@Override
+	public List<Book> getUserOrderedBooks(String username) {
+		Session session = sessionFactory.getCurrentSession();
+		Query<Book> query = session.createQuery("select b from Book b where b.purchaser.username=:username", Book.class);
+		query.setParameter("username", username);
+		
+		return query.getResultList();
+	}
+
+	@Override
 	public void deleteBook(int id) {
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery("delete from Book b where b.id=:id");

@@ -12,6 +12,8 @@ public interface BookService {
 	
 	public List<Book> getUserBooks(String username); 
 	
+	public List<Book> getUserOrderedBooks(String username);
+	
 	public List<Book> getMatchingBooks(Book criteriaBook);
 	
 	public void deleteBook(int id);

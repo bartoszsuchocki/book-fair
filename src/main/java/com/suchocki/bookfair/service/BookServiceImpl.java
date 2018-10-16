@@ -35,6 +35,12 @@ public class BookServiceImpl implements BookService {
 	public List<Book> getUserBooks(String username) {
 		return bookDao.getUserBooks(username);
 	}
+	
+	@Override
+	@Transactional
+	public List<Book> getUserOrderedBooks(String username) {
+		return bookDao.getUserOrderedBooks(username);
+	}
 
 	@Override
 	@Transactional
