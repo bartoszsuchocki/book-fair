@@ -1,5 +1,7 @@
 package com.suchocki.bookfair.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -7,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LoginController {
 
 	@RequestMapping("/showLoginForm")
-	public String showLoginPage() {
+	public String showLoginPage(HttpServletRequest request) {
+		System.out.println(request.getHeader("Referer"));
 		return "login";
 	}
 	@RequestMapping("/accessDenied")

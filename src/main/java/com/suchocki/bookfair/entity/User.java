@@ -3,6 +3,7 @@ package com.suchocki.bookfair.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -64,7 +65,8 @@ public class User implements UserDetails {
 	@OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
 	private List<Book> possessedBooks;
 
-	@OneToMany(mappedBy = "purchaser")
+	@OneToMany(mappedBy = "purchaser", cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
+			CascadeType.REFRESH })
 	private List<Book> orderedBooks;
 
 	public User() {
@@ -108,6 +110,14 @@ public class User implements UserDetails {
 			possessedBooks = new ArrayList<>();
 		}
 		possessedBooks.add(book);
+	}
+
+	public void addOrderedBook(Book book) {
+		if (orderedBooks == null) {
+			orderedBooks = new ArrayList<>();
+		}
+		System.out.println("Czy null: " + (orderedBooks == null));
+		orderedBooks.add(book);
 	}
 
 	// thanks to this method, there will no need to refresh user's books from

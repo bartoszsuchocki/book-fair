@@ -14,6 +14,8 @@ public interface BookDAO {
 	public void saveBook(Book book);
 
 	public List<Book> getUserBooks(String username);
+	
+	public List<Book> getUserOrderedBooks(String username);
 
 	public List<Book> getMatchingBooks(Book criteriaBook);
 

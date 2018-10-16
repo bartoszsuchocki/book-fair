@@ -25,30 +25,36 @@
 	<%@ include file="fragment/navigation.jspf"%>
 
 	<div class="container">
+
 		<div class="col col-sm-6 col-md-4">
 			<form:form class="form-signin"
 				action="${pageContext.request.contextPath}/authenticateTheUser"
 				method="post">
 
-				<h2 class="form-signin-heading">Zaloguj się</h2>
-				
-				<c:if test="${param.error != null}">
-					<div class = "error-message">Nieprawidłowy login lub hasło</div>
+				<c:if test="${param.redirect==true}">
+					<div class="error-message">Musisz być zalogowany, żeby
+						uzyskać dostęp do tej treści!</div>
+					<input type="hidden" name="urlBeforeLogin"
+						value="${header.Referer}">
 				</c:if>
-				
+
+				<h2 class="form-signin-heading">Zaloguj się</h2>
+
+				<c:if test="${param.error != null}">
+					<div class="error-message">Nieprawidłowy login lub hasło</div>
+				</c:if>
+
 				<input class="form-control" name="username" type="text"
 					placeholder="login" />
 				<input class="form-control" name="password" type="password"
 					placeholder="hasło" required>
+
 				<button type="submit" class="btn btn-lg btn-primary btn-block">Zaloguj</button>
+
 			</form:form>
 			<a href="showRegistrationForm">Zarejestruj się</a>
 
 		</div>
-
-
-
-
 	</div>
 
 

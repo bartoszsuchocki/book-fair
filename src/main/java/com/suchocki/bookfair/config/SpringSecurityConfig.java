@@ -16,6 +16,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+
+import com.suchocki.bookfair.authentication.CustomAuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -23,7 +26,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private DataSource securityDataSource;
-	
+
 	@Autowired
 	@Qualifier("customUserDetailsService")
 	private UserDetailsService userDetailsService;
@@ -34,12 +37,17 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		jdbcUserDetailsManager.setDataSource(securityDataSource);
 		return jdbcUserDetailsManager;
 	}
-	
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
+
+	@Bean
+	public AuthenticationSuccessHandler authenticationSuccessHandler() {
+		return new CustomAuthenticationSuccessHandler();
+	}
+
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
@@ -47,15 +55,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		authenticationProvider.setPasswordEncoder(passwordEncoder());
 		return authenticationProvider;
 	}
-	
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-		.antMatchers("/aa").authenticated()
-		.and().formLogin().loginPage("/showLoginForm").loginProcessingUrl("/authenticateTheUser").permitAll()
-		.and().logout().permitAll()
-		.and().exceptionHandling().accessDeniedPage("/accessDenied");
+		http
+			.authorizeRequests().antMatchers("/order/**").authenticated()
+			.and().formLogin().loginPage("/showLoginForm?redirect=true")
+			.loginProcessingUrl("/authenticateTheUser").permitAll().successHandler(authenticationSuccessHandler())
+			.and().logout().permitAll().and().exceptionHandling().accessDeniedPage("/accessDenied");
 	}
 
 	@Override

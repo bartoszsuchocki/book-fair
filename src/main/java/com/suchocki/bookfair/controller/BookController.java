@@ -1,10 +1,8 @@
 package com.suchocki.bookfair.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,7 +20,7 @@ import com.suchocki.bookfair.service.BookService;
 
 @Controller
 @RequestMapping("/bookManagement")
-public class BookController {
+public class BookController extends AfterAuthenticationManagingController {
 
 	// private Logger logger = Logger.getLogger(getClass().getName());
 
@@ -41,7 +39,7 @@ public class BookController {
 
 		return "edit-book-form";
 	}
-	
+
 	@PostMapping("/processEditBookForm")
 	public String processBookForm(@Valid @ModelAttribute("editedBook") Book editedBook, BindingResult bindingResult,
 			Model model) throws BookWithoutOwnerSavingException {
@@ -54,9 +52,9 @@ public class BookController {
 		editedBook = currentLoggedUser.editPossessedBookLocally(editedBook);
 
 		bookService.saveBook(editedBook);
-		
+
 		model.addAttribute("myAccountSuccessMsg", Constant.BOOK_EDITED_MSG);
-		
+
 		return "my-account";
 	}
 
@@ -70,11 +68,7 @@ public class BookController {
 		getAuthenticatedUser().deletePossessedBookLocally(book);
 
 		model.addAttribute("myAccountSuccessMsg", Constant.BOOK_DELETED_MSG);
-		
-		return "my-account";
-	}
 
-	private User getAuthenticatedUser() {
-		return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return "my-account";
 	}
 }

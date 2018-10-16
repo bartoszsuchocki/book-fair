@@ -36,6 +36,12 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	@Transactional
+	public List<Book> getUserOrderedBooks(String username) {
+		return bookDAO.getUserOrderedBooks(username);
+	}
+
+	@Override
+	@Transactional
 	public List<Book> getMatchingBooks(Book criteriaBook) {
 		return bookDAO.getMatchingBooks(criteriaBook);
 	}
@@ -54,7 +60,7 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	@Transactional
-	public void saveBook(Book book){
+	public void saveBook(Book book) {
 		bookDAO.saveBook(book);
 	}
 

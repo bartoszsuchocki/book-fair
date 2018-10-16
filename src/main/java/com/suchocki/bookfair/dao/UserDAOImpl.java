@@ -19,7 +19,7 @@ public class UserDAOImpl implements UserDAO {
 	public void deleteUser(String username) {
 		Session session = sessionFactory.getCurrentSession();
 		User user = getUser(username);
-		if(user == null) {
+		if (user == null) {
 			return;
 		}
 		session.delete(user);
@@ -28,7 +28,8 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void saveUser(User user) {
 		Session session = sessionFactory.getCurrentSession();
-		System.out.println("Saving user. User's authorities: " + user.getAuthorities());
+		System.out.println("Saving user: " + user);
+		System.out.println("Saving user. His orderedBooks: " + user.getOrderedBooks());
 		session.saveOrUpdate(user);
 	}
 

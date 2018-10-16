@@ -148,7 +148,8 @@
 						<b>Szkoła: </b>${book.schoolType} <br> <b>Klasa: </b>${book.schoolClass}
 						<br> <b>Przedmiot: </b> ${book.topic}
 					</p>
-
+					
+					<a class="btn btn-success" href="${pageContext.request.contextPath}/order/orderBook/${book.id}">Zamów</a>
 
 				</div>
 

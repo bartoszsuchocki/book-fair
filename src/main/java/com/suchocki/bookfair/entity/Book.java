@@ -2,6 +2,7 @@ package com.suchocki.bookfair.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -47,7 +48,7 @@ public class Book {
 	@JoinColumn(name = "book_owner") // book_owner to w bazie id ownera
 	private User owner;
 
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name = "purchaser") // purchaser to w bazie id purchasera
 	private User purchaser;
 

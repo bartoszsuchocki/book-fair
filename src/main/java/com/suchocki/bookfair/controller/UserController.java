@@ -25,7 +25,7 @@ import com.suchocki.bookfair.service.BookService;
 import com.suchocki.bookfair.service.UserService;
 
 @Controller
-public class UserController {
+public class UserController extends AfterAuthenticationManagingController {
 
 	@Autowired
 	private BookService bookService;
@@ -157,8 +157,5 @@ public class UserController {
 		userService.saveUser(currentLoggedUser);
 	}
 
-	private User getAuthenticatedUser() {
-		return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-	}
 
 }
