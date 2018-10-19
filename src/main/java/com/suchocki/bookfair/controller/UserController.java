@@ -5,7 +5,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.suchocki.bookfair.config.Constant;
-import com.suchocki.bookfair.dao.BookWithoutOwnerSavingException;
 import com.suchocki.bookfair.entity.Book;
 import com.suchocki.bookfair.entity.User;
 import com.suchocki.bookfair.service.BookService;
@@ -58,9 +56,18 @@ public class UserController extends AfterAuthenticationManagingController {
 	}
 
 	@PostMapping("/processNewBookForm")
-	public String processNewBookForm(@Valid @ModelAttribute("book") Book newBook, BindingResult bindingResult){
+	public String processNewBookForm(@Valid @ModelAttribute("book") Book newBook, BindingResult bindingResult,
+			Model model) {
 
 		if (bindingResult.hasErrors()) {
+			return "add-book";
+		}
+
+		System.out.println("Cena dodawanej: " + newBook.getPrice());
+
+		String customValidationError = customBookValidationError(newBook);
+		if (customValidationError != null) {
+			model.addAttribute("customValidationError", customValidationError);
 			return "add-book";
 		}
 
@@ -68,6 +75,16 @@ public class UserController extends AfterAuthenticationManagingController {
 		bookService.saveBook(newBook);
 
 		return "book-added-confirmation";
+	}
+
+	private String customBookValidationError(Book book) {
+		if (book.getPrice() < Book.MIN_PRICE || book.getPrice() > Book.MAX_PRICE) {
+			return Constant.INCORRECT_PRICE_MESSAGE;
+		}
+		if(book.getDescription().length()>Constant.MAX_BOOK_DESCRIPTION_SIZE) {
+			return Constant.TOO_LARGE_DESCRIPTION_MESSAGE;
+		}
+		return null;
 	}
 
 	@GetMapping("/editForm")
@@ -152,6 +169,5 @@ public class UserController extends AfterAuthenticationManagingController {
 		currentLoggedUser.setPassword(passwordEncoder.encode(newPassword));
 		userService.saveUser(currentLoggedUser);
 	}
-
 
 }

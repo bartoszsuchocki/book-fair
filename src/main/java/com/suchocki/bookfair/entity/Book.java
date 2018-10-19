@@ -2,7 +2,6 @@ package com.suchocki.bookfair.entity;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import com.suchocki.bookfair.config.Constant;
@@ -22,19 +20,13 @@ import com.suchocki.bookfair.config.Constant;
 public class Book {
 
 	@Transient
-	public static final int MIN_PRICE = 0;
+	public static final int MIN_PRICE = 1;
 
 	@Transient
 	public static final int MAX_PRICE = 1000;
 
 	@Transient
 	public static final String ALL_SCHOOL_TYPE_VALUE = "wszystkie";
-
-	@Transient
-	public static final String ALL_OPTIONS_FILTER_VALUE = "wszystkie";
-
-	@Transient
-	private final String WRONG_PRICE_MESSAGE = "Price must be min " + MIN_PRICE;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -63,7 +55,6 @@ public class Book {
 	private String author;
 
 	@NotNull(message = Constant.REQUIRED_FIELD_MESSAGE)
-	@Min(value = MIN_PRICE, message = WRONG_PRICE_MESSAGE)
 	@Column(name = "price")
 	private Double price;
 
@@ -223,10 +214,10 @@ public class Book {
 
 	@Override
 	public String toString() {
-		return "Book [MIN_PRICE=" + MIN_PRICE + ", WRONG_PRICE_MESSAGE=" + WRONG_PRICE_MESSAGE + ", id=" + id
-				+ ", creationDate=" + creationDate + ", owner=" + owner + ", purchaser=" + purchaser + ", title="
-				+ title + ", author=" + author + ", price=" + price + ", description=" + description + ", condition="
-				+ condition + ", schoolType=" + schoolType + ", schoolClass=" + schoolClass + "]";
+		return "Book [MIN_PRICE=" + MIN_PRICE + ", id=" + id + ", creationDate=" + creationDate + ", owner=" + owner
+				+ ", purchaser=" + purchaser + ", title=" + title + ", author=" + author + ", price=" + price
+				+ ", description=" + description + ", condition=" + condition + ", schoolType=" + schoolType
+				+ ", schoolClass=" + schoolClass + "]";
 	}
 
 	@Override
