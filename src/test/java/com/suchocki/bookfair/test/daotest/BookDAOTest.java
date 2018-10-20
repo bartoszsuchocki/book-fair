@@ -23,6 +23,7 @@ import com.suchocki.bookfair.dao.BookDAO;
 import com.suchocki.bookfair.dao.BookWithoutOwnerSavingException;
 import com.suchocki.bookfair.dao.UserDAO;
 import com.suchocki.bookfair.entity.Book;
+import com.suchocki.bookfair.entity.School;
 import com.suchocki.bookfair.entity.User;
 import com.suchocki.bookfair.test.config.TestConfig;
 
@@ -39,14 +40,24 @@ public class BookDAOTest {
 	private static List<Book> sampleBooks;
 	private static User booksOwner;
 
-
 	@BeforeClass
 	public static void initializeSampleBooksAndBooksOwner() {
 
-		booksOwner = new User("owner", "ownerpswd", "Adam", "Kowal", "owner@gmail.com", "Kochanowski");
-		
+		booksOwner = new User("owner", "ownerpswd", "Adam", "Kowal", "owner@gmail.com", new School("Kochanowski")); // to
+																													// mo¿e
+																													// teraz
+																													// nie
+																													// dzia³aæ,
+																													// mo¿e
+																													// trzeba
+																													// bêdzie
+																													// zapisaæ
+																													// szko³ê
+																													// w
+																													// bamzie
+
 		System.out.println("BeforeClass: booksOwner: " + booksOwner);
-		
+
 		sampleBooks = new ArrayList<>();
 		sampleBooks.add(new Book("book1", "author1", 13.50, null, "new", "highSchool", 1, "math"));
 		sampleBooks.add(new Book("book2", "author2", 21, "great book", "new", "highSchool", 1, "polish"));
@@ -55,18 +66,17 @@ public class BookDAOTest {
 		sampleBooks.get(0).setOwner(booksOwner);
 		sampleBooks.get(1).setOwner(booksOwner);
 		sampleBooks.get(2).setOwner(booksOwner);
-		
+
 	}
-	
+
 	@Transactional
 	@Before
 	public void prepareDataBeforeTest() throws BookWithoutOwnerSavingException {
 		userDAO.saveUser(booksOwner);
-		for(Book b: sampleBooks) {
+		for (Book b : sampleBooks) {
 			bookDAO.saveBook(b);
 		}
-		
-		
+
 	}
 
 	@Before
@@ -83,8 +93,8 @@ public class BookDAOTest {
 	@Transactional
 	@Rollback(true)
 	public void saveBookTest() throws BookWithoutOwnerSavingException {
-		userDAO.saveUser(booksOwner); //must be saved, because Book must have an owner
-		
+		userDAO.saveUser(booksOwner); // must be saved, because Book must have an owner
+
 		System.out.println("SaveBookTest!");
 		Book book = sampleBooks.get(0);
 
@@ -102,17 +112,17 @@ public class BookDAOTest {
 	@Rollback(true)
 	public void deleteBookTest() throws BookWithoutOwnerSavingException {
 		System.out.println("DeleteBookTest");
-		
+
 		userDAO.saveUser(booksOwner);
-		
+
 		Book book = new Book("book1", "author1", 13.50, null, "new", "highSchool", 1, "math");
 		book.setOwner(booksOwner);
 		bookDAO.saveBook(book);
 		bookDAO.deleteBook(book);
-		
+
 		Book shouldBeNullBook = bookDAO.getBook(book.getId());
 		assertNull(shouldBeNullBook);
-		
+
 		System.out.println("After DeleteBookTest");
 	}
 
@@ -122,7 +132,7 @@ public class BookDAOTest {
 	public void getBookTest() throws BookWithoutOwnerSavingException {
 		System.out.println("GetBookTest");
 		userDAO.saveUser(booksOwner);
-		
+
 		Book bookToSave = sampleBooks.get(0);
 
 		bookDAO.saveBook(bookToSave);

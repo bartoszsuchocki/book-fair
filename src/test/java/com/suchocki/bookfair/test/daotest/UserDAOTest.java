@@ -18,6 +18,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.suchocki.bookfair.dao.UserDAO;
+import com.suchocki.bookfair.entity.School;
 import com.suchocki.bookfair.entity.User;
 import com.suchocki.bookfair.test.config.TestConfig;
 
@@ -33,9 +34,12 @@ public class UserDAOTest {
 	@BeforeClass
 	public static void initializeSampleUsers() {
 		sampleUsers = new ArrayList<>();
-		sampleUsers.add(new User("user1", "user1pswd", "Adam", "Kowal", "user1@gmail.com", "Kochanowski"));
-		sampleUsers.add(new User("user2", "user2pswd", "Damian", "Belka", "user2@gmail.com", "Reytan"));
-		sampleUsers.add(new User("user3", "user3pswd", "Szymon", "Polak", "user3@gmail.com", "Kochanowski"));
+
+		// nie sprawdzone po dodaniu klasy School
+		sampleUsers.add(new User("user1", "user1pswd", "Adam", "Kowal", "user1@gmail.com", new School("Kochanowski")));
+		sampleUsers.add(new User("user2", "user2pswd", "Damian", "Belka", "user2@gmail.com", new School("Reytan")));
+		sampleUsers
+				.add(new User("user3", "user3pswd", "Szymon", "Polak", "user3@gmail.com", new School("Kochanowski")));
 	}
 
 	@Test
@@ -74,7 +78,7 @@ public class UserDAOTest {
 	@Rollback
 	public void getUserTest() {
 		User userToSave = sampleUsers.get(1);
-		
+
 		userDAO.saveUser(userToSave);
 		User storedUser = userDAO.getUser(userToSave.getUsername());
 

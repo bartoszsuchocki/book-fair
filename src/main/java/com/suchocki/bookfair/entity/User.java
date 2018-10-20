@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -55,8 +56,9 @@ public class User implements UserDetails {
 	private String email;
 
 	@NotNull(message = Constant.REQUIRED_FIELD_MESSAGE)
-	@Column(name = "school")
-	private String school;
+	@ManyToOne
+	@JoinColumn(name = "school")
+	private School school;
 
 	@ManyToMany(fetch = FetchType.EAGER) // Zastanowiæ siê jeszcze, czy to na pewno dobre rozwi¹zanie
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "username"), inverseJoinColumns = @JoinColumn(name = "authority"))
@@ -68,12 +70,14 @@ public class User implements UserDetails {
 	@OneToMany(mappedBy = "purchaser", cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
 			CascadeType.REFRESH })
 	private List<Book> orderedBooks;
+	
+	
 
 	public User() {
 
 	}
 
-	public User(String username, String password, String firstName, String lastName, String email, String school) {
+	public User(String username, String password, String firstName, String lastName, String email, School school) {
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
@@ -83,7 +87,7 @@ public class User implements UserDetails {
 	}
 
 	public User(String username, String password, int enabled, String firstName, String lastName, String email,
-			String school) {
+			School school) {
 		this.username = username;
 		this.password = password;
 		this.enabled = enabled;
@@ -94,7 +98,7 @@ public class User implements UserDetails {
 	}
 
 	public User(String username, String password, int enabled, String firstName, String lastName, String email,
-			String school, List<Authority> authorities) {
+			School school, List<Authority> authorities) {
 		this.username = username;
 		this.password = password;
 		this.enabled = enabled;
@@ -197,11 +201,11 @@ public class User implements UserDetails {
 		this.email = email;
 	}
 
-	public String getSchool() {
+	public School getSchool() {
 		return school;
 	}
 
-	public void setSchool(String school) {
+	public void setSchool(School school) {
 		this.school = school;
 	}
 

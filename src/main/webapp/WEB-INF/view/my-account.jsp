@@ -25,9 +25,6 @@
 
 	<%@ include file="fragment/navigation.jspf"%>
 
-
-
-
 	<div class="container">
 		<h2>Moje konto</h2>
 
@@ -46,7 +43,7 @@
 				<br> <b>E-mail: </b>
 				<security:authentication property="principal.email" />
 				<br> <b>Szkoła sprzedaży: </b>
-				<security:authentication property="principal.school" />
+				<security:authentication property="principal.school.name" />
 				<br> <a href="${pageContext.request.contextPath}/editForm"
 					class="btn btn-info">Edytuj</a> <a
 					href="${pageContext.request.contextPath}/editPasswordForm"
@@ -119,7 +116,9 @@
 
 		<c:set var="orderedBooksLength" scope="page"
 			value="${fn:length(orderedBooks)}" />
-		<h3 class="clickable" onclick="hideOrShowElement('ordered')">Zamawiane (${orderedBooksLength}): <i class="arrow down"></i></h3>
+		<h3 class="clickable" onclick="hideOrShowElement('ordered')">
+			Zamawiane (${orderedBooksLength}): <i class="arrow down"></i>
+		</h3>
 
 		<div id="ordered">
 			<c:if test="${orderedBooksLength==0}">

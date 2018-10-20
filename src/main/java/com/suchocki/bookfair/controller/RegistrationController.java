@@ -20,24 +20,27 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.suchocki.bookfair.entity.Authority;
+import com.suchocki.bookfair.entity.School;
 import com.suchocki.bookfair.entity.User;
+import com.suchocki.bookfair.propertyEditor.SchoolEditor;
 import com.suchocki.bookfair.service.AuthorityService;
+import com.suchocki.bookfair.service.SchoolService;
 import com.suchocki.bookfair.service.UserService;
 
 @Controller
 public class RegistrationController {
 
-	/*
-	 * @Autowired private UserDetailsManager userDetailsManager; // mo¿e okazaæ siê
-	 * nieprzydatne
-	 */
 	private Map<String, Authority> enabledUserRoles;
+	private List<School> enabledSchoolList;
 
 	@Autowired
 	private UserService userService;
 
 	@Autowired
 	private AuthorityService authorityService;
+
+	@Autowired
+	private SchoolService schoolService;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -48,15 +51,24 @@ public class RegistrationController {
 		enabledUserRoles = authorityService.getAllAuthoritiesMap();
 	}
 
+	@PostConstruct
+	public void loadEnabledSchoolList() {
+		enabledSchoolList = schoolService.getAllSchools();
+	}
+
 	@InitBinder
 	public void initBinder(WebDataBinder dataBinder) {
 		StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
 		dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
+		dataBinder.registerCustomEditor(School.class, new SchoolEditor());
 	}
 
 	@RequestMapping("/showRegistrationForm")
 	public String showRegistrationForm(Model model) {
 		model.addAttribute("user", new User());
+		System.out.println("Adding schoolList to the model");
+		model.addAttribute("enabledSchoolList", enabledSchoolList);
+		System.out.println("After adding schoolList o the model");
 		return "registration";
 	}
 
@@ -67,10 +79,6 @@ public class RegistrationController {
 		System.out.println("hasErrors() w bindingResults: " + bindingResult.hasErrors());
 
 		if (bindingResult.hasErrors()) {
-			/*
-			 * model.addAttribute("user", new User());
-			 * model.addAttribute("registrationError", "wrong filled fields");
-			 */
 			return "registration";
 		} /*
 			 * else if (userExists(user.getUsername())) { model.addAttribute("user", new

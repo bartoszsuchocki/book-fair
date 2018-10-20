@@ -3,6 +3,17 @@ create user 'book_fair'@'localhost' identified by 'book_fair';
 grant all privileges on book_fair.* to 'book_fair'@'localhost'; 
 
 use book_fair;
+create table if not exists school
+(
+	id int not null auto_increment,
+    name nvarchar(60) not null,
+    address nvarchar(60),
+    primary key(id)
+);
+insert into school(name, address) values
+	('28LO im Jana Kochanowskiego','Wiktorska 99, Warszawa'),
+	('Reytan','WiktorskaX'),
+	('Wladek','Wladkowa');
 create table if not exists user
 (
 	username varchar(50) not null,
@@ -11,8 +22,9 @@ create table if not exists user
     first_name nvarchar(45),
     last_name nvarchar(45),
     email varchar(50),
-    school nvarchar(100),
-    primary key(username)
+    school int,
+    primary key(username),
+    constraint school_fk foreign key(school) references school(id)
 );
 create table if not exists role
 (
