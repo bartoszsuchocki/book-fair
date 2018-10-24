@@ -31,7 +31,7 @@ import com.suchocki.bookfair.service.UserService;
 public class RegistrationController {
 
 	private Map<String, Authority> enabledUserRoles;
-	private List<School> enabledSchoolList;
+	private List<School> schoolOptionList;
 
 	@Autowired
 	private UserService userService;
@@ -52,8 +52,8 @@ public class RegistrationController {
 	}
 
 	@PostConstruct
-	public void loadEnabledSchoolList() {
-		enabledSchoolList = schoolService.getAllSchools();
+	public void loadSchoolOptionList() {
+		schoolOptionList = schoolService.getAllSchools();
 	}
 
 	@InitBinder
@@ -66,9 +66,7 @@ public class RegistrationController {
 	@RequestMapping("/showRegistrationForm")
 	public String showRegistrationForm(Model model) {
 		model.addAttribute("user", new User());
-		System.out.println("Adding schoolList to the model");
-		model.addAttribute("enabledSchoolList", enabledSchoolList);
-		System.out.println("After adding schoolList o the model");
+		model.addAttribute("schoolOptionList", schoolOptionList);
 		return "registration";
 	}
 

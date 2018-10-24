@@ -44,6 +44,7 @@
 				<security:authentication property="principal.email" />
 				<br> <b>Szkoła sprzedaży: </b>
 				<security:authentication property="principal.school.name" />
+				<security:authentication property="principal.school.address" />
 				<br> <a href="${pageContext.request.contextPath}/editForm"
 					class="btn btn-info">Edytuj</a> <a
 					href="${pageContext.request.contextPath}/editPasswordForm"
@@ -90,13 +91,14 @@
 						</c:choose>
 						<h2 class="${bookViewClass}">${book.title}</h2>
 						<p>
-							<b class="${bookViewClass}">Stan: </b>${book.condition} <br>
-							<b class="${bookViewClass}">Cena: </b>${book.price}
+							<b class="${bookViewClass}">Stan: </b>${Constant.getBookState(book.condition)}
+							<br> <b class="${bookViewClass}">Cena: </b>${book.price}
 						</p>
 						<p>
-							<b class="${bookViewClass}">Szkoła: </b>${book.schoolType} <br>
-							<b class="${bookViewClass}">Klasa: </b>${book.schoolClass} <br>
-							<b class="${bookViewClass}">Przedmiot: </b> ${book.topic}
+							<b class="${bookViewClass}">Szkoła: </b>${Constant.getSchoolType(book.schoolType)}
+							<br> <b class="${bookViewClass}">Klasa: </b>${Constant.getSchoolClass(book.schoolClass)}
+							<br> <b class="${bookViewClass}">Przedmiot: </b>
+							${Constant.getTopic(book.topic)}
 						</p>
 
 						<a class="btn btn-info"
@@ -136,11 +138,13 @@
 					<div class="col col-md-8 col-sm-6">
 						<h2>${book.title}</h2>
 						<p>
-							<b>Stan: </b>${book.condition} <br> <b>Cena: </b>${book.price}
+							<b>Stan: </b>${Constant.getBookState(book.condition)} <br> <b>Cena:
+							</b>${book.price}
 						</p>
 						<p>
-							<b>Szkoła: </b>${book.schoolType} <br> <b>Klasa: </b>${book.schoolClass}
-							<br> <b>Przedmiot: </b> ${book.topic}
+							<b>Szkoła: </b>${Constant.getSchoolType(book.schoolType)} <br>
+							<b>Klasa: </b>${Constant.getSchoolClass(book.schoolClass)} <br>
+							<b>Przedmiot: </b> ${Constant.getTopic(book.topic)}
 						</p>
 						<p>
 							<b>Wystawiający: </b><a

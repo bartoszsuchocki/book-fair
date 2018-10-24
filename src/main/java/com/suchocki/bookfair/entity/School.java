@@ -73,4 +73,14 @@ public class School {
 		return "School [id=" + id + ", name=" + name + ", address=" + address + "]";
 	}
 
+	@Override
+	public boolean equals(Object object) {
+		if (!(object instanceof School)) {
+			return false;
+		}
+		School school = (School) object;
+		return school.getId() == this.id && school.getName().equals(this.name)
+				&& school.getAddress().equals(this.address);
+	}
+
 }

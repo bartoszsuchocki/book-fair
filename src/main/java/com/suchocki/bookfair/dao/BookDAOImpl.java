@@ -81,25 +81,34 @@ public class BookDAOImpl implements BookDAO {
 	public List<Book> getMatchingBooks(Book criteriaBook) {
 		Session session = sessionFactory.getCurrentSession();
 
+		final int nullReceptionSchoolId = -1;
 		Query<Book> query = session
-				.createQuery("select b from Book b where b.title like :title and b.price <= :price and b.condition"
-						+ " like :condition and b.schoolType like :schoolType and (b.schoolClass = :schoolClass or :schoolClass = "
-						+ Constant.ALL_SCHOOL_CLASS_TYPE + ") and b.topic like :topic", Book.class); // ten 'or'
-																										// odpowiada za
-																										// wyœwitlenie
-		// wszystkich klas w przypadku wartoœci
-		// allschoolclasstype
+				.createQuery("select b from Book b where b.title like :title and b.price <= :price and (b.condition"
+						+ " = :condition or :condition = :allCondition)"
+						+ " and (b.schoolType = :schoolType or :schoolType=:allSchoolType) and (b.schoolClass = :schoolClass or :schoolClass = "
+						+ Constant.ALL_SCHOOL_CLASS_TYPE
+						+ ") and (b.topic=:topic or :topic = :allTopics) and (b.owner.school.id = :receptionSchoolId or :receptionSchoolId = "
+						+ nullReceptionSchoolId + ")", Book.class);
+
 		query.setParameter("title", (criteriaBook.getTitle() != null) ? "%" + criteriaBook.getTitle() + "%" : "%");
 		query.setParameter("price", (criteriaBook.getPrice() != null) ? criteriaBook.getPrice() : Book.MAX_PRICE);
-		query.setParameter("condition",
-				(criteriaBook.getCondition() != null) ? "%" + criteriaBook.getCondition() + "%" : "%");
-		query.setParameter("schoolType",
-				(criteriaBook.getSchoolType() != null) ? "%" + criteriaBook.getSchoolType() + "%" : "%");
-		query.setParameter("schoolClass", (criteriaBook.getSchoolClass() != null) ? criteriaBook.getSchoolClass()
-				: Constant.ALL_SCHOOL_CLASS_TYPE);
-		query.setParameter("topic", (criteriaBook.getTopic() != null) ? "%" + criteriaBook.getTopic() + "%" : "%");
 
+		query.setParameter("condition", criteriaBook.getCondition());
+		query.setParameter("allCondition", Constant.ALL_BOOK_STATE_VALUE);
+
+		query.setParameter("schoolType", criteriaBook.getSchoolType());
+		query.setParameter("allSchoolType", Constant.ALL_SCHOOL_TYPE_VALUE);
+
+		query.setParameter("schoolClass", criteriaBook.getSchoolClass());
+
+		query.setParameter("topic", criteriaBook.getTopic());
+		query.setParameter("allTopics", Constant.ALL_TOPIC_VALUE);
 		// Zastanowiæ siê nad filtrowaniem miejsca odbioru!
+		query.setParameter("receptionSchoolId",
+				(criteriaBook.getOwner().getSchool()) != null ? criteriaBook.getOwner().getSchool().getId()
+						: nullReceptionSchoolId);
+
+		System.out.println("BookDAOImpl: receptionSchool:" + criteriaBook.getOwner().getSchool());
 
 		List<Book> resultList = query.getResultList();
 		System.out.println("getMatchingBooks(): result list: " + resultList);

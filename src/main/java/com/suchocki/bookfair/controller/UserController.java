@@ -81,7 +81,7 @@ public class UserController extends AfterAuthenticationManagingController {
 		if (book.getPrice() < Book.MIN_PRICE || book.getPrice() > Book.MAX_PRICE) {
 			return Constant.INCORRECT_PRICE_MESSAGE;
 		}
-		if(book.getDescription().length()>Constant.MAX_BOOK_DESCRIPTION_SIZE) {
+		if(book.getDescription()!=null && book.getDescription().length()>Constant.MAX_BOOK_DESCRIPTION_SIZE) {
 			return Constant.TOO_LARGE_DESCRIPTION_MESSAGE;
 		}
 		return null;

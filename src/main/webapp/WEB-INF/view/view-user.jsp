@@ -31,7 +31,7 @@
 				<b>Imię:</b> ${searchedUser.firstName} <br>
 				<b>Nazwisko:</b> ${searchedUser.lastName} <br>
 				<b>E-mail:</b> ${searchedUser.email} <br>
-				<b>Szkoła sprzedaży:</b> ${searchedUser.school}
+				<b>Szkoła sprzedaży:</b> ${searchedUser.school.name} ${searchedUser.school.address}
 
 
 			</div>

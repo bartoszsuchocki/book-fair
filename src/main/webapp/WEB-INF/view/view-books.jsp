@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="com.suchocki.bookfair.config.Constant"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -45,17 +46,13 @@
 				<div class="col col-xs-6 col-lg-4">
 					Cena:
 					<form:select class="form-control" path="desiredBook.price">
-						<form:option value="50" label="5-50" />
-						<form:option value="30" label="5-30" />
-						<form:option value="15" label="5-15" />
+						<form:options items="${Constant.PRICE_RANGES}" />
 					</form:select>
 				</div>
 				<div class="col col-xs-6 col-lg-4">
 					Stan:
 					<form:select class="form-control" path="desiredBook.condition">
-						<form:option value="" label="Wszystkie" />
-						<form:option value="new" label="Nowa" />
-						<form:option value="secondhand" label="Używana" />
+						<form:options items="${Constant.BOOK_STATES}" />
 					</form:select>
 				</div>
 			</div>
@@ -63,23 +60,13 @@
 				<div class="col col-xs-6 col-lg-4">
 					Typ szkoły:
 					<form:select class="form-control" path="desiredBook.schoolType">
-						<form:option value="" label="Wszystkie" />
-						<form:option value="primarySchool" label="Podstawowa" />
-						<form:option value="highSchool" label="Liceum" />
+						<form:options items="${Constant.SCHOOL_TYPES}" />
 					</form:select>
 				</div>
 				<div class="col col-xs-6 col-lg-4">
 					Klasa:
 					<form:select class="form-control" path="desiredBook.schoolClass">
-						<form:option value="" label="Nie dotyczy/dotyczy kilku/wszystkie" />
-						<form:option value="1" label="1" />
-						<form:option value="2" label="2" />
-						<form:option value="3" label="3" />
-						<form:option value="4" label="4" />
-						<form:option value="5" label="5" />
-						<form:option value="6" label="6" />
-						<form:option value="7" label="7" />
-						<form:option value="8" label="8" />
+						<form:options items="${Constant.SCHOOL_CLASSES}" />
 					</form:select>
 				</div>
 			</div>
@@ -89,23 +76,15 @@
 				<div class="col col-xs-6 col-lg-4">
 					Miejsce odbioru:
 					<form:select class="form-control" path="desiredBook.owner.school">
-						<form:option value="" label="Wszystkie" />
-						<form:option value="LO28JanaKOchanowskiegio"
-							label="28 LO Wiktorska 99" />
-						<form:option value="Reytan" label="Reytan" />
-						<form:option value="Wladyslaw4" label="Władysław IV" />
-						<form:option value="PowstancyWarszawy" label="Powstańców Warszawy" />
+						<form:option value="${Constant.ALL_SCHOOL_VALUE}"
+							label="${Constant.ALL_SCHOOL_LABEL}" />
+						<form:options items="${schoolOptionList}" itemLabel="name"/>
 					</form:select>
 				</div>
 				<div class="col col-xs-6 col-lg-4">
-					<!-- Zrobić listy wyboru w oparciu o bazę danych!!! -->
 					Przedmiot:
 					<form:select class="form-control" path="desiredBook.topic">
-						<form:option value="" label="Dowolny" />
-						<form:option value="math" label="Matematyka" />
-						<form:option value="polish" label="Język polski" />
-						<form:option value="english" label="Język angielski" />
-						<form:option value="french" label="Język francuski" />
+						<form:options items="${Constant.TOPICS}" />
 					</form:select>
 				</div>
 			</div>
@@ -138,18 +117,21 @@
 				<div class="col col-md-8 col-sm-6">
 					<h2>${book.title}</h2>
 					<p>
-						<b>Stan: </b>${book.condition} <br> <b>Cena: </b>${book.price}
+						<b>Stan: </b>${Constant.getBookState(book.condition)} <br> <b>Cena:
+						</b>${book.price}
 					</p>
 					<p>
 						<b>Sprzedawca: </b><a
 							href="${pageContext.request.contextPath}/browse/user/${book.owner.username}">${book.owner.username}</a>
 					</p>
 					<p>
-						<b>Szkoła: </b>${book.schoolType} <br> <b>Klasa: </b>${book.schoolClass}
-						<br> <b>Przedmiot: </b> ${book.topic}
+						<b>Szkoła: </b>${Constant.getSchoolType(book.schoolType)} <br>
+						<b>Klasa: </b>${Constant.getSchoolClass(book.schoolClass)} <br>
+						<b>Przedmiot: </b> ${Constant.getTopic(book.topic)}
 					</p>
-					
-					<a class="btn btn-success" href="${pageContext.request.contextPath}/order/orderBook/${book.id}">Zamów</a>
+
+					<a class="btn btn-success"
+						href="${pageContext.request.contextPath}/order/orderBook/${book.id}">Zamów</a>
 
 				</div>
 

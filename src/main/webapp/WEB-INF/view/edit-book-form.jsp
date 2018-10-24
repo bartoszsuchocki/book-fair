@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="com.suchocki.bookfair.config.Constant"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="security"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -42,34 +43,19 @@
 				Opis: <form:textarea class="form-control" rows="5"
 					path="description" placeholder="Opis" />
 					Stan: <form:select class="form-control" path="condition">
-					<form:option value="new" label="Nowa" />
-					<form:option value="secondhand" label="Używana" />
+					<form:options items="${Constant.BOOK_STATES}" />
 				</form:select>
 				Cena: <form:errors path="price" class="error-message" />
 				<form:input class="form-control" path="price"
 					placeholder="Cena (zł)" />
 				<form:errors path="schoolType" class="error-message" />
 						Typ szkoły:<form:select class="form-control" path="schoolType">
-					<form:option value="" label="---Wybierz typ szkoły---" />
-					<form:option value="primarySchool" label="Podstawowa" />
-					<form:option value="highSchool" label="Liceum" />
+					<form:options items="${Constant.SCHOOL_TYPES}" />
 				</form:select> Klasa:<form:select class="form-control" path="schoolClass">
-					<form:option value="-1" label="Nie dotyczy/dotyczy kilku" />
-					<form:option value="1" label="1" />
-					<form:option value="2" label="2" />
-					<form:option value="3" label="3" />
-					<form:option value="4" label="4" />
-					<form:option value="5" label="5" />
-					<form:option value="6" label="6" />
-					<form:option value="7" label="7" />
-					<form:option value="8" label="8" />
+					<form:options items="${Constant.SCHOOL_CLASSES}" />
 				</form:select>
 					Przedmiot:<form:select class="form-control" path="topic">
-					<form:option value="all" label="Dowolny" />
-					<form:option value="math" label="Matematyka" />
-					<form:option value="polish" label="Język polski" />
-					<form:option value="english" label="Język angielski" />
-					<form:option value="french" label="Język francuski" />
+					<form:options items="${Constant.TOPICS}" />
 				</form:select>
 				<!--  <input class="form-control" type="file"
 						accept="image/png, image/jpg, image/jpeg"  />
