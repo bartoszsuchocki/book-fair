@@ -86,7 +86,7 @@ public class BookDAOImpl implements BookDAO {
 				.createQuery("select b from Book b where b.title like :title and b.price <= :price and (b.condition"
 						+ " = :condition or :condition = :allCondition)"
 						+ " and (b.schoolType = :schoolType or :schoolType=:allSchoolType) and (b.schoolClass = :schoolClass or :schoolClass = "
-						+ Constant.ALL_SCHOOL_CLASS_TYPE
+						+ Constant.ALL_SCHOOL_CLASS_VALUE
 						+ ") and (b.topic=:topic or :topic = :allTopics) and (b.owner.school.id = :receptionSchoolId or :receptionSchoolId = "
 						+ nullReceptionSchoolId + ")", Book.class);
 
@@ -103,7 +103,7 @@ public class BookDAOImpl implements BookDAO {
 
 		query.setParameter("topic", criteriaBook.getTopic());
 		query.setParameter("allTopics", Constant.ALL_TOPIC_VALUE);
-		// Zastanowiæ siê nad filtrowaniem miejsca odbioru!
+
 		query.setParameter("receptionSchoolId",
 				(criteriaBook.getOwner().getSchool()) != null ? criteriaBook.getOwner().getSchool().getId()
 						: nullReceptionSchoolId);
