@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import com.suchocki.bookfair.config.exception.WrongConfigFileFormatException;
 import com.suchocki.bookfair.entity.Book;
+import com.suchocki.bookfair.entity.User;
 
 //There will be constant values used many times in different classes
 public final class Constant {
@@ -67,13 +68,17 @@ public final class Constant {
 	public static final String BOOK_DELETED_MSG = "Ksi¹¿ka usuniêta!";
 	public static final String DELETE_CONFIRMATION_MSG = "Czy na pewno chcesz usun¹æ ksi¹¿kê?";
 
+	// Object used when user is not authenticated (thanks to that, i do not have to
+	// use null in such situation)
+	public static User ANONYMOUS_USER = new User("anonymous", "anonymous", "anonymous", "anonymous", null, null);
+
 	// BELOW METHODS ARE USED TO OBTAIN OPTION LABEL FROM OPTION VALUE (OPTIONS FROM
 	// JSP FORM) STORED IN APPROPRIATE MAP
 
 	public static String getTopic(String key) {
 		if (TOPICS == null) {
 			logger.warning("No topics found!");
-			return null;
+			return "";
 		}
 		return TOPICS.get(key);
 	}
@@ -81,7 +86,7 @@ public final class Constant {
 	public static String getSchoolType(String key) {
 		if (SCHOOL_TYPES == null) {
 			logger.warning("No school types found!");
-			return null;
+			return "";
 		}
 		return SCHOOL_TYPES.get(key);
 	}
@@ -104,7 +109,7 @@ public final class Constant {
 	public static String getSchoolClass(int key) {
 		if (SCHOOL_CLASSES == null) {
 			logger.warning("No enabled schoolClasses!");
-			return null;
+			return "";
 		}
 		return SCHOOL_CLASSES.get(key);
 	}
@@ -182,12 +187,10 @@ public final class Constant {
 		return schoolTypes;
 	}
 
-	private static Map<String, String> initSchoolTypeNamesMap() {// returns null if schoolTypes were not loaded from a
-																	// file
+	private static Map<String, String> initSchoolTypeNamesMap() {
 		Map<String, String> schoolTypeNames = new HashMap<>();
 		if (schoolTypes == null) {
 			logger.warning("No school types found!");
-			return null;
 		}
 		for (SchoolType schoolType : schoolTypes.values()) {
 			schoolTypeNames.put(schoolType.typeKey, schoolType.typeName);

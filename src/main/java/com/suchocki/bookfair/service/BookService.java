@@ -15,6 +15,8 @@ public interface BookService {
 
 	public List<Book> getMatchingBooks(Book criteriaBook);
 
+	//public List<Book> getMatchingNotLoggedUsersBooks(Book desiredBook);
+	
 	public void deleteBook(int id);
 
 	public void saveBook(Book book);

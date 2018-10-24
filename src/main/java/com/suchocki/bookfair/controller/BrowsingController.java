@@ -6,6 +6,7 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -30,7 +31,7 @@ import com.suchocki.bookfair.service.UserService;
 
 @Controller
 @RequestMapping("/browse")
-public class BrowsingController {
+public class BrowsingController extends AfterAuthenticationManagingController {
 
 	private BookComparator[] bookComparatorOptions;
 	private List<School> schoolOptionList;
@@ -79,7 +80,15 @@ public class BrowsingController {
 	@RequestMapping("/processSearchBookForm")
 	public String searchForBooks(@ModelAttribute("bookFilter") BookFilter bookFilter, Model model) {
 
-		List<Book> queriedBooks = bookService.getMatchingBooks(bookFilter.getDesiredBook());
+		List<Book> queriedBooks;
+
+		if (isUserAuthenticated()) {
+			queriedBooks = bookService.getMatchingBooks(bookFilter.getDesiredBook()); // tu dodac pobranie wynikow bez
+																						// ksiazek nalezacych do
+																						// zalogowanego uzytkownika
+		} else {
+			queriedBooks = bookService.getMatchingBooks(bookFilter.getDesiredBook());
+		}
 
 		queriedBooks.sort(bookFilter.getBookComparator());
 
