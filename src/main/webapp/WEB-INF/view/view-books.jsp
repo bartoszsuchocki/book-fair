@@ -22,15 +22,22 @@
 	rel="stylesheet">
 
 </head>
-<body class="body">
+<body onload="scrollToElement('scrollToMe','navigation')" class="body">
 
 
 	<%@ include file="fragment/navigation.jspf"%>
 
+	<c:choose>
+		<c:when test="${queriedBooks!=null}">
+			<c:set var="formId" value="dontScrollToMe" scope="page" />
+			<c:set var="resultsId" value="scrollToMe" scope="page" />
+		</c:when>
+	
+	</c:choose>
 
 	<div class="container">
 
-		<form:form action="processSearchBookForm" method="get"
+		<form:form id="${formId}" action="processSearchBookForm" method="get"
 			modelAttribute="bookFilter">
 			<h2 class="form-signin-heading">Przeglądaj książki</h2>
 			<div class="row">
@@ -52,6 +59,8 @@
 				<div class="col col-xs-6 col-lg-4">
 					Stan:
 					<form:select class="form-control" path="desiredBook.condition">
+						<form:option value="${Constant.ALL_BOOK_STATE_VALUE}"
+							label="${Constant.ALL_BOOK_STATE_LABEL}" />
 						<form:options items="${Constant.BOOK_STATES}" />
 					</form:select>
 				</div>
@@ -60,6 +69,8 @@
 				<div class="col col-xs-6 col-lg-4">
 					Typ szkoły:
 					<form:select class="form-control" path="desiredBook.schoolType">
+						<form:option value="${Constant.ALL_SCHOOL_TYPE_VALUE}"
+							label="${Constant.ALL_SCHOOL_TYPE_LABEL}" />
 						<form:options items="${Constant.SCHOOL_TYPES}" />
 					</form:select>
 				</div>
@@ -78,12 +89,14 @@
 					<form:select class="form-control" path="desiredBook.owner.school">
 						<form:option value="${Constant.ALL_SCHOOL_VALUE}"
 							label="${Constant.ALL_SCHOOL_LABEL}" />
-						<form:options items="${schoolOptionList}" itemLabel="name"/>
+						<form:options items="${schoolOptionList}" itemLabel="name" />
 					</form:select>
 				</div>
 				<div class="col col-xs-6 col-lg-4">
 					Przedmiot:
 					<form:select class="form-control" path="desiredBook.topic">
+						<form:option value="${Constant.ALL_TOPIC_VALUE}"
+							label="${Constant.ALL_TOPIC_LABEL}" />
 						<form:options items="${Constant.TOPICS}" />
 					</form:select>
 				</div>
@@ -105,7 +118,7 @@
 
 
 
-		<h2>Wyniki(${fn:length(queriedBooks)})</h2>
+		<h2 id="${resultsId}">Wyniki(${fn:length(queriedBooks)})</h2>
 
 		<c:forEach items="${queriedBooks}" var="book">
 
@@ -151,5 +164,7 @@
 	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/basicLayoutManagement.js"></script>
 </body>
 </html>

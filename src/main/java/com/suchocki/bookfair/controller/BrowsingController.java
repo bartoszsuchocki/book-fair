@@ -83,9 +83,8 @@ public class BrowsingController extends AfterAuthenticationManagingController {
 		List<Book> queriedBooks;
 
 		if (isUserAuthenticated()) {
-			queriedBooks = bookService.getMatchingBooks(bookFilter.getDesiredBook()); // tu dodac pobranie wynikow bez
-																						// ksiazek nalezacych do
-																						// zalogowanego uzytkownika
+			queriedBooks = bookService.getMatchingBooksNotPossessedByUser(bookFilter.getDesiredBook(),
+					getAuthenticatedUser().getUsername());
 		} else {
 			queriedBooks = bookService.getMatchingBooks(bookFilter.getDesiredBook());
 		}

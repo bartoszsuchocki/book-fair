@@ -11,7 +11,7 @@
 		aria-controls="collapseExample">
 		<span class="navbar-toggler-icon">Menu</span>
 	</button>
-	<div class="collapse navbar-collapse" id="collapseMenu">
+	<div id="navigation" class="collapse navbar-collapse" id="collapseMenu">
 		<div class="mr-auto px-2">
 			<ul class="navbar-nav right mr-auto mt-2 mt-lg-0">
 				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/browse/booksview">Przeglądaj</a></li>

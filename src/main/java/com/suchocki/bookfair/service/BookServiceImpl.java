@@ -33,7 +33,7 @@ public class BookServiceImpl implements BookService {
 	public List<Book> getUserBooks(String username) {
 		return bookDAO.getUserBooks(username);
 	}
-	
+
 	@Override
 	@Transactional
 	public List<Book> getUserOrderedBooks(String username) {
@@ -44,6 +44,12 @@ public class BookServiceImpl implements BookService {
 	@Transactional
 	public List<Book> getMatchingBooks(Book criteriaBook) {
 		return bookDAO.getMatchingBooks(criteriaBook);
+	}
+
+	@Override
+	@Transactional
+	public List<Book> getMatchingBooksNotPossessedByUser(Book criteriaBook, String username) {
+		return bookDAO.getMatchingBooksNotPossessedByUser(criteriaBook, username);
 	}
 
 	@Override

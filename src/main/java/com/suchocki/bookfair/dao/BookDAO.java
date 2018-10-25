@@ -18,6 +18,8 @@ public interface BookDAO {
 	public List<Book> getUserOrderedBooks(String username);
 
 	public List<Book> getMatchingBooks(Book criteriaBook);
+	
+	public List<Book> getMatchingBooksNotPossessedByUser(Book criteriaBook, String username);
 
 	public void deleteBook(Book book);
 }

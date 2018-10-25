@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.suchocki.bookfair.config.Constant;
 import com.suchocki.bookfair.entity.Book;
+import com.suchocki.bookfair.entity.User;
 
 @Repository
 public class BookDAOImpl implements BookDAO {
@@ -79,6 +80,11 @@ public class BookDAOImpl implements BookDAO {
 
 	@Override
 	public List<Book> getMatchingBooks(Book criteriaBook) {
+		return getMatchingBooksNotPossessedByUser(criteriaBook, Constant.ANONYMOUS_USER.getUsername());
+	}
+
+	@Override
+	public List<Book> getMatchingBooksNotPossessedByUser(Book criteriaBook, String username) {
 		Session session = sessionFactory.getCurrentSession();
 
 		final int nullReceptionSchoolId = -1;
@@ -88,7 +94,7 @@ public class BookDAOImpl implements BookDAO {
 						+ " and (b.schoolType = :schoolType or :schoolType=:allSchoolType) and (b.schoolClass = :schoolClass or :schoolClass = "
 						+ Constant.ALL_SCHOOL_CLASS_VALUE
 						+ ") and (b.topic=:topic or :topic = :allTopics) and (b.owner.school.id = :receptionSchoolId or :receptionSchoolId = "
-						+ nullReceptionSchoolId + ")", Book.class);
+						+ nullReceptionSchoolId + ") and b.owner.username != :undesirableUsername", Book.class);
 
 		query.setParameter("title", (criteriaBook.getTitle() != null) ? "%" + criteriaBook.getTitle() + "%" : "%");
 		query.setParameter("price", (criteriaBook.getPrice() != null) ? criteriaBook.getPrice() : Book.MAX_PRICE);
@@ -107,6 +113,8 @@ public class BookDAOImpl implements BookDAO {
 		query.setParameter("receptionSchoolId",
 				(criteriaBook.getOwner().getSchool()) != null ? criteriaBook.getOwner().getSchool().getId()
 						: nullReceptionSchoolId);
+
+		query.setParameter("undesirableUsername", username);
 
 		System.out.println("BookDAOImpl: receptionSchool:" + criteriaBook.getOwner().getSchool());
 

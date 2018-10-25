@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import com.suchocki.bookfair.config.exception.WrongConfigFileFormatException;
 import com.suchocki.bookfair.entity.Book;
+import com.suchocki.bookfair.entity.School;
 import com.suchocki.bookfair.entity.User;
 
 //There will be constant values used many times in different classes
@@ -48,6 +49,8 @@ public final class Constant {
 														// with some value -> "" submitted in form will be parsed to
 														// null
 	public static final String ALL_SCHOOL_LABEL = UNIVERSAL_STRING_PROPERTY_ALL_LABEL;
+	public static final int ALL_PRICE_VALUE = Book.MAX_PRICE;
+	public static final String ALL_PRICE_LABEL = "Dowolna";
 	public static final int ALL_SCHOOL_CLASS_VALUE = -1;
 
 	// BELOW FIELDS CONTAIN PROPERTIES WIDELY USED IN PROGRAM
@@ -70,7 +73,8 @@ public final class Constant {
 
 	// Object used when user is not authenticated (thanks to that, i do not have to
 	// use null in such situation)
-	public static User ANONYMOUS_USER = new User("anonymous", "anonymous", "anonymous", "anonymous", null, null);
+	public static User ANONYMOUS_USER = new User("anonymous", "anonymous", "anonymous", "anonymous",
+			"anonymous@anon.com", new School("anonumous", "anonymous"));
 
 	// BELOW METHODS ARE USED TO OBTAIN OPTION LABEL FROM OPTION VALUE (OPTIONS FROM
 	// JSP FORM) STORED IN APPROPRIATE MAP
@@ -142,7 +146,7 @@ public final class Constant {
 		String line;
 		Map<String, String> topics = new LinkedHashMap<>();
 
-		topics.put(ALL_TOPIC_VALUE, ALL_TOPIC_LABEL);
+		// topics.put(ALL_TOPIC_VALUE, ALL_TOPIC_LABEL);
 
 		try {
 			InputStreamReader isr = new InputStreamReader(Constant.class.getResourceAsStream("/topics"));
@@ -163,7 +167,8 @@ public final class Constant {
 	private static Map<String, SchoolType> initSchoolTypes() {
 		String line;
 		Map<String, SchoolType> schoolTypes = new HashMap<>();
-		schoolTypes.put(ALL_SCHOOL_TYPE_VALUE, new SchoolType(ALL_SCHOOL_TYPE_VALUE, ALL_SCHOOL_TYPE_LABEL, 0));
+		// schoolTypes.put(ALL_SCHOOL_TYPE_VALUE, new SchoolType(ALL_SCHOOL_TYPE_VALUE,
+		// ALL_SCHOOL_TYPE_LABEL, 0));
 		try {
 			InputStreamReader isr = new InputStreamReader(Constant.class.getResourceAsStream("/school-types"));
 			BufferedReader bufferedReader = new BufferedReader(isr);
@@ -210,7 +215,7 @@ public final class Constant {
 	private static Map<String, String> initBookStates() {
 		String line;
 		Map<String, String> bookStates = new LinkedHashMap<>();
-		bookStates.put(ALL_BOOK_STATE_VALUE, ALL_BOOK_STATE_LABEL);
+		// bookStates.put(ALL_BOOK_STATE_VALUE, ALL_BOOK_STATE_LABEL);
 		try {
 			InputStreamReader isr = new InputStreamReader(Constant.class.getResourceAsStream("/book-states"));
 			BufferedReader bufferedReader = new BufferedReader(isr);
@@ -233,7 +238,7 @@ public final class Constant {
 		int lastPriceBoundary = 70;
 		int price = lastPriceBoundary;
 
-		priceRanges.put(Book.MAX_PRICE, "Dowolna");
+		priceRanges.put(ALL_PRICE_VALUE, ALL_PRICE_LABEL);
 		while (price >= 0) {
 			priceRanges.put(price, "Do " + price + " z³");
 			price -= step;
