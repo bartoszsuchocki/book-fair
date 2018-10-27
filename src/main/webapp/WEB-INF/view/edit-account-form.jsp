@@ -31,7 +31,7 @@
 		<div class="col col-sm-10 col-lg-6">
 
 			<form:form class="form-signin"
-				action="${pageContext.request.contextPath}/processEditAccountForm"
+				action="${pageContext.request.contextPath}/userFunctions/processEditAccountForm"
 				method="post" modelAttribute="loggedUser">
 
 				<h2 class="form-signin-heading">Edytuj konto</h2>
@@ -56,7 +56,7 @@
 				<form:hidden path="password" />
 
 				<button class="btn btn-primary" type="submit">Zapisz</button>
-				<a href="${pageContext.request.contextPath}/myAccount"
+				<a href="${pageContext.request.contextPath}/userFunctions/myAccount"
 					class="btn btn-secondary">Anuluj</a>
 
 			</form:form>

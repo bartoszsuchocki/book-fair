@@ -26,7 +26,7 @@
 		<div class="row">
 			<div class="col col-sm-6">
 				<form:form class="form-signin"
-					action="${pageContext.request.contextPath}/processNewBookForm"
+					action="${pageContext.request.contextPath}/userFunctions/processNewBookForm"
 					method="post" modelAttribute="book">
 					<div class="error-message">${customValidationError}</div>
 					<h2 class="form-signin-heading">Wystaw książkę</h2>

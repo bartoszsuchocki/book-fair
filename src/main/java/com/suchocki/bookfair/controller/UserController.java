@@ -23,6 +23,7 @@ import com.suchocki.bookfair.service.BookService;
 import com.suchocki.bookfair.service.UserService;
 
 @Controller
+@RequestMapping("/userFunctions")
 public class UserController extends AfterAuthenticationManagingController {
 
 	@Autowired
