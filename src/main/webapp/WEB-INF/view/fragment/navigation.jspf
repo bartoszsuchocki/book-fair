@@ -16,7 +16,7 @@
 			<ul class="navbar-nav right mr-auto mt-2 mt-lg-0">
 				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/browse/booksview">Przeglądaj</a></li>
 				<li class="nav-item"><a class="nav-link"
-					href="${pageContext.request.contextPath}/newBook">Wystaw
+					href="${pageContext.request.contextPath}/userFunctions/newBook">Wystaw
 						książkę</a></li>
 				<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/info">O
 						serwisie</a></li>
@@ -36,7 +36,7 @@
 
 				<ul class="navbar-nav right mr-auto mt-2 mt-lg-0">
 					<li class="nav-item"><a class="nav-link"
-						href="${pageContext.request.contextPath}/myAccount">Moje konto</a></li>
+						href="${pageContext.request.contextPath}/userFunctions/myAccount">Moje konto</a></li>
 
 					<li class="nav-item"><form:form
 							action="${pageContext.request.contextPath}/logout" method="post">

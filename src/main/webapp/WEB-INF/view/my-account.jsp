@@ -45,9 +45,9 @@
 				<br> <b>Szkoła sprzedaży: </b>
 				<security:authentication property="principal.school.name" />
 				<security:authentication property="principal.school.address" />
-				<br> <a href="${pageContext.request.contextPath}/editForm"
+				<br> <a href="${pageContext.request.contextPath}/userFunctions/editForm"
 					class="btn btn-info">Edytuj</a> <a
-					href="${pageContext.request.contextPath}/editPasswordForm"
+					href="${pageContext.request.contextPath}/userFunctions/editPasswordForm"
 					class="btn btn-secondary">Zmień hasło </a>
 			</div>
 		</div>
@@ -119,7 +119,7 @@
 		<c:set var="orderedBooksLength" scope="page"
 			value="${fn:length(orderedBooks)}" />
 		<h3 class="clickable" onclick="hideOrShowElement('ordered')">
-			Zamawiane (${orderedBooksLength}): <i class="arrow down"></i>
+			Zamawiane (${orderedBooksLength}):
 		</h3>
 
 		<div id="ordered">

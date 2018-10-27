@@ -35,7 +35,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 		
 		String beforeLoginUrl = request.getParameter("urlBeforeLogin");
 		if(beforeLoginUrl == null) {
-			response.sendRedirect(request.getContextPath() + "/myAccount");
+			response.sendRedirect(request.getContextPath() + "/userFunctions/myAccount");
 		}
 		else {
 			response.sendRedirect(beforeLoginUrl);

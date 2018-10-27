@@ -25,7 +25,7 @@
 		<div class="col col-sm-10 col-lg-6">
 
 			<form class="form-signin"
-				action="${pageContext.request.contextPath}/processEditPasswordForm"
+				action="${pageContext.request.contextPath}/userFunctions/processEditPasswordForm"
 				method="post">
 
 				<h2 class="form-signin-heading">Edytuj hasło</h2>
@@ -43,7 +43,7 @@
 					value="${_csrf.token}" />
 
 				<button class="btn btn-primary" type="submit">Zapisz</button>
-				<a href="${pageContext.request.contextPath}/myAccount"
+				<a href="${pageContext.request.contextPath}/userFunctions/myAccount"
 					class="btn btn-secondary">Anuluj</a>
 
 			</form>
