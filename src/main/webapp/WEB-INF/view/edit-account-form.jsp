@@ -44,13 +44,7 @@
 				<form:input class="form-control" placeholder="e-mail" path="email" />
 				<form:errors class="error-message" path="school" />
 				<form:select class="form-control" path="school">
-					<form:option value="Potem to zablokowac!"
-						label="-- Wybierz swoją szkołę" />
-					<form:option value="LO28JanaKOchanowskiegio"
-						label="28 LO Wiktorska 99" />
-					<form:option value="Reytan" label="Reytan" />
-					<form:option value="Wladyslaw4" label="Władysław IV" />
-					<form:option value="PowstancyWarszawy" label="Powstańców Warszawy" />
+					<form:options items="${schoolOptionList}" itemLabel="name"/>
 				</form:select>
 				<form:hidden path="username" />
 				<form:hidden path="password" />
