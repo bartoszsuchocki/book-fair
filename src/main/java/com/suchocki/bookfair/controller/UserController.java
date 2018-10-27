@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.suchocki.bookfair.config.Constant;
 import com.suchocki.bookfair.entity.Book;
+import com.suchocki.bookfair.entity.School;
 import com.suchocki.bookfair.entity.User;
+import com.suchocki.bookfair.propertyEditor.SchoolEditor;
 import com.suchocki.bookfair.service.BookService;
 import com.suchocki.bookfair.service.UserService;
 
@@ -38,6 +40,7 @@ public class UserController extends AfterAuthenticationManagingController {
 	public void initBinder(WebDataBinder dataBinder) {
 		StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
 		dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
+		dataBinder.registerCustomEditor(School.class, new SchoolEditor());
 	}
 
 	@RequestMapping("/myAccount")
@@ -81,7 +84,7 @@ public class UserController extends AfterAuthenticationManagingController {
 		if (book.getPrice() < Book.MIN_PRICE || book.getPrice() > Book.MAX_PRICE) {
 			return Constant.INCORRECT_PRICE_MESSAGE;
 		}
-		if(book.getDescription()!=null && book.getDescription().length()>Constant.MAX_BOOK_DESCRIPTION_SIZE) {
+		if (book.getDescription() != null && book.getDescription().length() > Constant.MAX_BOOK_DESCRIPTION_SIZE) {
 			return Constant.TOO_LARGE_DESCRIPTION_MESSAGE;
 		}
 		return null;
