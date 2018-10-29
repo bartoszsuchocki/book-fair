@@ -23,7 +23,7 @@
 
 	<div class="container">
 		<a class="registration-completed">Zamówiłeś książkę.</a> <a
-			href="${pageContext.request.contextPath}/myAccount">Zobacz ją na
+			href="${pageContext.request.contextPath}/userFunctions/myAccount">Zobacz ją na
 			swoim koncie!</a>
 
 	</div>

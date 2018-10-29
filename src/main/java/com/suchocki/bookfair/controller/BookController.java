@@ -22,8 +22,6 @@ import com.suchocki.bookfair.service.BookService;
 @RequestMapping("/bookManagement")
 public class BookController extends AfterAuthenticationManagingController {
 
-	// private Logger logger = Logger.getLogger(getClass().getName());
-
 	@Autowired
 	private BookService bookService;
 

@@ -2,7 +2,6 @@ package com.suchocki.bookfair.controller;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -25,7 +24,6 @@ import com.suchocki.bookfair.entity.School;
 import com.suchocki.bookfair.entity.User;
 import com.suchocki.bookfair.propertyEditor.SchoolEditor;
 import com.suchocki.bookfair.service.BookService;
-import com.suchocki.bookfair.service.SchoolService;
 import com.suchocki.bookfair.service.UserService;
 
 @Controller
@@ -39,17 +37,10 @@ public class UserController extends AfterAuthenticationManagingController {
 	private UserService userService;
 
 	@Autowired
-	private SchoolService schoolService;
-
-	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	@Autowired
 	private List<School> schoolOptionList;
-
-	@PostConstruct
-	public void loadSchoolOptionList() {
-		schoolOptionList = schoolService.getAllSchools();
-	}
 
 	@InitBinder
 	public void initBinder(WebDataBinder dataBinder) {

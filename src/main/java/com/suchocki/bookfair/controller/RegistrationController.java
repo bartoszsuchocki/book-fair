@@ -31,6 +31,8 @@ import com.suchocki.bookfair.service.UserService;
 public class RegistrationController {
 
 	private Map<String, Authority> enabledUserRoles;
+
+	@Autowired
 	private List<School> schoolOptionList;
 
 	@Autowired
@@ -40,20 +42,11 @@ public class RegistrationController {
 	private AuthorityService authorityService;
 
 	@Autowired
-	private SchoolService schoolService;
-
-	@Autowired
 	private PasswordEncoder passwordEncoder;
 
 	@PostConstruct
 	public void loadEnabledRoles() {
-		System.out.println("RegistrationController @PostConstruct annotated method");
 		enabledUserRoles = authorityService.getAllAuthoritiesMap();
-	}
-
-	@PostConstruct
-	public void loadSchoolOptionList() {
-		schoolOptionList = schoolService.getAllSchools();
 	}
 
 	@InitBinder
@@ -72,21 +65,10 @@ public class RegistrationController {
 
 	@PostMapping("/processRegistrationForm")
 	public String processRegistrationForm(@Valid @ModelAttribute("user") User user, BindingResult bindingResult) {
-
-		System.out.println("B³êdy w bindingResult: " + bindingResult.getAllErrors());
-		System.out.println("hasErrors() w bindingResults: " + bindingResult.hasErrors());
-
 		if (bindingResult.hasErrors()) {
 			return "registration";
-		} /*
-			 * else if (userExists(user.getUsername())) { model.addAttribute("user", new
-			 * User()); model.addAttribute("registrationError", "user exists"); return
-			 * "registration"; }
-			 */
-		System.out.println("User: " + user);
-		System.out.println("Has³o typa: " + user.getPassword());
+		}
 		String encodedPassword = passwordEncoder.encode(user.getPassword());
-		// encodedPassword = "{bcrypt}" + encodedPassword;
 
 		List<Authority> authorities = new ArrayList<>();
 		authorities.add(enabledUserRoles.get("ROLE_SELLER"));
@@ -95,7 +77,6 @@ public class RegistrationController {
 				user.getEmail(), user.getSchool());
 		newUser.setAuthorities(authorities);
 		userService.saveUser(newUser);
-		System.out.println("Zarejestrowany u¿ytkownik: " + newUser);
 
 		return "registration-confirmation";
 	}

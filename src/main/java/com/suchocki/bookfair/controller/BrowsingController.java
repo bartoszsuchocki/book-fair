@@ -2,11 +2,7 @@ package com.suchocki.bookfair.controller;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.StringTrimmerEditor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -26,7 +22,6 @@ import com.suchocki.bookfair.filter.BookFilter;
 import com.suchocki.bookfair.propertyEditor.BookComparatorEditor;
 import com.suchocki.bookfair.propertyEditor.SchoolEditor;
 import com.suchocki.bookfair.service.BookService;
-import com.suchocki.bookfair.service.SchoolService;
 import com.suchocki.bookfair.service.UserService;
 
 @Controller
@@ -34,6 +29,8 @@ import com.suchocki.bookfair.service.UserService;
 public class BrowsingController extends AfterAuthenticationManagingController {
 
 	private BookComparator[] bookComparatorOptions;
+
+	@Autowired
 	private List<School> schoolOptionList;
 
 	@Autowired
@@ -42,18 +39,10 @@ public class BrowsingController extends AfterAuthenticationManagingController {
 	@Autowired
 	private UserService userService;
 
-	@Autowired
-	private SchoolService schoolService;
-
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		binder.registerCustomEditor(BookComparator.class, new BookComparatorEditor());
 		binder.registerCustomEditor(School.class, new SchoolEditor());
-	}
-
-	@PostConstruct
-	public void loadSchoolOptionList() {
-		schoolOptionList = schoolService.getAllSchools();
 	}
 
 	private BookComparator[] getBookComparatorOptions() {

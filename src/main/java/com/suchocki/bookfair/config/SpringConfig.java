@@ -1,6 +1,7 @@
 package com.suchocki.bookfair.config;
 
 import java.beans.PropertyVetoException;
+import java.util.List;
 import java.util.Properties;
 
 import javax.sql.DataSource;
@@ -15,8 +16,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.validation.Validator;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -24,6 +23,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import com.suchocki.bookfair.entity.School;
+import com.suchocki.bookfair.service.SchoolService;
 
 @Configuration
 @EnableWebMvc
@@ -34,6 +35,14 @@ public class SpringConfig implements WebMvcConfigurer {
 
 	@Autowired
 	private Environment environment;
+
+	@Autowired
+	private SchoolService schoolService;
+
+	@Bean
+	public List<School> schoolOptionList() {
+		return schoolService.getAllSchools();
+	}
 
 	@Bean
 	public ViewResolver viewResolver() {
@@ -116,7 +125,7 @@ public class SpringConfig implements WebMvcConfigurer {
 	}
 
 	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) { // poczytaæ jeszcze do czego to s³u¿y
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 	}
 
