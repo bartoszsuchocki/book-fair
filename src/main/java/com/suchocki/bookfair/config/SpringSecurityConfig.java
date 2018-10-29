@@ -58,9 +58,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/order/**", "/newBook", "/myAccount").authenticated().and().formLogin()
-				.loginPage("/showLoginForm?redirect=true").loginProcessingUrl("/authenticateTheUser").permitAll()
-				.successHandler(authenticationSuccessHandler()).and().logout().permitAll().and().exceptionHandling()
+		http.authorizeRequests().antMatchers("/order/**","/userFunctions/**","/bookManagement/**").authenticated().and().formLogin()
+				.loginPage("/showLoginForm").loginProcessingUrl("/authenticateTheUser").permitAll()
+				.successHandler(authenticationSuccessHandler())
+				.and().logout().permitAll().and().exceptionHandling()
 				.accessDeniedPage("/accessDenied");
 	}
 

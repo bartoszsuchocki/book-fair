@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="com.suchocki.bookfair.config.Constant"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -31,17 +32,14 @@
 				action="${pageContext.request.contextPath}/authenticateTheUser"
 				method="post">
 
-				<c:if test="${param.redirect==true}">
-					<div class="error-message">Musisz być zalogowany, żeby
-						uzyskać dostęp do tej treści!</div>
-					<input type="hidden" name="urlBeforeLogin"
-						value="${header.Referer}">
+				<c:if test="${redirectionPerformed==true}">
+					<div class="error-message">${Constant.MUST_LOG_IN_MESSAGE}</div>
 				</c:if>
 
 				<h2 class="form-signin-heading">Zaloguj się</h2>
 
 				<c:if test="${param.error != null}">
-					<div class="error-message">Nieprawidłowy login lub hasło</div>
+					<div class="error-message">${Constant.AUTHENTICATION_ERROR_MESSAGE}</div>
 				</c:if>
 
 				<input class="form-control" name="username" type="text"

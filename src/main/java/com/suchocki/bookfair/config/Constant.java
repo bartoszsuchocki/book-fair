@@ -65,6 +65,8 @@ public final class Constant {
 	public static final String DIFFERENT_NEW_PASSWORDS_MSG = "Pola z nowymi has³ami zawieraj¹ ró¿ne wartoœci!";
 	public static final String EMPTY_FIELDS_MSG = "Proszê wype³niæ wszystkie pola!";
 	public static final String PASSWORD_EDITED_MSG = "Has³o zmienione!";
+	public static final String MUST_LOG_IN_MESSAGE = "Musisz byæ zalogowany, ¿eby uzyskaæ dostêp do tej treœci!";
+	public static final String AUTHENTICATION_ERROR_MESSAGE = "Nieprawid³owy login lub has³o";
 
 	public static final String BOOK_EDITED_MSG = "Ksiazka zaktualizowana!"; // na razie serwer ne obs³uguje polskich
 																			// znaków w url

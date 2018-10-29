@@ -10,15 +10,20 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.SavedRequest;
 
 import com.suchocki.bookfair.entity.User;
 import com.suchocki.bookfair.service.BookService;
 
-public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler
+		implements AuthenticationSuccessHandler {
 
 	@Autowired
 	private BookService bookService;
 
+	private String defaultTargetUrl = "/userFunctions/myAccount";
 	private Logger logger = Logger.getLogger(getClass().getName());
 
 	@Override
@@ -28,20 +33,12 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 		authenticatedUser.setPossessedBooks(bookService.getUserBooks(authenticatedUser.getUsername()));
 		authenticatedUser.setOrderedBooks(bookService.getUserOrderedBooks(authenticatedUser.getUsername()));
 
-		System.out.println("success-referer: " + request.getHeader("Referer"));
-		System.out.println("success-urlBeforeLogin" + request.getParameter("urlBeforeLogin"));
-		
 		logger.info("Authenticated user: " + authenticatedUser.getUsername());
-		
-		String beforeLoginUrl = request.getParameter("urlBeforeLogin");
-		if(beforeLoginUrl == null) {
-			response.sendRedirect(request.getContextPath() + "/userFunctions/myAccount");
-		}
-		else {
-			response.sendRedirect(beforeLoginUrl);
-		}
-		
-		
+
+		setDefaultTargetUrl(defaultTargetUrl);
+
+		super.onAuthenticationSuccess(request, response, authentication);
+
 	}
 
 }
