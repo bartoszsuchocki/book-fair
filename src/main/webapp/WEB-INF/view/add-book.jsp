@@ -25,9 +25,9 @@
 	<div class="container">
 		<div class="row">
 			<div class="col col-sm-6">
-				<form:form class="form-signin"
+				<form:form accept-charset="UTF-8" class="form-signin"
 					action="${pageContext.request.contextPath}/userFunctions/processNewBookForm"
-					method="post" modelAttribute="book">
+					method="get" modelAttribute="book">
 					<div class="error-message">${customValidationError}</div>
 					<h2 class="form-signin-heading">Wystaw książkę</h2>
 					<form:errors path="title" class="error-message" />

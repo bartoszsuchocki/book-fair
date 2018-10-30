@@ -9,7 +9,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.suchocki.bookfair.config.Constant;
@@ -38,7 +37,7 @@ public class BookController extends AfterAuthenticationManagingController {
 		return "edit-book-form";
 	}
 
-	@PostMapping("/processEditBookForm")
+	@RequestMapping("/processEditBookForm")
 	public String processBookForm(@Valid @ModelAttribute("editedBook") Book editedBook, BindingResult bindingResult,
 			Model model) throws BookWithoutOwnerSavingException {
 

@@ -32,7 +32,7 @@
 		<div class="col col-sm-6">
 			<form:form class="form-signin"
 				action="${pageContext.request.contextPath}/bookManagement/processEditBookForm"
-				method="post" modelAttribute="editedBook">
+				method="get" modelAttribute="editedBook">
 				<h2 class="form-signin-heading">Edytuj książkę</h2>
 				<form:errors path="title" class="error-message" />
 				Tytuł: <form:input class="form-control" path="title"

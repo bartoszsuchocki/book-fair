@@ -18,9 +18,9 @@ import com.suchocki.bookfair.comparator.BookSortOption;
 import com.suchocki.bookfair.entity.Book;
 import com.suchocki.bookfair.entity.School;
 import com.suchocki.bookfair.entity.User;
-import com.suchocki.bookfair.filter.BookFilter;
 import com.suchocki.bookfair.propertyEditor.BookComparatorEditor;
 import com.suchocki.bookfair.propertyEditor.SchoolEditor;
+import com.suchocki.bookfair.searchfilter.BookFilter;
 import com.suchocki.bookfair.service.BookService;
 import com.suchocki.bookfair.service.UserService;
 

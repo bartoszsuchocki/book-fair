@@ -3,7 +3,6 @@ package com.suchocki.bookfair.config;
 import java.beans.PropertyVetoException;
 import java.util.List;
 import java.util.Properties;
-
 import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;

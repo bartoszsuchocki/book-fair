@@ -1,4 +1,4 @@
-package com.suchocki.bookfair.filter;
+package com.suchocki.bookfair.searchfilter;
 
 import org.springframework.stereotype.Component;
 

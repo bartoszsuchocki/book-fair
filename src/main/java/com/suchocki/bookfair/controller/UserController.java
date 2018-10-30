@@ -64,15 +64,18 @@ public class UserController extends AfterAuthenticationManagingController {
 		return "add-book";
 	}
 
-	@PostMapping("/processNewBookForm")
+	@RequestMapping("/processNewBookForm")
 	public String processNewBookForm(@Valid @ModelAttribute("book") Book newBook, BindingResult bindingResult,
 			Model model) {
-
+		
+		
+		
 		if (bindingResult.hasErrors()) {
 			return "add-book";
 		}
 
 		System.out.println("Cena dodawanej: " + newBook.getPrice());
+		System.out.println("Tytu³ dodawanej: " + newBook.getTitle());
 
 		String customValidationError = customBookValidationError(newBook);
 		if (customValidationError != null) {
@@ -82,7 +85,7 @@ public class UserController extends AfterAuthenticationManagingController {
 
 		newBook.setOwner(getAuthenticatedUser());
 		bookService.saveBook(newBook);
-
+		
 		return "book-added-confirmation";
 	}
 
