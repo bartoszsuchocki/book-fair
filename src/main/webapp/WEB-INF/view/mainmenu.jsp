@@ -28,49 +28,39 @@
 	<div class="container">
 
 		<h2>Ostatnio dodane</h2>
-		<div class="row bottom-spaced-row">
-			<div class="col col-md-3 col-sm-6">
-				<img class="img-fluid img-thumbnail"
-					src="${pageContext.request.contextPath}/resources/przykladowa-ksiazka.jpeg" />
-			</div>
-			<div class="col col-md-8 col-sm-6">
-				<h1>Tytuł</h1>
-				<p>Cena:</p>
-			</div>
-		</div>
+		
+		<c:forEach items="${lastAddedBooks}" var="book">
 
-		<div class="row bottom-spaced-row">
-			<div class="col col-md-3 col-sm-6">
-				<img class="img-fluid img-thumbnail"
-					src="${pageContext.request.contextPath}/resources/przykladowa-ksiazka.jpeg" />
-			</div>
-			<div class="col col-md-8 col-sm-6">
-				<h1>Tytuł</h1>
-				<p>Cena:</p>
-			</div>
-		</div>
-		<div class="row bottom-spaced-row">
-			<div class="col col-md-3 col-sm-6">
-				<img class="img-fluid img-thumbnail"
-					src="${pageContext.request.contextPath}/resources/ksiazka-pan-tadeusz.jpg" />
-			</div>
-			<div class="col col-md-8 col-sm-6">
-				<h1>Tytuł</h1>
-				<p>Cena:</p>
-			</div>
-		</div>
+			<div class="row bottom-spaced-row">
+				<div class="col col-md-3 col-sm-6">
+					<img class="img-fluid img-thumbnail"
+						src="${pageContext.request.contextPath}/resources/przykladowa-ksiazka.jpeg" />
+				</div>
+				<div class="col col-md-8 col-sm-6">
+					<h2>${book.title}</h2>
+					<p>
+						<b>Stan: </b>${Constant.getBookState(book.condition)} <br> <b>Cena:
+						</b>${book.price}
+					</p>
+					<p>
+						<b>Sprzedawca: </b><a
+							href="${pageContext.request.contextPath}/browse/user/${book.owner.username}">${book.owner.username}</a>
+					</p>
+					<p>
+						<b>Szkoła: </b>${Constant.getSchoolType(book.schoolType)} <br>
+						<b>Klasa: </b>${Constant.getSchoolClass(book.schoolClass)} <br>
+						<b>Przedmiot: </b> ${Constant.getTopic(book.topic)}
+					</p>
 
-		<div class="row bottom-spaced-row">
-			<div class="col col-md-3 col-sm-6">
-				<img class="img-fluid img-thumbnail"
-					src="${pageContext.request.contextPath}/resources/ksiazka-pan-tadeusz.jpg" />
-			</div>
-			<div class="col col-md-8 col-sm-6">
-				<h1>Tytuł</h1>
-				<p>Cena:</p>
-			</div>
-		</div>
+					<a class="btn btn-success"
+						href="${pageContext.request.contextPath}/order/orderBook/${book.id}">Zamów</a>
 
+				</div>
+
+			</div>
+		</c:forEach>
+		
+		
 
 	</div>
 

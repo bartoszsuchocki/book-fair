@@ -56,6 +56,7 @@ public final class Constant {
 	// BELOW FIELDS CONTAIN PROPERTIES WIDELY USED IN PROGRAM
 	private static final int MAX_SCHOOL_CLASSES_NUMBER = 8;
 	public static final int MAX_BOOK_DESCRIPTION_SIZE = 1000;
+	public static final int MAX_BOOKS_DISPLAYED_IN_MAIN_MENU = 5;
 
 	// BELOW FIELDS CONTAIN MESSAGES DISPLAYED TO USER IN PROGRAM
 	public static final String REQUIRED_FIELD_MESSAGE = "Pole wymagane";

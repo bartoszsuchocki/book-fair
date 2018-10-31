@@ -21,7 +21,7 @@ public class OrderController extends AfterAuthenticationManagingController {
 	public String orderBook(@PathVariable("bookId") int id) { // sprawdziæ, czy dzia³a (int, nie Integer)
 
 		Book orderedBook = bookService.getBook(id);
-		if (orderedBook == null) {
+		if (orderedBook == null || orderedBook.getOwner().equals(getAuthenticatedUser())) {
 			return "book-not-ordered";
 		}
 		User loggedUser = getAuthenticatedUser();

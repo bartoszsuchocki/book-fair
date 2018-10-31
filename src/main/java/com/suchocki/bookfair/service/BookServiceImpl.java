@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.suchocki.bookfair.dao.BookDAO;
-import com.suchocki.bookfair.dao.BookWithoutOwnerSavingException;
 import com.suchocki.bookfair.entity.Book;
 
 @Service
@@ -50,6 +49,12 @@ public class BookServiceImpl implements BookService {
 	@Transactional
 	public List<Book> getMatchingBooksNotPossessedByUser(Book criteriaBook, String username) {
 		return bookDAO.getMatchingBooksNotPossessedByUser(criteriaBook, username);
+	}
+
+	@Override
+	@Transactional
+	public List<Book> getLastAddedBooks(int limit) {
+		return bookDAO.getLastAddedBooks(limit);
 	}
 
 	@Override

@@ -49,6 +49,14 @@ public class BookDAOImpl implements BookDAO {
 
 		return query.getResultList();
 	}
+	
+	@Override
+	public List<Book> getLastAddedBooks(int limit) {
+		Session session = sessionFactory.getCurrentSession();
+		Query<Book> query = session.createQuery("select b from Book b order by b.creationDate",Book.class);
+		query.setMaxResults(limit);
+		return query.getResultList();
+	}
 
 	@Override
 	public void deleteBook(int id) {

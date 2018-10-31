@@ -22,4 +22,6 @@ public interface BookDAO {
 	public List<Book> getMatchingBooksNotPossessedByUser(Book criteriaBook, String username);
 
 	public void deleteBook(Book book);
+
+	public List<Book> getLastAddedBooks(int limit);
 }

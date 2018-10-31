@@ -17,6 +17,8 @@ public interface BookService {
 
 	public List<Book> getMatchingBooksNotPossessedByUser(Book criteriaBook, String username);
 	
+	public List<Book> getLastAddedBooks(int limit);
+	
 	public void deleteBook(int id);
 
 	public void saveBook(Book book);
