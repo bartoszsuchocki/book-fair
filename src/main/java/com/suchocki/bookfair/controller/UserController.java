@@ -1,5 +1,9 @@
 package com.suchocki.bookfair.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +21,8 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.suchocki.bookfair.config.Constant;
 import com.suchocki.bookfair.entity.Book;
@@ -67,9 +73,7 @@ public class UserController extends AfterAuthenticationManagingController {
 	@RequestMapping("/processNewBookForm")
 	public String processNewBookForm(@Valid @ModelAttribute("book") Book newBook, BindingResult bindingResult,
 			Model model) {
-		
-		
-		
+
 		if (bindingResult.hasErrors()) {
 			return "add-book";
 		}
@@ -85,7 +89,7 @@ public class UserController extends AfterAuthenticationManagingController {
 
 		newBook.setOwner(getAuthenticatedUser());
 		bookService.saveBook(newBook);
-		
+
 		return "book-added-confirmation";
 	}
 
@@ -181,6 +185,38 @@ public class UserController extends AfterAuthenticationManagingController {
 		User currentLoggedUser = getAuthenticatedUser();
 		currentLoggedUser.setPassword(passwordEncoder.encode(newPassword));
 		userService.saveUser(currentLoggedUser);
+	}
+
+	@RequestMapping("/uploadFile")
+	public String uploadFile() {
+		return "upload-file-form";
+	}
+
+	@RequestMapping("/processUploadFileForm")
+	public String processUploadFileForm(@RequestParam("name") String name, @RequestParam("file") MultipartFile file) {
+
+		if (!file.isEmpty()) {
+			try {
+				byte[] bytes = file.getBytes();
+				String rootPath = Constant.PICTURE_SAVE_DESTINATION_PATH;
+
+				File dir = new File(rootPath + File.separator + "tmpFiles");
+				if(!dir.exists()) {
+					dir.mkdir();
+				}
+				File serverFile = new File(dir.getAbsolutePath()+File.separator+name+".png");
+				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+				stream.write(bytes);
+				stream.close();
+
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+
+		return "book-added-confirmation";
 	}
 
 }

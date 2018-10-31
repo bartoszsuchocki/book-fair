@@ -57,7 +57,8 @@ public final class Constant {
 	private static final int MAX_SCHOOL_CLASSES_NUMBER = 8;
 	public static final int MAX_BOOK_DESCRIPTION_SIZE = 1000;
 	public static final int MAX_BOOKS_DISPLAYED_IN_MAIN_MENU = 5;
-
+	public static final String PICTURE_SAVE_DESTINATION_PATH = System.getProperty("user.home");
+	
 	// BELOW FIELDS CONTAIN MESSAGES DISPLAYED TO USER IN PROGRAM
 	public static final String REQUIRED_FIELD_MESSAGE = "Pole wymagane";
 	public static final String TOO_LARGE_DESCRIPTION_MESSAGE = tooLargeDescriptionMessage();

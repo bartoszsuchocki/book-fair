@@ -22,7 +22,7 @@
 	<%@ include file="fragment/navigation.jspf"%>
 
 	<div class="container">
-		<a class="error-message">You are not allowed to be see that page.
+		<a class="error-message">You are not allowed to see that page.
 		</a>
 
 	</div>
