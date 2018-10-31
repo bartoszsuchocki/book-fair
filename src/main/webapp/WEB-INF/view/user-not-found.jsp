@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="com.suchocki.bookfair.config.Constant"%>
 
 <html>
 <head>
@@ -20,7 +21,7 @@
 
 	<%@ include file="fragment/navigation.jspf"%>
 
-	<a class="error-message">Nie znaleziono użytkownika o podanej nazwie!</a>
+	<a class="error-message">Constant.USER_NOT_FOUND_MESSAGE</a>
 
 
 

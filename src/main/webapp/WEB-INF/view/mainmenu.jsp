@@ -37,7 +37,7 @@
 						src="${pageContext.request.contextPath}/resources/przykladowa-ksiazka.jpeg" />
 				</div>
 				<div class="col col-md-8 col-sm-6">
-					<h2>${book.title}</h2>
+					<h2><a href="${pageContext.request.contextPath}/browse/book/${book.id}">${book.title}</a></h2>
 					<p>
 						<b>Stan: </b>${Constant.getBookState(book.condition)} <br> <b>Cena:
 						</b>${book.price}

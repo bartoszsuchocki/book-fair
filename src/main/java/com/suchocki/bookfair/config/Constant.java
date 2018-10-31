@@ -68,9 +68,9 @@ public final class Constant {
 	public static final String PASSWORD_EDITED_MSG = "Has³o zmienione!";
 	public static final String MUST_LOG_IN_MESSAGE = "Musisz byæ zalogowany, ¿eby uzyskaæ dostêp do tej treœci!";
 	public static final String AUTHENTICATION_ERROR_MESSAGE = "Nieprawid³owy login lub has³o";
-
-	public static final String BOOK_EDITED_MSG = "Ksiazka zaktualizowana!"; // na razie serwer ne obs³uguje polskich
-																			// znaków w url
+	public static final String BOOK_NOT_FOUND_MESSAGE = "Nie znaleziono ksi¹¿ki!";
+	public static final String USER_NOT_FOUND_MESSAGE = "Nie znaleziono u¿ytkownika!";
+	public static final String BOOK_EDITED_MSG = "Ksiazka zaktualizowana!"; 
 	public static final String BOOK_DELETED_MSG = "Ksi¹¿ka usuniêta!";
 	public static final String DELETE_CONFIRMATION_MSG = "Czy na pewno chcesz usun¹æ ksi¹¿kê?";
 

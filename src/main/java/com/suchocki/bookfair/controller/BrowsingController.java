@@ -98,5 +98,16 @@ public class BrowsingController extends AfterAuthenticationManagingController {
 		model.addAttribute("searchedUser", searchedUser);
 		return "view-user";
 	}
+	@GetMapping("/book/{bookId}")
+	public String showBook(@PathVariable("bookId") int bookId, Model model) {
+		
+		Book searchedBook = bookService.getBook(bookId);
+		if(searchedBook==null) {
+			return "book-not-found";
+		}
+		model.addAttribute("searchedBook",searchedBook);
+		
+		return "view-book-details";
+	}
 
 }
