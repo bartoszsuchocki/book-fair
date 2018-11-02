@@ -22,7 +22,7 @@
 	rel="stylesheet">
 
 </head>
-<body onload="scrollToElement('scrollToMe','navigation')" class="body">
+<body onload="scrollToElement('scrollToMe','collapseMenu')" class="body">
 
 
 	<%@ include file="fragment/navigation.jspf"%>
