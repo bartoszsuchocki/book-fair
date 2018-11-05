@@ -28,45 +28,62 @@
 
 
 	<div class="container">
+		<h2 class="form-signin-heading">Edytuj książkę</h2>
+		<div class="row bottom-spaced-row">
 
-		<div class="col col-sm-6">
-			<form:form class="form-signin"
-				action="${pageContext.request.contextPath}/bookManagement/processEditBookForm"
-				method="get" modelAttribute="editedBook">
-				<h2 class="form-signin-heading">Edytuj książkę</h2>
-				<form:errors path="title" class="error-message" />
-				Tytuł: <form:input class="form-control" path="title"
-					placeholder="Wpisz tytuł" />
-				<form:errors path="author" class="error-message" />
-				Autor: <form:input class="form-control" path="author"
-					placeholder="Wpisz autora" />
-				Opis: <form:textarea class="form-control" rows="5"
-					path="description" placeholder="Opis" />
-					Stan: <form:select class="form-control" path="condition">
-					<form:options items="${Constant.BOOK_STATES}" />
-				</form:select>
-				Cena: <form:errors path="price" class="error-message" />
-				<form:input class="form-control" path="price"
-					placeholder="Cena (zł)" />
-				<form:errors path="schoolType" class="error-message" />
-						Typ szkoły:<form:select class="form-control" path="schoolType">
-					<form:options items="${Constant.SCHOOL_TYPES}" />
-				</form:select> Klasa:<form:select class="form-control" path="schoolClass">
-					<form:options items="${Constant.SCHOOL_CLASSES}" />
-				</form:select>
-					Przedmiot:<form:select class="form-control" path="topic">
-					<form:options items="${Constant.TOPICS}" />
-				</form:select>
-				<!--  <input class="form-control" type="file"
-						accept="image/png, image/jpg, image/jpeg"  />
-					-->
-				<form:hidden path="id" />
-				<button class="btn btn-success" type="submit">Edytuj</button>
+			<div class="col col-sm-6 col-lg-4">
+				<form:form class="form-signin"
+					action="${pageContext.request.contextPath}/bookManagement/processEditBookForm"
+					method="get" modelAttribute="editedBook">
 
-			</form:form>
+					<form:errors path="title" class="error-message" />
+					Tytuł:
+					<form:input class="form-control" path="title"
+						placeholder="Wpisz tytuł" />
+					<form:errors path="author" class="error-message" />
+					Autor:
+					<form:input class="form-control" path="author"
+						placeholder="Wpisz autora" />
+					Opis:
+					<form:textarea class="form-control" rows="5" path="description"
+						placeholder="Opis" />
+					Stan:
+					<form:select class="form-control" path="condition">
+						<form:options items="${Constant.BOOK_STATES}" />
+					</form:select>
+					Cena:
+					<form:errors path="price" class="error-message" />
+					<form:input class="form-control" path="price"
+						placeholder="Cena (zł)" />
+					<form:errors path="schoolType" class="error-message" />
+					Typ szkoły:
+					<form:select class="form-control" path="schoolType">
+						<form:options items="${Constant.SCHOOL_TYPES}" />
+					</form:select>
+					Klasa:
+					<form:select class="form-control" path="schoolClass">
+						<form:options items="${Constant.SCHOOL_CLASSES}" />
+					</form:select>
+					Przedmiot:
+					<form:select class="form-control" path="topic">
+						<form:options items="${Constant.TOPICS}" />
+					</form:select>
+
+					<img class="img-fluid img-thumbnail"
+						src="${pageContext.request.contextPath}/browse/getBookPicture/${editedBook.id}" />
+										
+					Zmień zdjęcie <input id="pictureFileChooser" class="form-control"
+						type="file" accept="image/png, image/jpg, image/jpeg"
+						name="picture" />
+
+					<form:hidden path="id" />
+					<button class="btn btn-success" type="submit">Edytuj</button>
+				</form:form>
+			</div>
 
 
 		</div>
+
 
 
 

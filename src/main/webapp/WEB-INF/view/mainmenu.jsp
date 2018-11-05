@@ -34,7 +34,7 @@
 			<div class="row bottom-spaced-row">
 				<div class="col col-md-3 col-sm-6">
 					<img class="img-fluid img-thumbnail"
-						src="${pageContext.request.contextPath}/resources/przykladowa-ksiazka.jpeg" />
+						src="${pageContext.request.contextPath}/browse/getBookPicture/${book.id}" />
 				</div>
 				<div class="col col-md-8 col-sm-6">
 					<h2><a href="${pageContext.request.contextPath}/browse/book/${book.id}">${book.title}</a></h2>

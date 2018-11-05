@@ -26,8 +26,8 @@
 		<div class="row">
 			<div class="col col-sm-6">
 				<form:form accept-charset="UTF-8" class="form-signin"
-					action="${pageContext.request.contextPath}/userFunctions/processNewBookForm"
-					method="get" modelAttribute="book">
+					action="${pageContext.request.contextPath}/userFunctions/processNewBookForm?${_csrf.parameterName}=${_csrf.token}"
+					method="post" modelAttribute="book" enctype="multipart/form-data">
 					<div class="error-message">${customValidationError}</div>
 					<h2 class="form-signin-heading">Wystaw książkę</h2>
 					<form:errors path="title" class="error-message" />
@@ -39,7 +39,7 @@
 					Opis: <form:textarea class="form-control" rows="5"
 						path="description" placeholder="Opcjonalny opis" />
 					Stan: <form:select class="form-control" path="condition">
-						<form:options items="${Constant.BOOK_STATES}"/>
+						<form:options items="${Constant.BOOK_STATES}" />
 					</form:select>
 					<form:errors path="price" class="error-message" />
 					Cena: <form:input class="form-control" path="price"
@@ -53,9 +53,10 @@
 					Przedmiot:<form:select class="form-control" path="topic">
 						<form:options items="${Constant.TOPICS}" />
 					</form:select>
-					<!--  <input class="form-control" type="file"
-						accept="image/png, image/jpg, image/jpeg"  />
-					-->
+					<input id="pictureFileChooser" class="form-control" type="file"
+						accept="image/png, image/jpg, image/jpeg" name="picture" 
+						onchange="alert(document.getElementById('pictureFileChooser').value);"/>
+
 					<button class="btn btn-success" type="submit">Wystaw</button>
 
 				</form:form>

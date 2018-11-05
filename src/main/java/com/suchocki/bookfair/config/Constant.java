@@ -1,6 +1,7 @@
 package com.suchocki.bookfair.config;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
@@ -57,8 +58,14 @@ public final class Constant {
 	private static final int MAX_SCHOOL_CLASSES_NUMBER = 8;
 	public static final int MAX_BOOK_DESCRIPTION_SIZE = 1000;
 	public static final int MAX_BOOKS_DISPLAYED_IN_MAIN_MENU = 5;
-	public static final String PICTURE_SAVE_DESTINATION_PATH = System.getProperty("user.home");
-	
+	public static final String PICTURE_SAVE_DIR_NAME = "bookFairBookPictures";
+	public static final String PICTURE_SAVE_DESTINATION_ROOT_PATH = System.getProperty("user.home");
+	public static final String PICTURE_SAVE_DESTINATION_PATH = pictureSaveDestinationPath();
+	public static final String FILE_SEPARATOR = File.separator;
+	public static final String PICTURE_EXTENSION = ".jpg";
+	public static final String OK_STATUS = "ok";
+	public static final int MAX_PICTURE_FILE_SIZE = 10240000;
+
 	// BELOW FIELDS CONTAIN MESSAGES DISPLAYED TO USER IN PROGRAM
 	public static final String REQUIRED_FIELD_MESSAGE = "Pole wymagane";
 	public static final String TOO_LARGE_DESCRIPTION_MESSAGE = tooLargeDescriptionMessage();
@@ -71,9 +78,11 @@ public final class Constant {
 	public static final String AUTHENTICATION_ERROR_MESSAGE = "Nieprawid³owy login lub has³o";
 	public static final String BOOK_NOT_FOUND_MESSAGE = "Nie znaleziono ksi¹¿ki!";
 	public static final String USER_NOT_FOUND_MESSAGE = "Nie znaleziono u¿ytkownika!";
-	public static final String BOOK_EDITED_MSG = "Ksiazka zaktualizowana!"; 
+	public static final String BOOK_EDITED_MSG = "Ksiazka zaktualizowana!";
 	public static final String BOOK_DELETED_MSG = "Ksi¹¿ka usuniêta!";
 	public static final String DELETE_CONFIRMATION_MSG = "Czy na pewno chcesz usun¹æ ksi¹¿kê?";
+	public static final String CANNOT_SAVE_PICTURE_MSG = "Nie uda³o siê zapisaæ zdjêcia ksi¹¿ki!";
+	public static final String WRONG_PICTURE_MSG = "Nieprawid³owy plik ze zdjêciem!";
 
 	// Object used when user is not authenticated (thanks to that, i do not have to
 	// use null in such situation)
@@ -127,6 +136,14 @@ public final class Constant {
 	}
 
 	// BELOW METHODS ARE RESPONSIBLE FOR INITIALIZING/BUILDING ABOVE FIELDS/MAPS
+
+	private static String pictureSaveDestinationPath() {
+		StringBuilder builder = new StringBuilder();
+		builder.append(PICTURE_SAVE_DESTINATION_ROOT_PATH);
+		builder.append(File.separator);
+		builder.append(PICTURE_SAVE_DIR_NAME);
+		return builder.toString();
+	}
 
 	private static String incorrectPriceMessage() {
 		StringBuilder builder = new StringBuilder();

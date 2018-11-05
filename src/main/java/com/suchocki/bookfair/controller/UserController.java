@@ -1,12 +1,17 @@
 package com.suchocki.bookfair.controller;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +24,14 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.suchocki.bookfair.config.Constant;
+import com.suchocki.bookfair.entity.Authority;
 import com.suchocki.bookfair.entity.Book;
 import com.suchocki.bookfair.entity.School;
 import com.suchocki.bookfair.entity.User;
@@ -35,6 +42,8 @@ import com.suchocki.bookfair.service.UserService;
 @Controller
 @RequestMapping("/userFunctions")
 public class UserController extends AfterAuthenticationManagingController {
+
+	private Logger logger = Logger.getLogger(getClass().getName());
 
 	@Autowired
 	private BookService bookService;
@@ -72,7 +81,7 @@ public class UserController extends AfterAuthenticationManagingController {
 
 	@RequestMapping("/processNewBookForm")
 	public String processNewBookForm(@Valid @ModelAttribute("book") Book newBook, BindingResult bindingResult,
-			Model model) {
+			@RequestParam("picture") MultipartFile bookPicture, HttpServletRequest request, Model model) {
 
 		if (bindingResult.hasErrors()) {
 			return "add-book";
@@ -82,13 +91,19 @@ public class UserController extends AfterAuthenticationManagingController {
 		System.out.println("Tytu³ dodawanej: " + newBook.getTitle());
 
 		String customValidationError = customBookValidationError(newBook);
-		if (customValidationError != null) {
+		if (customValidationError != Constant.OK_STATUS) {
 			model.addAttribute("customValidationError", customValidationError);
 			return "add-book";
 		}
 
 		newBook.setOwner(getAuthenticatedUser());
 		bookService.saveBook(newBook);
+
+		String saveStatus = saveFile(bookPicture, String.valueOf(newBook.getId()));
+		if (saveStatus != Constant.OK_STATUS) {
+			model.addAttribute("customValidationError", saveStatus);
+			return "add-book";
+		}
 
 		return "book-added-confirmation";
 	}
@@ -100,7 +115,33 @@ public class UserController extends AfterAuthenticationManagingController {
 		if (book.getDescription() != null && book.getDescription().length() > Constant.MAX_BOOK_DESCRIPTION_SIZE) {
 			return Constant.TOO_LARGE_DESCRIPTION_MESSAGE;
 		}
-		return null;
+		return Constant.OK_STATUS;
+	}
+
+	private String saveFile(MultipartFile file, String name) {
+		if (!file.isEmpty()) {
+			try {
+				byte[] bytes = file.getBytes();
+
+				File dir = new File(
+						Constant.PICTURE_SAVE_DESTINATION_ROOT_PATH + File.separator + Constant.PICTURE_SAVE_DIR_NAME);
+				if (!dir.exists()) {
+					dir.mkdir();
+				}
+				File serverFile = new File(dir.getAbsolutePath() + File.separator + name + Constant.PICTURE_EXTENSION);
+				System.out.println("Zapisywanie: " + serverFile.getAbsolutePath());
+				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+				stream.write(bytes);
+				stream.close();
+
+			} catch (IOException e) {
+				logger.warning(e.getMessage());
+				return Constant.CANNOT_SAVE_PICTURE_MSG;
+			}
+			return Constant.OK_STATUS;
+		} else {
+			return Constant.WRONG_PICTURE_MSG;
+		}
 	}
 
 	@GetMapping("/editForm")
@@ -188,12 +229,16 @@ public class UserController extends AfterAuthenticationManagingController {
 	}
 
 	@RequestMapping("/uploadFile")
-	public String uploadFile() {
+	public String uploadFile(Model model) {
+		model.addAttribute("tmpAuth", new Authority());
 		return "upload-file-form";
 	}
 
 	@RequestMapping("/processUploadFileForm")
-	public String processUploadFileForm(@RequestParam("name") String name, @RequestParam("file") MultipartFile file) {
+	public String processUploadFileForm(@ModelAttribute("tmpAuth") Authority auth, @RequestParam("name") String name,
+			@RequestParam("file") MultipartFile file) {
+
+		System.out.println(auth);
 
 		if (!file.isEmpty()) {
 			try {
@@ -201,10 +246,10 @@ public class UserController extends AfterAuthenticationManagingController {
 				String rootPath = Constant.PICTURE_SAVE_DESTINATION_PATH;
 
 				File dir = new File(rootPath + File.separator + "tmpFiles");
-				if(!dir.exists()) {
+				if (!dir.exists()) {
 					dir.mkdir();
 				}
-				File serverFile = new File(dir.getAbsolutePath()+File.separator+name+".png");
+				File serverFile = new File(dir.getAbsolutePath() + File.separator + name + ".png");
 				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
 				stream.write(bytes);
 				stream.close();
@@ -218,5 +263,4 @@ public class UserController extends AfterAuthenticationManagingController {
 
 		return "book-added-confirmation";
 	}
-
 }

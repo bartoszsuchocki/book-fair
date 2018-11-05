@@ -45,7 +45,8 @@
 				<br> <b>Szkoła sprzedaży: </b>
 				<security:authentication property="principal.school.name" />
 				<security:authentication property="principal.school.address" />
-				<br> <a href="${pageContext.request.contextPath}/userFunctions/editForm"
+				<br> <a
+					href="${pageContext.request.contextPath}/userFunctions/editForm"
 					class="btn btn-info">Edytuj</a> <a
 					href="${pageContext.request.contextPath}/userFunctions/editPasswordForm"
 					class="btn btn-secondary">Zmień hasło </a>
@@ -73,7 +74,8 @@
 				<div class="row bottom-spaced-row">
 					<div class="col col-md-3 col-sm-6">
 						<img class="img-fluid img-thumbnail"
-							src="${pageContext.request.contextPath}/resources/przykladowa-ksiazka.jpeg" />
+							src="${pageContext.request.contextPath}/browse/getBookPicture/${book.id}" />
+
 					</div>
 					<div class="col col-md-8 col-sm-6">
 						<c:choose>
@@ -119,8 +121,7 @@
 		<c:set var="orderedBooksLength" scope="page"
 			value="${fn:length(orderedBooks)}" />
 		<h3 class="clickable" onclick="hideOrShowElement('ordered')">
-			Zamawiane (${orderedBooksLength}):
-		</h3>
+			Zamawiane (${orderedBooksLength}):</h3>
 
 		<div id="ordered">
 			<c:if test="${orderedBooksLength==0}">
@@ -133,7 +134,7 @@
 				<div class="row bottom-spaced-row">
 					<div class="col col-md-3 col-sm-6">
 						<img class="img-fluid img-thumbnail"
-							src="${pageContext.request.contextPath}/resources/przykladowa-ksiazka.jpeg" />
+							src="${pageContext.request.contextPath}/browse/getBookPicture/${book.id}" />
 					</div>
 					<div class="col col-md-8 col-sm-6">
 						<h2>${book.title}</h2>

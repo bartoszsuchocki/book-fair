@@ -1,6 +1,13 @@
 package com.suchocki.bookfair.controller;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Logger;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.suchocki.bookfair.comparator.BookComparator;
 import com.suchocki.bookfair.comparator.BookComparatorProvider;
 import com.suchocki.bookfair.comparator.BookSortOption;
+import com.suchocki.bookfair.config.Constant;
 import com.suchocki.bookfair.entity.Book;
 import com.suchocki.bookfair.entity.School;
 import com.suchocki.bookfair.entity.User;
@@ -29,6 +37,8 @@ import com.suchocki.bookfair.service.UserService;
 public class BrowsingController extends AfterAuthenticationManagingController {
 
 	private BookComparator[] bookComparatorOptions;
+
+	private Logger logger = Logger.getLogger(getClass().getName());
 
 	@Autowired
 	private List<School> schoolOptionList;
@@ -98,16 +108,40 @@ public class BrowsingController extends AfterAuthenticationManagingController {
 		model.addAttribute("searchedUser", searchedUser);
 		return "view-user";
 	}
+
 	@GetMapping("/book/{bookId}")
 	public String showBook(@PathVariable("bookId") int bookId, Model model) {
-		
+
 		Book searchedBook = bookService.getBook(bookId);
-		if(searchedBook==null) {
+		if (searchedBook == null) {
 			return "book-not-found";
 		}
-		model.addAttribute("searchedBook",searchedBook);
-		
+		model.addAttribute("searchedBook", searchedBook);
+
 		return "view-book-details";
 	}
 
+	@RequestMapping("/getBookPicture/{bookId}")
+	public void getBookPicture(@PathVariable("bookId") int bookId, HttpServletResponse response) {
+
+		File pictureFile = new File(
+				Constant.PICTURE_SAVE_DESTINATION_PATH + File.separator + bookId + Constant.PICTURE_EXTENSION);
+
+		try {
+			BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream(pictureFile));
+
+			response.setBufferSize(Constant.MAX_PICTURE_FILE_SIZE);
+			response.setContentType("image/*");
+
+			byte[] bytes = inputStream.readAllBytes();
+			inputStream.close();
+
+			response.getOutputStream().write(bytes);
+			response.getOutputStream().close();
+
+		} catch (IOException e) {
+			logger.warning(e.getMessage());
+		}
+
+	}
 }

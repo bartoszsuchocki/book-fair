@@ -23,8 +23,11 @@
 
 	<form:form method="post"
 		action="${pageContext.request.contextPath}/userFunctions/processUploadFileForm?${_csrf.parameterName}=${_csrf.token}"
-		enctype="multipart/form-data">
+		enctype="multipart/form-data"
+		modelAttribute="tmpAuth">
 		
+		<form:input path="name" label="name"/> <br>
+		<form:input path="description" label="description"/> <br>
 		Name: <input type="text" name="name" />
 		<br>
 		File: <input type="file" name="file" />
