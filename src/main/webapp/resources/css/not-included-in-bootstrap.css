@@ -4,6 +4,10 @@ body {
 	padding-top: 75px;
 }
 
+a.linked-title{
+	color: black;
+}
+
 .bottom-spaced-row {
 	padding-bottom: 20px;
 }

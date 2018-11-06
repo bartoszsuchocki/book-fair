@@ -24,7 +24,7 @@
 	<%@ include file="fragment/navigation.jspf"%>
 	<div class="container">
 		<div class="row">
-			<div class="col col-sm-6">
+			<div class="col col-sm-6 col-lg-4">
 				<form:form accept-charset="UTF-8" class="form-signin"
 					action="${pageContext.request.contextPath}/userFunctions/processNewBookForm?${_csrf.parameterName}=${_csrf.token}"
 					method="post" modelAttribute="book" enctype="multipart/form-data">
@@ -54,8 +54,11 @@
 						<form:options items="${Constant.TOPICS}" />
 					</form:select>
 					<input id="pictureFileChooser" class="form-control" type="file"
-						accept="image/png, image/jpg, image/jpeg" name="picture" 
-						onchange="alert(document.getElementById('pictureFileChooser').value);"/>
+						accept="image/png, image/jpg, image/jpeg" name="picture"
+						onchange="document.getElementById('picture').src=window.URL.createObjectURL(this.files[0]);" />
+					<img id="picture" src="#" height="400px"
+						alt="zdjecie ksiazki" />
+					<br>
 
 					<button class="btn btn-success" type="submit">Wystaw</button>
 
