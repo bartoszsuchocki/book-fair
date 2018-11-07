@@ -1,5 +1,8 @@
 package com.suchocki.bookfair.config;
 
+import javax.servlet.Filter;
+
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class SpringMvcDispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -17,6 +20,13 @@ public class SpringMvcDispatcherServletInitializer extends AbstractAnnotationCon
 	@Override
 	protected String[] getServletMappings() {
 		return new String[] { "/" };
+	}
+
+	@Override
+	protected Filter[] getServletFilters() {
+		DelegatingFilterProxy delegatingFilterProxy = new DelegatingFilterProxy();
+		delegatingFilterProxy.setTargetBeanName("encodingFilter");
+		return new Filter[] { delegatingFilterProxy };
 	}
 
 }
