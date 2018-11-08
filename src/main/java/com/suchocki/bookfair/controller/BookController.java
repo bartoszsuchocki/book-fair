@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.suchocki.bookfair.config.Constant;
 import com.suchocki.bookfair.dao.BookWithoutOwnerSavingException;
@@ -39,7 +41,7 @@ public class BookController extends AfterAuthenticationManagingController {
 
 	@RequestMapping("/processEditBookForm")
 	public String processBookForm(@Valid @ModelAttribute("editedBook") Book editedBook, BindingResult bindingResult,
-			Model model) throws BookWithoutOwnerSavingException {
+			@RequestParam("picture") MultipartFile pictureFile, Model model) throws BookWithoutOwnerSavingException {
 
 		if (bindingResult.hasErrors()) {
 			return "edit-book-form";
@@ -50,6 +52,13 @@ public class BookController extends AfterAuthenticationManagingController {
 
 		bookService.saveBook(editedBook);
 
+		if (pictureFile != null && !pictureFile.isEmpty()) {
+			String saveStatus = bookService.saveBookPicture(pictureFile, String.valueOf(editedBook.getId()));
+			if (saveStatus != Constant.OK_STATUS) {
+				model.addAttribute("customValidationError", saveStatus);
+				return "edit-book-form";
+			}
+		}
 		model.addAttribute("myAccountSuccessMsg", Constant.BOOK_EDITED_MSG);
 
 		return "my-account";

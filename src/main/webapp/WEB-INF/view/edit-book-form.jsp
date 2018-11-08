@@ -33,8 +33,11 @@
 
 			<div class="col col-sm-6 col-lg-4">
 				<form:form class="form-signin"
-					action="${pageContext.request.contextPath}/bookManagement/processEditBookForm"
-					method="get" modelAttribute="editedBook">
+					action="${pageContext.request.contextPath}/bookManagement/processEditBookForm?${_csrf.parameterName}=${_csrf.token}"
+					method="post" modelAttribute="editedBook"
+					enctype="multipart/form-data">
+
+					<div class="error-message">${customValidationError}</div>
 
 					<form:errors path="title" class="error-message" />
 					Tytuł:
@@ -69,12 +72,16 @@
 						<form:options items="${Constant.TOPICS}" />
 					</form:select>
 
-					<img class="img-fluid img-thumbnail"
-						src="${pageContext.request.contextPath}/browse/getBookPicture/${editedBook.id}" />
-										
-					Zmień zdjęcie <input id="pictureFileChooser" class="form-control"
-						type="file" accept="image/png, image/jpg, image/jpeg"
-						name="picture" />
+					<img id="picture"
+						src="${pageContext.request.contextPath}/browse/getBookPicture/${editedBook.id}"
+						height="400px" alt="zdjecie ksiazki" />
+					<br>
+					
+					Zmień zdjęcie książki:
+					<br>
+					<input id="pictureFileChooser" class="form-control" type="file"
+						accept="image/png, image/jpg, image/jpeg" name="picture"
+						onchange="document.getElementById('picture').src=window.URL.createObjectURL(this.files[0]);" />
 
 					<form:hidden path="id" />
 					<button class="btn btn-success" type="submit">Edytuj</button>

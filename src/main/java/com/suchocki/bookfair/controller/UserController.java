@@ -1,17 +1,13 @@
 package com.suchocki.bookfair.controller;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +20,6 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -99,7 +94,7 @@ public class UserController extends AfterAuthenticationManagingController {
 		newBook.setOwner(getAuthenticatedUser());
 		bookService.saveBook(newBook);
 
-		String saveStatus = saveFile(bookPicture, String.valueOf(newBook.getId()));
+		String saveStatus = bookService.saveBookPicture(bookPicture, String.valueOf(newBook.getId()));
 		if (saveStatus != Constant.OK_STATUS) {
 			model.addAttribute("customValidationError", saveStatus);
 			return "add-book";
@@ -116,32 +111,6 @@ public class UserController extends AfterAuthenticationManagingController {
 			return Constant.TOO_LARGE_DESCRIPTION_MESSAGE;
 		}
 		return Constant.OK_STATUS;
-	}
-
-	private String saveFile(MultipartFile file, String name) {
-		if (!file.isEmpty()) {
-			try {
-				byte[] bytes = file.getBytes();
-
-				File dir = new File(
-						Constant.PICTURE_SAVE_DESTINATION_ROOT_PATH + File.separator + Constant.PICTURE_SAVE_DIR_NAME);
-				if (!dir.exists()) {
-					dir.mkdir();
-				}
-				File serverFile = new File(dir.getAbsolutePath() + File.separator + name + Constant.PICTURE_EXTENSION);
-				System.out.println("Zapisywanie: " + serverFile.getAbsolutePath());
-				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
-				stream.write(bytes);
-				stream.close();
-
-			} catch (IOException e) {
-				logger.warning(e.getMessage());
-				return Constant.CANNOT_SAVE_PICTURE_MSG;
-			}
-			return Constant.OK_STATUS;
-		} else {
-			return Constant.WRONG_PICTURE_MSG;
-		}
 	}
 
 	@GetMapping("/editForm")
