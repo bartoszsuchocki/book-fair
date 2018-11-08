@@ -5,8 +5,15 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Logger;
 
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMessage.RecipientType;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -195,41 +202,5 @@ public class UserController extends AfterAuthenticationManagingController {
 		User currentLoggedUser = getAuthenticatedUser();
 		currentLoggedUser.setPassword(passwordEncoder.encode(newPassword));
 		userService.saveUser(currentLoggedUser);
-	}
-
-	@RequestMapping("/uploadFile")
-	public String uploadFile(Model model) {
-		model.addAttribute("tmpAuth", new Authority());
-		return "upload-file-form";
-	}
-
-	@RequestMapping("/processUploadFileForm")
-	public String processUploadFileForm(@ModelAttribute("tmpAuth") Authority auth, @RequestParam("name") String name,
-			@RequestParam("file") MultipartFile file) {
-
-		System.out.println(auth);
-
-		if (!file.isEmpty()) {
-			try {
-				byte[] bytes = file.getBytes();
-				String rootPath = Constant.PICTURE_SAVE_DESTINATION_PATH;
-
-				File dir = new File(rootPath + File.separator + "tmpFiles");
-				if (!dir.exists()) {
-					dir.mkdir();
-				}
-				File serverFile = new File(dir.getAbsolutePath() + File.separator + name + ".png");
-				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
-				stream.write(bytes);
-				stream.close();
-
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-		}
-
-		return "book-added-confirmation";
 	}
 }
