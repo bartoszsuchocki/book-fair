@@ -12,8 +12,10 @@ create table if not exists school
 );
 insert into school(name, address) values
 	('28LO im Jana Kochanowskiego','Wiktorska 99, Warszawa'),
-	('Reytan','WiktorskaX'),
-	('Wladek','Wladkowa');
+	('XIV Liceum Ogólnokształcące im. St. Staszica','Nowowiejska 37A, Warszawa'),
+	('VIII Liceum Ogólnokształcące im. Władysława IV','Jagiellońska 38, Warszawa'),
+    ('VI Liceum Ogólnokształcące im. Tadeusza Reytana','Wiktorska 30/32'),
+	('IX LO im. Klementyny Hoffmanowej','Hoża 88');
 create table if not exists user
 (
 	username varchar(50) not null,

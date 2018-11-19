@@ -22,8 +22,8 @@
 	<%@ include file="fragment/navigation.jspf"%>
 
 	<div class="container">
-		<a class="registration-completed">You registered successfully!
-			Click this link to log in using your account: </a> <a
+		<a class="registration-completed">Zarejestrowałeś się! Zaloguj się
+			na swoje konto:</a> <a
 			href="${pageContext.request.contextPath}/showLoginForm">Login
 			page</a>
 

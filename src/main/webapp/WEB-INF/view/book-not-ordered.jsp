@@ -22,7 +22,7 @@
 	<%@ include file="fragment/navigation.jspf"%>
 
 	<div class="container">
-		<a class="registration-completed">Nie udało się zamówić książki!</a><a
+		<a class="error-message">Nie udało się zamówić książki!</a><a
 			href="${pageContext.request.contextPath}/browse/booksview">Przejdź
 			do strony przeglądania</a>
 
