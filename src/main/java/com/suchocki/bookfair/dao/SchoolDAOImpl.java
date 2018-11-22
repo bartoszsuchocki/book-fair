@@ -25,7 +25,7 @@ public class SchoolDAOImpl implements SchoolDAO {
 	@Override
 	public List<School> getAllSchools() {
 		Session session = sessionFactory.getCurrentSession();
-		Query<School> query = session.createQuery("select s from School s", School.class);
+		Query<School> query = session.createQuery("select s from School s order by s.name", School.class);
 		return query.getResultList();
 	}
 
